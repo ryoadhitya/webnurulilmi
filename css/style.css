@@ -9685,3 +9685,330 @@ textarea.form-control {
   100% {
     stroke-dasharray: 89, 200;
     stroke-dashoffset: -136px; } }
+
+/* ============================
+   CUSTOM ICON STYLING
+   ============================ */
+
+/* Icon container styling */
+.icon {
+  font-size: 40px;
+  line-height: 1;
+  display: inline-block;
+}
+
+/* Flaticon icons */
+.flaticon {
+  display: inline-block;
+  font-size: 40px;
+  line-height: 1;
+}
+
+/* Top bar icons */
+.topbar .icon {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.topper .icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+/* Service icons */
+.services .icon,
+.media .icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px;
+  font-size: 40px;
+  line-height: 1;
+  background: rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.services-2 .icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Footer icons */
+.ftco-footer .icon {
+  font-size: 24px;
+  margin-right: 10px;
+}
+
+/* Social icons */
+.ftco-social .icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  background: rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.ftco-social .icon:hover {
+  background: #F96D00;
+  color: #fff;
+  transform: translateY(-3px);
+}
+
+/* Gallery icons */
+.ftco-gallery .icon {
+  font-size: 30px;
+  color: #fff;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.ftco-gallery a:hover .icon {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* Icon in buttons */
+.btn .icon,
+.btn .flaticon,
+.btn .ion-icons {
+  font-size: 16px;
+  margin-left: 5px;
+  vertical-align: middle;
+}
+
+/* Icon in counter */
+.block-18 .icon {
+  font-size: 50px;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.3);
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* Quote icons */
+.quote .icon {
+  font-size: 30px;
+  color: #F96D00;
+}
+
+/* Ensure icon fonts load properly */
+[class^="icon-"],
+[class*=" icon-"],
+[class^="flaticon-"],
+[class*=" flaticon-"] {
+  font-family: inherit !important;
+}
+
+/* Iconfont specific */
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  font-family: 'icomoon' !important;
+  font-size: inherit;
+  line-height: 1;
+}
+
+.ion-icons:before {
+  font-family: "Ionicons" !important;
+}
+
+/* Custom colors for icons */
+.icon-map-marker,
+.icon-map {
+  color: #fff;
+}
+
+.icon-paper-plane {
+  color: #fff;
+}
+
+.icon-phone,
+.icon-phone2 {
+  color: #fff;
+}
+
+/* Flaticon colors */
+.flaticon-teacher,
+.flaticon-reading,
+.flaticon-books,
+.flaticon-diploma,
+.flaticon-security,
+.flaticon-education,
+.flaticon-jigsaw,
+.flaticon-kids {
+  color: inherit;
+}
+
+/* ============================
+   CUSTOM FONTS SETTINGS
+   ============================ */
+
+/* Body text */
+body {
+  font-family: 'Poppins', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+/* Logo/Brand */
+.navbar-brand {
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+  font-weight: 700;
+  font-size: 1.8rem;
+  letter-spacing: -0.5px;
+}
+
+/* Hero title */
+.slider-text h1,
+.hero-title {
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+  font-weight: 700;
+  font-size: 4rem;
+  line-height: 1.1;
+  letter-spacing: -1px;
+}
+
+.slider-text h1 span {
+  font-weight: 400;
+  display: block;
+}
+
+/* Section headings */
+.heading-section h2,
+.heading-section h3 {
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+/* Card titles */
+.card-title,
+.blog-entry h3,
+.pricing-entry h3 {
+  font-weight: 600;
+}
+
+/* Button text */
+.btn {
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+/* Navigation links */
+.navbar-nav .nav-link {
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+/* Small text */
+small, .small {
+  font-size: 0.875rem;
+}
+
+/* Meta text */
+.meta {
+  font-size: 0.85rem;
+  color: #999;
+}
+
+/* Quote text */
+.blockquote {
+  font-style: italic;
+}
+
+/* Footer text */
+.ftco-footer {
+  font-size: 0.95rem;
+}
+
+.ftco-footer h2,
+.ftco-footer h3 {
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Service card text */
+.media-body p {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.media-body h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* ============================
+   RESPONSIVE FONT ADJUSTMENTS
+   ============================ */
+
+@media (max-width: 768px) {
+  .slider-text h1,
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .navbar-brand {
+    font-size: 1.5rem;
+  }
+
+  .heading-section h2 {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .slider-text h1,
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .icon,
+  .flaticon {
+    font-size: 30px;
+  }
+
+  .services .icon,
+  .media .icon {
+    width: 60px;
+    height: 60px;
+    font-size: 30px;
+  }
+}

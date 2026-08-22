@@ -9441,9 +9441,14 @@ textarea.form-control {
     bottom: 0;
     right: 0;
     content: '';
-    z-index: -1;
-    opacity: 0;
-    background: #D4AF37; }
+    z-index: 0;
+    opacity: .78;
+    background: #062721;
+    pointer-events: none; }
+
+#section-counter > .container {
+  position: relative;
+  z-index: 1; }
 
 .ftco-counter {
   overflow-x: hidden;
@@ -10406,4 +10411,174 @@ small, .small {
 .ftco-navbar-light.scrolled .navbar-brand-container img,
 .ftco-navbar-light.scrolled .navbar-brand-container .navbar-brand-logo {
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+/* Kepala Yayasan Section */
+.kepala-yayasan-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.kepala-yayasan-section::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.kepala-yayasan-section::after {
+  content: '';
+  position: absolute;
+  bottom: -30%;
+  left: -5%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(10, 79, 66, 0.08) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.kepala-yayasan-photo .photo-wrapper {
+  transition: transform 0.4s ease;
+}
+
+.kepala-yayasan-photo:hover .photo-wrapper {
+  transform: scale(1.02);
+}
+
+.kepala-yayasan-photo .photo-frame {
+  transition: transform 0.4s ease;
+}
+
+.kepala-yayasan-photo:hover .photo-frame {
+  transform: rotate(6deg);
+}
+
+.visi-misi-card:hover {
+  border-left-width: 8px;
+}
+
+.warna-item {
+  transition: transform 0.3s ease;
+}
+
+.warna-item:hover {
+  transform: scale(1.1) translateY(-5px);
+}
+
+.warna-item div {
+  transition: all 0.3s ease;
+}
+
+.warna-item:hover div {
+  transform: scale(1.1);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3) !important;
+}
+
+.section-badge {
+  display: inline-block;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(10, 79, 66, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(10, 79, 66, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(10, 79, 66, 0);
+  }
+}
+
+.quote-box {
+  position: relative;
+}
+
+.quote-box::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 15px solid #0d6b5a;
+}
+
+.tema-warna-card {
+  position: relative;
+}
+
+.tema-warna-card .bg-pattern {
+  animation: rotate 30s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* AOS Custom Animations */
+[data-aos="fade-right"] {
+  transform: translateX(40px);
+  opacity: 0;
+  transition-property: transform, opacity;
+}
+
+[data-aos="fade-right"].aos-animate {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+[data-aos="fade-left"] {
+  transform: translateX(-40px);
+  opacity: 0;
+  transition-property: transform, opacity;
+}
+
+[data-aos="fade-left"].aos-animate {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Responsive adjustments for Kepala Yayasan Section */
+@media (max-width: 991.98px) {
+  .kepala-yayasan-section {
+    padding: 50px 0;
+  }
+
+  .kepala-yayasan-photo {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .kepala-yayasan-photo img {
+    max-width: 300px !important;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .kepala-yayasan-photo img {
+    max-width: 250px !important;
+  }
+
+  .tema-warna-card {
+    padding: 25px !important;
+  }
+
+  .warna-item div {
+    width: 50px !important;
+    height: 50px !important;
+  }
 }

@@ -1,32 +1,691 @@
 <!DOCTYPE html>
 <html lang="id">
-  <head>
-    <title>Biaya Pendidikan - YPI Nurul Ilmi Bekasi</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
+  <title>Biaya Pendidikan - YPI Nurul Ilmi Bekasi</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Fredericka+the+Great" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
+  <link rel="stylesheet" href="css/animate.css">
+  <link rel="stylesheet" href="css/owl.carousel.min.css">
+  <link rel="stylesheet" href="css/owl.theme.default.min.css">
+  <link rel="stylesheet" href="css/magnific-popup.css">
+  <link rel="stylesheet" href="css/aos.css">
+  <link rel="stylesheet" href="css/ionicons.min.css">
+  <link rel="stylesheet" href="css/flaticon.css">
+  <link rel="stylesheet" href="css/icomoon.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+/* PRICING SECTION - YPI NURUL ILMI 2026 */
+/* PROPER SPACING & CARD COMPOSITION */
+/* Colors: TKIT=Gold, SDIT=Green, SMPIT=Blue */
 
-    <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Fredericka+the+Great" rel="stylesheet">
+.ps-section {
+  background: linear-gradient(180deg, #FAFBFC 0%, #F5F6F8 100%);
+  padding: 50px 20px 80px;
+  font-family: 'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+.ps-wrapper {
+  max-width: 960px;
+  margin: 0 auto;
+}
 
-    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="css/animate.css">
+/* ============================================
+   HEADER SECTION
+   ============================================ */
+.ps-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
 
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
+.ps-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  border-radius: 30px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 14px;
+  color: #fff;
+  background: linear-gradient(135deg, #0A4F42, #0D6B5A);
+  box-shadow: 0 4px 15px rgba(10, 79, 66, 0.25);
+}
 
-    <link rel="stylesheet" href="css/aos.css">
+.ps-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #1a1a2e;
+  margin: 0 0 10px;
+  line-height: 1.2;
+}
 
-    <link rel="stylesheet" href="css/ionicons.min.css">
+.ps-title-highlight {
+  background: linear-gradient(135deg, #0A4F42, #0D6B5A);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
-    <link rel="stylesheet" href="css/flaticon.css">
-    <link rel="stylesheet" href="css/icomoon.css">
-    <link rel="stylesheet" href="css/style.css">
-  </head>
-  <body>
+.ps-subtitle {
+  font-size: 0.95rem;
+  color: #6c757d;
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ============================================
+   TABS SECTION
+   ============================================ */
+.ps-tabs-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 36px; /* KEY: Gap between tabs and card */
+}
+
+.ps-tabs {
+  display: inline-flex;
+  background: #fff;
+  padding: 6px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  border: 1px solid #eee;
+  gap: 4px;
+}
+
+.ps-tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 12px;
+  background: transparent;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.ps-tab i {
+  font-size: 15px;
+  transition: all 0.25s ease;
+}
+
+/* TKIT Tab */
+.ps-tab-tkit {
+  color: #B8860B;
+}
+.ps-tab-tkit i { color: #D4940A; }
+.ps-tab-tkit:hover {
+  background: #FFF8E1;
+}
+.ps-tab-tkit.active {
+  background: linear-gradient(135deg, #D4940A, #E6A800);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(212, 148, 10, 0.35);
+}
+.ps-tab-tkit.active i { color: #fff; }
+
+/* SDIT Tab */
+.ps-tab-sdit {
+  color: #0A4F42;
+}
+.ps-tab-sdit i { color: #0A4F42; }
+.ps-tab-sdit:hover {
+  background: #E8F5E9;
+}
+.ps-tab-sdit.active {
+  background: linear-gradient(135deg, #0A4F42, #0D6B5A);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(10, 79, 66, 0.35);
+}
+.ps-tab-sdit.active i { color: #fff; }
+
+/* SMPIT Tab */
+.ps-tab-smpit {
+  color: #1B4F72;
+}
+.ps-tab-smpit i { color: #1B4F72; }
+.ps-tab-smpit:hover {
+  background: #EBF5FB;
+}
+.ps-tab-smpit.active {
+  background: linear-gradient(135deg, #1B4F72, #2874A6);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(27, 79, 114, 0.35);
+}
+.ps-tab-smpit.active i { color: #fff; }
+
+/* CONTENT */
+.ps-content {
+  display: none;
+}
+.ps-content.active {
+  display: block;
+  animation: psFadeIn 0.35s ease;
+}
+
+@keyframes psFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================
+   MAIN CARD STRUCTURE
+   ============================================ */
+.ps-card {
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+  overflow: hidden;
+  margin-bottom: 28px;
+}
+
+/* CARD HEADER */
+.ps-card-header {
+  padding: 36px 40px 40px;
+  text-align: center;
+}
+
+.ps-card-header-tkit {
+  background: linear-gradient(145deg, #D4940A, #E6A800);
+  color: #fff;
+}
+.ps-card-header-sdit {
+  background: linear-gradient(145deg, #0A4F42, #0D6B5A);
+  color: #fff;
+}
+.ps-card-header-smpit {
+  background: linear-gradient(145deg, #1B4F72, #2874A6);
+  color: #fff;
+}
+
+.ps-level-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.25);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.ps-school-name {
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin: 0 0 6px;
+  color: #fff;
+}
+.ps-school-desc {
+  font-size: 13px;
+  opacity: 0.9;
+  margin: 0;
+  font-weight: 500;
+  color: rgba(255,255,255,0.95);
+}
+
+/* CARD BODY - CONTAINER */
+.ps-card-body {
+  padding: 32px 40px 36px;
+}
+
+/* TOTAL PRICE BOX */
+.ps-total-box {
+  padding: 28px 32px;
+  border-radius: 18px;
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.ps-total-box-tkit {
+  background: linear-gradient(145deg, #D4940A, #E6A800);
+  box-shadow: 0 6px 25px rgba(212, 148, 10, 0.3);
+}
+.ps-total-box-sdit {
+  background: linear-gradient(145deg, #0A4F42, #0D6B5A);
+  box-shadow: 0 6px 25px rgba(10, 79, 66, 0.3);
+}
+.ps-total-box-smpit {
+  background: linear-gradient(145deg, #1B4F72, #2874A6);
+  box-shadow: 0 6px 25px rgba(27, 79, 114, 0.3);
+}
+
+.ps-total-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.95);
+  margin-bottom: 6px;
+}
+.ps-total-amount {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.ps-total-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.2);
+  font-size: 11px;
+  color: rgba(255,255,255,0.95);
+}
+
+/* FEE SECTION */
+.ps-fee-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 12px;
+  margin-bottom: 14px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.ps-fee-header i { font-size: 18px; }
+.ps-fee-header-tkit i { color: #D4940A; }
+.ps-fee-header-sdit i { color: #0A4F42; }
+.ps-fee-header-smpit i { color: #1B4F72; }
+
+.ps-fee-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0;
+}
+
+.ps-fee-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px;
+}
+
+.ps-fee-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 12px 0;
+  border-bottom: 1px solid #f5f5f5;
+  gap: 16px;
+}
+.ps-fee-item:last-child {
+  border-bottom: none;
+}
+
+.ps-fee-name {
+  font-size: 14px;
+  color: #2c3e50;
+  font-weight: 500;
+  flex: 1;
+}
+.ps-fee-amount {
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.ps-fee-amount-tkit { color: #D4940A; }
+.ps-fee-amount-sdit { color: #0A4F42; }
+.ps-fee-amount-smpit { color: #1B4F72; }
+.ps-fee-pending {
+  color: #999;
+  font-style: italic;
+  font-size: 13px;
+}
+
+/* INCLUDED BOX */
+.ps-included {
+  margin: 0 0 20px;
+  padding: 14px 18px;
+  border-radius: 12px;
+  border-left: 4px solid;
+}
+.ps-included-tkit { border-color: #D4940A; background: #FFF8E1; }
+.ps-included-sdit { border-color: #0A4F42; background: #E8F5E9; }
+.ps-included-smpit { border-color: #1B4F72; background: #EBF5FB; }
+
+.ps-included-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0 0 6px;
+}
+.ps-included-list {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 13px;
+  color: #555;
+}
+.ps-included-list li {
+  margin-bottom: 2px;
+}
+
+/* INFO BOX */
+.ps-info-box {
+  padding: 16px 20px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #FFF9E6, #FFF3CD);
+  border-left: 4px solid #E6A800;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin-top: 24px;
+}
+.ps-info-box i {
+  color: #B8860B;
+  font-size: 18px;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.ps-info-box p {
+  margin: 0;
+  font-size: 13px;
+  color: #856404;
+  line-height: 1.6;
+}
+.ps-info-box strong {
+  font-weight: 700;
+}
+
+/* ============================================
+   SECTION CARDS (Requirements, Facilities, etc)
+   ============================================ */
+.ps-section-card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  padding: 24px;
+  margin-bottom: 20px;
+  border: 1px solid #f0f0f0;
+}
+
+.ps-section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 18px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #f0f0f0;
+}
+.ps-section-title i { font-size: 18px; }
+.ps-section-title-tkit i { color: #D4940A; }
+.ps-section-title-sdit i { color: #0A4F42; }
+.ps-section-title-smpit i { color: #1B4F72; }
+
+/* REQUIREMENTS GRID */
+.ps-req-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 10px;
+}
+.ps-req-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 14px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  font-size: 13px;
+  color: #2c3e50;
+  font-weight: 500;
+}
+.ps-req-item i { font-size: 14px; flex-shrink: 0; }
+.ps-req-item-tkit i { color: #D4940A; }
+.ps-req-item-sdit i { color: #0A4F42; }
+.ps-req-item-smpit i { color: #1B4F72; }
+
+/* FACILITIES GRID */
+.ps-fac-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 10px;
+}
+.ps-fac-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  font-size: 12px;
+  color: #2c3e50;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+.ps-fac-item:hover {
+  background: #fff;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+  transform: translateY(-1px);
+}
+.ps-fac-item i {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+.ps-fac-item-tkit i { background: #FFF8E1; color: #D4940A; }
+.ps-fac-item-sdit i { background: #E8F5E9; color: #0A4F42; }
+.ps-fac-item-smpit i { background: #EBF5FB; color: #1B4F72; }
+
+/* ACTIVITIES */
+.ps-act-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.ps-act-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-radius: 18px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.ps-act-item i { font-size: 9px; }
+.ps-act-item-tkit {
+  background: #FFF8E1;
+  color: #B8860B;
+  border: 1px solid rgba(212, 148, 10, 0.2);
+}
+.ps-act-item-sdit {
+  background: #E8F5E9;
+  color: #0A4F42;
+  border: 1px solid rgba(10, 79, 66, 0.2);
+}
+.ps-act-item-smpit {
+  background: #EBF5FB;
+  color: #1B4F72;
+  border: 1px solid rgba(27, 79, 114, 0.2);
+}
+
+/* EKSTRA */
+.ps-eks-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.ps-eks-chip {
+  display: inline-block;
+  padding: 7px 14px;
+  border-radius: 18px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.ps-eks-chip-tkit {
+  background: linear-gradient(135deg, #FFF8E1, #FFF3CD);
+  color: #B8860B;
+}
+.ps-eks-chip-sdit {
+  background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
+  color: #0A4F42;
+}
+.ps-eks-chip-smpit {
+  background: linear-gradient(135deg, #EBF5FB, #D6EAF8);
+  color: #1B4F72;
+}
+
+/* CTA BOX */
+.ps-cta {
+  background: linear-gradient(145deg, #0A4F42, #0D6B5A);
+  border-radius: 20px;
+  padding: 40px 30px;
+  text-align: center;
+  margin-top: 28px;
+}
+.ps-cta h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 10px;
+}
+.ps-cta p {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.85);
+  margin: 0 0 20px;
+}
+.ps-cta a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 32px;
+  background: #fff;
+  color: #0A4F42;
+  border-radius: 28px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+  transition: all 0.25s ease;
+}
+.ps-cta a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+  .ps-section {
+    padding: 40px 15px 60px;
+  }
+  .ps-header {
+    margin-bottom: 24px;
+  }
+  .ps-title {
+    font-size: 1.6rem;
+  }
+  .ps-tabs-wrapper {
+    margin-bottom: 28px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .ps-tabs {
+    padding: 5px;
+    gap: 3px;
+  }
+  .ps-tab {
+    padding: 10px 16px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+  .ps-tab i {
+    font-size: 14px;
+  }
+  .ps-card-header {
+    padding: 28px 20px 32px;
+  }
+  .ps-school-name {
+    font-size: 1.4rem;
+  }
+  .ps-card-body {
+    padding: 24px 20px 28px;
+  }
+  .ps-total-box {
+    padding: 22px 20px;
+    margin-bottom: 24px;
+  }
+  .ps-total-amount {
+    font-size: 2rem;
+  }
+  .ps-fee-header {
+    flex-wrap: wrap;
+  }
+  .ps-fee-item {
+    flex-direction: column;
+    gap: 4px;
+  }
+  .ps-fee-amount {
+    align-self: flex-start;
+  }
+  .ps-info-box {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .ps-req-grid,
+  .ps-fac-grid {
+    grid-template-columns: 1fr;
+  }
+  .ps-section-card {
+    padding: 20px 18px;
+  }
+  .ps-cta {
+    padding: 32px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ps-title {
+    font-size: 1.4rem;
+  }
+  .ps-tab span {
+    display: none;
+  }
+  .ps-tab {
+    padding: 10px 14px;
+  }
+  .ps-total-amount {
+    font-size: 1.8rem;
+  }
+  .ps-school-name {
+    font-size: 1.3rem;
+  }
+}
+
+  </style>
+</head>
+<body>
+
+<!-- Top Bar -->
     <div class="py-2" style="background: linear-gradient(135deg, #0F6A57, #0d5a4a);">
       <div class="container">
         <div class="row no-gutters d-flex align-items-start align-items-center px-3 px-md-0">
@@ -49,10 +708,12 @@
         </div>
       </div>
     </div>
+
+    <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark ftco_navbar ftco-navbar-light" id="ftco-navbar">
       <div class="container d-flex align-items-center">
         <a class="navbar-brand-container" href="index.html">
-          <img src="images/logonurulilmi.png" alt="Logo SDIT Nurul Ilmi" class="navbar-brand-logo">
+          <img src="images/logonurulilmi.png" alt="Logo YPI Nurul Ilmi" class="navbar-brand-logo">
           <span class="navbar-brand-text">
             <span class="navbar-brand-title">YPI Nurul Ilmi Bekasi</span>
             <span class="navbar-brand-subtitle">Yayasan Pendidikan Islam</span>
@@ -74,87 +735,545 @@
         </div>
       </div>
     </nav>
-    <!-- END nav -->
 
-    <section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_2.jpg');">
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row no-gutters slider-text align-items-center justify-content-center">
-          <div class="col-md-9 ftco-animate text-center">
-            <h1 class="mb-2 bread">Biaya Pendidikan</h1>
-            <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="fas fa-arrow-right"></i></a></span> <span>Biaya <i class="fas fa-arrow-right"></i></span></p>
+
+
+    
+
+
+
+    <!-- PRICING SECTION -->
+    <section class="ps-section">
+      <div class="ps-wrapper">
+
+        <!-- HEADER -->
+        <div class="ps-header">
+          <div class="ps-badge">
+            <i class="fas fa-graduation-cap"></i>
+            Biaya Pendidikan
+          </div>
+          <h1 class="ps-title">Biaya Pendidikan <span class="ps-title-highlight">TA 2027-2028</span></h1>
+          <p class="ps-subtitle">YPI Nurul Ilmi menyediakan pendidikan Islam berkualitas dengan biaya terjangkau untuk berbagai kalangan.</p>
+        </div>
+
+        <!-- TABS -->
+        <div class="ps-tabs-wrapper">
+          <div class="ps-tabs">
+            <button onclick="showPricing('tkit')" id="tab-tkit" class="ps-tab ps-tab-tkit active">
+              <i class="fas fa-child"></i>
+              <span>TKIT</span>
+            </button>
+            <button onclick="showPricing('sdit')" id="tab-sdit" class="ps-tab ps-tab-sdit">
+              <i class="fas fa-book-reader"></i>
+              <span>SDIT</span>
+            </button>
+            <button onclick="showPricing('smpit')" id="tab-smpit" class="ps-tab ps-tab-smpit">
+              <i class="fas fa-graduation-cap"></i>
+              <span>SMPIT</span>
+            </button>
           </div>
         </div>
+
+        <!-- TKIT CONTENT -->
+        <div id="content-tkit" class="ps-content active">
+
+          <!-- Main Card -->
+          <div class="ps-card">
+            <div class="ps-card-header ps-card-header-tkit">
+              <div class="ps-level-badge">
+                <i class="fas fa-child"></i> TKIT
+              </div>
+              <h2 class="ps-school-name">TKIT Nurul Ilmi</h2>
+              <p class="ps-school-desc">Taman Kanak-Kanak Islam Terpadu</p>
+            </div>
+
+            <div class="ps-card-body">
+              <!-- Total Box - GOLD -->
+              <div class="ps-total-box ps-total-box-tkit">
+                <div class="ps-total-label">Total Biaya Pendaftaran</div>
+                <div class="ps-total-amount">Rp3.990.000</div>
+                <div class="ps-total-note">
+                  <i class="fas fa-info-circle"></i>
+                  Biaya awal pendidikan
+                </div>
+              </div>
+
+              <!-- Fee Details -->
+              <div class="ps-fee-header ps-fee-header-tkit">
+                <i class="fas fa-receipt"></i>
+                <h3 class="ps-fee-title">Rincian Biaya Pendaftaran</h3>
+              </div>
+              <ul class="ps-fee-list">
+                <li class="ps-fee-item">
+                  <span class="ps-fee-name">Uang Pangkal / Sarana</span>
+                  <span class="ps-fee-amount ps-fee-amount-tkit">Rp1.400.000</span>
+                </li>
+                <li class="ps-fee-item">
+                  <span class="ps-fee-name">SPP Bulan Juli 2027</span>
+                  <span class="ps-fee-amount ps-fee-amount-tkit">Rp290.000</span>
+                </li>
+                <li class="ps-fee-item">
+                  <span class="ps-fee-name">Seragam + Tas Sekolah (5 stel)</span>
+                  <span class="ps-fee-amount ps-fee-amount-tkit">Rp1.300.000</span>
+                </li>
+                <li class="ps-fee-item">
+                  <span class="ps-fee-name">Buku + Alat Tulis + Buku Paket (1 tahun + bahan practise)</span>
+                  <span class="ps-fee-amount ps-fee-amount-tkit">Rp1.000.000</span>
+                </li>
+                <li class="ps-fee-item">
+                  <span class="ps-fee-name">Kegiatan Pendidikan</span>
+                  <span class="ps-fee-amount ps-fee-pending">Menyusul</span>
+                </li>
+              </ul>
+
+              <!-- Info Box -->
+              <div class="ps-info-box">
+                <i class="fas fa-info-circle"></i>
+                <p>
+                  <strong>Informasi Pembayaran:</strong><br>
+                  Biaya pendaftaran Rp300.000. SPP Rp290.000/bulan. Biaya masuk dapat dibayarkan lunas atau bertahap sampai dengan April 2027.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Requirements -->
+          <div class="ps-section-card">
+            <h3 class="ps-section-title ps-section-title-tkit">
+              <i class="fas fa-clipboard-check"></i>
+              Persyaratan Pendaftaran
+            </h3>
+            <div class="ps-req-grid">
+              <div class="ps-req-item ps-req-item-tkit">
+                <i class="fas fa-check-circle"></i>
+                <span>Mengisi formulir pendaftaran</span>
+              </div>
+              <div class="ps-req-item ps-req-item-tkit">
+                <i class="fas fa-check-circle"></i>
+                <span>Mengikuti tata tertib sekolah</span>
+              </div>
+              <div class="ps-req-item ps-req-item-tkit">
+                <i class="fas fa-check-circle"></i>
+                <span>Photocopy KTP orang tua/wali</span>
+              </div>
+              <div class="ps-req-item ps-req-item-tkit">
+                <i class="fas fa-check-circle"></i>
+                <span>Kartu Keluarga (KK)</span>
+              </div>
+              <div class="ps-req-item ps-req-item-tkit">
+                <i class="fas fa-check-circle"></i>
+                <span>Akte Kelahiran</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Facilities -->
+          <div class="ps-section-card">
+            <h3 class="ps-section-title ps-section-title-tkit">
+              <i class="fas fa-building"></i>
+              Fasilitas TKIT
+            </h3>
+            <div class="ps-fac-grid">
+              <div class="ps-fac-item ps-fac-item-tkit"><i class="fas fa-snowflake"></i><span>Ruang kelas ber-AC</span></div>
+              <div class="ps-fac-item ps-fac-item-tkit"><i class="fas fa-gamepad"></i><span>Area bermain</span></div>
+              <div class="ps-fac-item ps-fac-item-tkit"><i class="fas fa-football-ball"></i><span>Sarana olahraga</span></div>
+              <div class="ps-fac-item ps-fac-item-tkit"><i class="fas fa-music"></i><span>Sarana musik dan tari</span></div>
+              <div class="ps-fac-item ps-fac-item-tkit"><i class="fas fa-shield-alt"></i><span>One Gate System</span></div>
+              <div class="ps-fac-item ps-fac-item-tkit"><i class="fas fa-parking"></i><span>Area parkir</span></div>
+              <div class="ps-fac-item ps-fac-item-tkit"><i class="fas fa-utensils"></i><span>Kantin sekolah</span></div>
+              <div class="ps-fac-item ps-fac-item-tkit"><i class="fas fa-home"></i><span>Aula serba guna</span></div>
+              <div class="ps-fac-item ps-fac-item-tkit"><i class="fas fa-mosque"></i><span>Masjid Nurul Ilmi</span></div>
+            </div>
+          </div>
+
+          <!-- Activities -->
+          <div class="ps-section-card">
+            <h3 class="ps-section-title ps-section-title-tkit">
+              <i class="fas fa-calendar-alt"></i>
+              Kegiatan Sekolah
+            </h3>
+            <div class="ps-act-grid">
+              <span class="ps-act-item ps-act-item-tkit"><i class="fas fa-star"></i> Field Trip</span>
+              <span class="ps-act-item ps-act-item-tkit"><i class="fas fa-star"></i> PHBI</span>
+              <span class="ps-act-item ps-act-item-tkit"><i class="fas fa-star"></i> PHBN</span>
+              <span class="ps-act-item ps-act-item-tkit"><i class="fas fa-star"></i> PTS / PAS</span>
+              <span class="ps-act-item ps-act-item-tkit"><i class="fas fa-star"></i> Perlombaan Internal</span>
+              <span class="ps-act-item ps-act-item-tkit"><i class="fas fa-star"></i> Market Day</span>
+              <span class="ps-act-item ps-act-item-tkit"><i class="fas fa-star"></i> Porseni Kecamatan</span>
+              <span class="ps-act-item ps-act-item-tkit"><i class="fas fa-star"></i> Character Building</span>
+              <span class="ps-act-item ps-act-item-tkit"><i class="fas fa-star"></i> Outbond Adventures</span>
+              <span class="ps-act-item ps-act-item-tkit"><i class="fas fa-star"></i> Porseni Ancol</span>
+              <span class="ps-act-item ps-act-item-tkit"><i class="fas fa-star"></i> Buka Puasa Bersama</span>
+              <span class="ps-act-item ps-act-item-tkit"><i class="fas fa-star"></i> Photo Wisuda</span>
+              <span class="ps-act-item ps-act-item-tkit"><i class="fas fa-star"></i> Akhirusannah</span>
+            </div>
+          </div>
+
+          <!-- Ekstrakurikuler -->
+          <div class="ps-section-card">
+            <h3 class="ps-section-title ps-section-title-tkit">
+              <i class="fas fa-running"></i>
+              Ekstrakurikuler
+            </h3>
+            <div class="ps-eks-grid">
+              <span class="ps-eks-chip ps-eks-chip-tkit">Calistung</span>
+              <span class="ps-eks-chip ps-eks-chip-tkit">Tahfidz</span>
+              <span class="ps-eks-chip ps-eks-chip-tkit">Menari</span>
+              <span class="ps-eks-chip ps-eks-chip-tkit">English Club</span>
+              <span class="ps-eks-chip ps-eks-chip-tkit">Mewarnai</span>
+              <span class="ps-eks-chip ps-eks-chip-tkit">Futsal & Taekwondo</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SDIT CONTENT -->
+        <div id="content-sdit" class="ps-content">
+
+          <!-- Main Card -->
+          <div class="ps-card">
+            <div class="ps-card-header ps-card-header-sdit">
+              <div class="ps-level-badge">
+                <i class="fas fa-book-reader"></i> SDIT
+              </div>
+              <h2 class="ps-school-name">SDIT Nurul Ilmi</h2>
+              <p class="ps-school-desc">Sekolah Dasar Islam Terpadu</p>
+            </div>
+
+            <div class="ps-card-body">
+              <!-- Total Box - GREEN -->
+              <div class="ps-total-box ps-total-box-sdit">
+                <div class="ps-total-label">Total Biaya Pendaftaran</div>
+                <div class="ps-total-amount">Rp8.240.000</div>
+                <div class="ps-total-note">
+                  <i class="fas fa-info-circle"></i>
+                  Biaya awal pendidikan
+                </div>
+              </div>
+
+              <!-- Fee Details -->
+              <div class="ps-fee-header ps-fee-header-sdit">
+                <i class="fas fa-receipt"></i>
+                <h3 class="ps-fee-title">Rincian Biaya Pendaftaran</h3>
+              </div>
+              <ul class="ps-fee-list">
+                <li class="ps-fee-item">
+                  <span class="ps-fee-name">Uang Pangkal / gedung</span>
+                  <span class="ps-fee-amount ps-fee-amount-sdit">Rp2.500.000</span>
+                </li>
+                <li class="ps-fee-item">
+                  <span class="ps-fee-name">Sarana</span>
+                  <span class="ps-fee-amount ps-fee-amount-sdit">Rp1.500.000</span>
+                </li>
+                <li class="ps-fee-item">
+                  <span class="ps-fee-name">Seragam Siswa + e-ID Card (6 stel)</span>
+                  <span class="ps-fee-amount ps-fee-amount-sdit">Rp1.600.000</span>
+                </li>
+                <li class="ps-fee-item">
+                  <span class="ps-fee-name">Jas</span>
+                  <span class="ps-fee-amount ps-fee-amount-sdit">Rp250.000</span>
+                </li>
+                <li class="ps-fee-item">
+                  <span class="ps-fee-name">Buku Paket (Umum dan Agama)</span>
+                  <span class="ps-fee-amount ps-fee-amount-sdit">Rp2.000.000</span>
+                </li>
+              </ul>
+
+              <!-- Included Box - GREEN -->
+              <div class="ps-included ps-included-sdit">
+                <div class="ps-included-title">Termasuk:</div>
+                <ul class="ps-included-list">
+                  <li>Buku Ummi</li>
+                  <li>Buku Prestasi</li>
+                  <li>Al Ma'surat</li>
+                  <li>Al-Quran juz 30</li>
+                </ul>
+              </div>
+
+              <ul class="ps-fee-list">
+                <li class="ps-fee-item">
+                  <span class="ps-fee-name">SPP Bulan Juli 2027</span>
+                  <span class="ps-fee-amount ps-fee-amount-sdit">Rp390.000</span>
+                </li>
+                <li class="ps-fee-item">
+                  <span class="ps-fee-name">Kegiatan Pendidikan</span>
+                  <span class="ps-fee-amount ps-fee-pending">Menyusul</span>
+                </li>
+              </ul>
+
+              <!-- Info Box -->
+              <div class="ps-info-box">
+                <i class="fas fa-info-circle"></i>
+                <p>
+                  <strong>Informasi Pembayaran:</strong><br>
+                  Biaya pendaftaran Rp300.000. SPP Rp390.000/bulan. Biaya masuk dapat dibayarkan lunas atau bertahap sampai dengan April 2027.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Requirements -->
+          <div class="ps-section-card">
+            <h3 class="ps-section-title ps-section-title-sdit">
+              <i class="fas fa-clipboard-check"></i>
+              Persyaratan Pendaftaran
+            </h3>
+            <div class="ps-req-grid">
+              <div class="ps-req-item ps-req-item-sdit">
+                <i class="fas fa-check-circle"></i>
+                <span>Mengisi formulir pendaftaran</span>
+              </div>
+              <div class="ps-req-item ps-req-item-sdit">
+                <i class="fas fa-check-circle"></i>
+                <span>Mengikuti tata tertib sekolah</span>
+              </div>
+              <div class="ps-req-item ps-req-item-sdit">
+                <i class="fas fa-check-circle"></i>
+                <span>Photocopy KTP orang tua/wali</span>
+              </div>
+              <div class="ps-req-item ps-req-item-sdit">
+                <i class="fas fa-check-circle"></i>
+                <span>Kartu Keluarga (KK)</span>
+              </div>
+              <div class="ps-req-item ps-req-item-sdit">
+                <i class="fas fa-check-circle"></i>
+                <span>Akte Kelahiran</span>
+              </div>
+              <div class="ps-req-item ps-req-item-sdit">
+                <i class="fas fa-check-circle"></i>
+                <span>Ijazah TK</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Facilities -->
+          <div class="ps-section-card">
+            <h3 class="ps-section-title ps-section-title-sdit">
+              <i class="fas fa-building"></i>
+              Fasilitas SDIT
+            </h3>
+            <div class="ps-fac-grid">
+              <div class="ps-fac-item ps-fac-item-sdit"><i class="fas fa-laptop"></i><span>Digital Learning App</span></div>
+              <div class="ps-fac-item ps-fac-item-sdit"><i class="fas fa-book-open"></i><span>Perpustakaan Digital</span></div>
+              <div class="ps-fac-item ps-fac-item-sdit"><i class="fas fa-id-card"></i><span>ID Card & Access Control</span></div>
+              <div class="ps-fac-item ps-fac-item-sdit"><i class="fas fa-flask"></i><span>Laboratorium</span></div>
+              <div class="ps-fac-item ps-fac-item-sdit"><i class="fas fa-wifi"></i><span>Wifi / Internet</span></div>
+              <div class="ps-fac-item ps-fac-item-sdit"><i class="fas fa-snowflake"></i><span>Ruang kelas AC</span></div>
+              <div class="ps-fac-item ps-fac-item-sdit"><i class="fas fa-football-ball"></i><span>Sarana olahraga</span></div>
+              <div class="ps-fac-item ps-fac-item-sdit"><i class="fas fa-music"></i><span>Sarana musik dan tari</span></div>
+              <div class="ps-fac-item ps-fac-item-sdit"><i class="fas fa-tv"></i><span>Audio Visual Art (AVA)</span></div>
+              <div class="ps-fac-item ps-fac-item-sdit"><i class="fas fa-shield-alt"></i><span>One Gate System</span></div>
+              <div class="ps-fac-item ps-fac-item-sdit"><i class="fas fa-parking"></i><span>Area parkir</span></div>
+              <div class="ps-fac-item ps-fac-item-sdit"><i class="fas fa-utensils"></i><span>Kantin sekolah</span></div>
+              <div class="ps-fac-item ps-fac-item-sdit"><i class="fas fa-theater-masks"></i><span>Aula Theater</span></div>
+              <div class="ps-fac-item ps-fac-item-sdit"><i class="fas fa-mosque"></i><span>Masjid Nurul Ilmi</span></div>
+            </div>
+          </div>
+
+          <!-- Ekstrakurikuler -->
+          <div class="ps-section-card">
+            <h3 class="ps-section-title ps-section-title-sdit">
+              <i class="fas fa-running"></i>
+              Ekstrakurikuler
+            </h3>
+            <div class="ps-eks-grid">
+              <span class="ps-eks-chip ps-eks-chip-sdit">Math Club</span>
+              <span class="ps-eks-chip ps-eks-chip-sdit">English Club</span>
+              <span class="ps-eks-chip ps-eks-chip-sdit">Japanese Club</span>
+              <span class="ps-eks-chip ps-eks-chip-sdit">Robotic & Coding</span>
+              <span class="ps-eks-chip ps-eks-chip-sdit">Tahfidz Club</span>
+              <span class="ps-eks-chip ps-eks-chip-sdit">Taekwondo</span>
+              <span class="ps-eks-chip ps-eks-chip-sdit">Archery</span>
+              <span class="ps-eks-chip ps-eks-chip-sdit">Futsal</span>
+              <span class="ps-eks-chip ps-eks-chip-sdit">Volly ball</span>
+              <span class="ps-eks-chip ps-eks-chip-sdit">Basket</span>
+              <span class="ps-eks-chip ps-eks-chip-sdit">Marawis & Hadroh</span>
+              <span class="ps-eks-chip ps-eks-chip-sdit">Drumband</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SMPIT CONTENT -->
+        <div id="content-smpit" class="ps-content">
+
+          <!-- Main Card -->
+          <div class="ps-card">
+            <div class="ps-card-header ps-card-header-smpit">
+              <div class="ps-level-badge">
+                <i class="fas fa-graduation-cap"></i> SMPIT
+              </div>
+              <h2 class="ps-school-name">SMPIT Nurul Ilmi</h2>
+              <p class="ps-school-desc">Sekolah Menengah Pertama Islam Terpadu</p>
+            </div>
+
+            <div class="ps-card-body">
+              <!-- Total Box - BLUE -->
+              <div class="ps-total-box ps-total-box-smpit">
+                <div class="ps-total-label">Total Biaya Pendaftaran</div>
+                <div class="ps-total-amount">Rp8.540.000</div>
+                <div class="ps-total-note">
+                  <i class="fas fa-info-circle"></i>
+                  Biaya awal pendidikan
+                </div>
+              </div>
+
+              <!-- Fee Details -->
+              <div class="ps-fee-header ps-fee-header-smpit">
+                <i class="fas fa-receipt"></i>
+                <h3 class="ps-fee-title">Rincian Biaya Pendaftaran</h3>
+              </div>
+              <ul class="ps-fee-list">
+                <li class="ps-fee-item">
+                  <span class="ps-fee-name">Uang Pangkal / gedung</span>
+                  <span class="ps-fee-amount ps-fee-amount-smpit">Rp2.500.000</span>
+                </li>
+                <li class="ps-fee-item">
+                  <span class="ps-fee-name">Sarana</span>
+                  <span class="ps-fee-amount ps-fee-amount-smpit">Rp1.500.000</span>
+                </li>
+                <li class="ps-fee-item">
+                  <span class="ps-fee-name">Seragam Siswa + e-ID Card (6 stel)</span>
+                  <span class="ps-fee-amount ps-fee-amount-smpit">Rp1.600.000</span>
+                </li>
+                <li class="ps-fee-item">
+                  <span class="ps-fee-name">Jas</span>
+                  <span class="ps-fee-amount ps-fee-amount-smpit">Rp250.000</span>
+                </li>
+                <li class="ps-fee-item">
+                  <span class="ps-fee-name">Buku Paket (Umum dan Agama)</span>
+                  <span class="ps-fee-amount ps-fee-amount-smpit">Rp2.300.000</span>
+                </li>
+              </ul>
+
+              <!-- Included Box - BLUE -->
+              <div class="ps-included ps-included-smpit">
+                <div class="ps-included-title">Termasuk:</div>
+                <ul class="ps-included-list">
+                  <li>Buku Ummi</li>
+                  <li>Buku Prestasi</li>
+                  <li>Al Ma'surat</li>
+                  <li>Al-Quran</li>
+                  <li>Nama Siswa</li>
+                </ul>
+              </div>
+
+              <ul class="ps-fee-list">
+                <li class="ps-fee-item">
+                  <span class="ps-fee-name">SPP Bulan Juli 2027</span>
+                  <span class="ps-fee-amount ps-fee-amount-smpit">Rp390.000</span>
+                </li>
+                <li class="ps-fee-item">
+                  <span class="ps-fee-name">Kegiatan Pendidikan</span>
+                  <span class="ps-fee-amount ps-fee-pending">Menyusul</span>
+                </li>
+              </ul>
+
+              <!-- Info Box -->
+              <div class="ps-info-box">
+                <i class="fas fa-info-circle"></i>
+                <p>
+                  <strong>Informasi Pembayaran:</strong><br>
+                  Biaya pendaftaran Rp300.000. SPP Rp390.000/bulan. Biaya masuk dapat dibayarkan lunas atau bertahap sampai dengan April 2027.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Requirements -->
+          <div class="ps-section-card">
+            <h3 class="ps-section-title ps-section-title-smpit">
+              <i class="fas fa-clipboard-check"></i>
+              Persyaratan Pendaftaran
+            </h3>
+            <div class="ps-req-grid">
+              <div class="ps-req-item ps-req-item-smpit">
+                <i class="fas fa-check-circle"></i>
+                <span>Mengisi formulir pendaftaran</span>
+              </div>
+              <div class="ps-req-item ps-req-item-smpit">
+                <i class="fas fa-check-circle"></i>
+                <span>Mengikuti tata tertib sekolah</span>
+              </div>
+              <div class="ps-req-item ps-req-item-smpit">
+                <i class="fas fa-check-circle"></i>
+                <span>Photocopy KTP orang tua/wali</span>
+              </div>
+              <div class="ps-req-item ps-req-item-smpit">
+                <i class="fas fa-check-circle"></i>
+                <span>Kartu Keluarga (KK)</span>
+              </div>
+              <div class="ps-req-item ps-req-item-smpit">
+                <i class="fas fa-check-circle"></i>
+                <span>Akte Kelahiran</span>
+              </div>
+              <div class="ps-req-item ps-req-item-smpit">
+                <i class="fas fa-check-circle"></i>
+                <span>Ijazah SD</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Facilities -->
+          <div class="ps-section-card">
+            <h3 class="ps-section-title ps-section-title-smpit">
+              <i class="fas fa-building"></i>
+              Fasilitas SMPIT
+            </h3>
+            <div class="ps-fac-grid">
+              <div class="ps-fac-item ps-fac-item-smpit"><i class="fas fa-laptop"></i><span>Digital Learning App</span></div>
+              <div class="ps-fac-item ps-fac-item-smpit"><i class="fas fa-book-open"></i><span>Perpustakaan Digital</span></div>
+              <div class="ps-fac-item ps-fac-item-smpit"><i class="fas fa-id-card"></i><span>ID Card & Access Control</span></div>
+              <div class="ps-fac-item ps-fac-item-smpit"><i class="fas fa-flask"></i><span>Laboratorium</span></div>
+              <div class="ps-fac-item ps-fac-item-smpit"><i class="fas fa-wifi"></i><span>Wifi / Internet</span></div>
+              <div class="ps-fac-item ps-fac-item-smpit"><i class="fas fa-snowflake"></i><span>Ruang kelas AC</span></div>
+              <div class="ps-fac-item ps-fac-item-smpit"><i class="fas fa-football-ball"></i><span>Sarana olahraga</span></div>
+              <div class="ps-fac-item ps-fac-item-smpit"><i class="fas fa-music"></i><span>Sarana musik dan tari</span></div>
+              <div class="ps-fac-item ps-fac-item-smpit"><i class="fas fa-tv"></i><span>Audio Visual Art (AVA)</span></div>
+              <div class="ps-fac-item ps-fac-item-smpit"><i class="fas fa-shield-alt"></i><span>One Gate System</span></div>
+              <div class="ps-fac-item ps-fac-item-smpit"><i class="fas fa-parking"></i><span>Area parkir</span></div>
+              <div class="ps-fac-item ps-fac-item-smpit"><i class="fas fa-utensils"></i><span>Kantin sekolah</span></div>
+              <div class="ps-fac-item ps-fac-item-smpit"><i class="fas fa-theater-masks"></i><span>Aula Theater</span></div>
+              <div class="ps-fac-item ps-fac-item-smpit"><i class="fas fa-mosque"></i><span>Masjid Nurul Ilmi</span></div>
+            </div>
+          </div>
+
+          <!-- Ekstrakurikuler -->
+          <div class="ps-section-card">
+            <h3 class="ps-section-title ps-section-title-smpit">
+              <i class="fas fa-running"></i>
+              Ekstrakurikuler
+            </h3>
+            <div class="ps-eks-grid">
+              <span class="ps-eks-chip ps-eks-chip-smpit">Math Club</span>
+              <span class="ps-eks-chip ps-eks-chip-smpit">English Club</span>
+              <span class="ps-eks-chip ps-eks-chip-smpit">Japanese Club</span>
+              <span class="ps-eks-chip ps-eks-chip-smpit">Robotic & Coding</span>
+              <span class="ps-eks-chip ps-eks-chip-smpit">Tahfidz Club</span>
+              <span class="ps-eks-chip ps-eks-chip-smpit">Taekwondo</span>
+              <span class="ps-eks-chip ps-eks-chip-smpit">Archery</span>
+              <span class="ps-eks-chip ps-eks-chip-smpit">Futsal</span>
+              <span class="ps-eks-chip ps-eks-chip-smpit">Volly ball</span>
+              <span class="ps-eks-chip ps-eks-chip-smpit">Basket</span>
+              <span class="ps-eks-chip ps-eks-chip-smpit">Marawis & Hadroh</span>
+              <span class="ps-eks-chip ps-eks-chip-smpit">Drumband</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="ps-cta">
+          <h3>Butuh Informasi Lebih Lanjut?</h3>
+          <p>Hubungi kami untuk konsultasi pendaftaran dan pertanyaan lainnya</p>
+          <a href="contact.html">
+            <i class="fas fa-phone-alt"></i>
+            Hubungi Kami
+          </a>
+        </div>
+
       </div>
     </section>
 
-    <section class="ftco-section">
-      <div class="container">
-        <div class="row justify-content-center mb-5 pb-2">
-          <div class="col-md-8 text-center heading-section ftco-animate">
-            <h2 class="mb-4">Biaya <span>Pendidikan</span></h2>
-            <p>Biaya pendidikan YPI Nurul Ilmi dirancang terjangkau dengan fasilitas pendidikan yang berkualitas.</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6 col-lg-3 ftco-animate">
-            <div class="pricing-entry bg-light pb-4 text-center">
-              <div>
-                <h3 class="mb-3">SPP Bulanan</h3>
-                <p><span class="price">Rp 375.000</span></p>
-              </div>
-              <div class="img" style="background-image: url(images/bg_1.jpg);"></div>
-              <div class="px-4">
-                <p>Biaya bulanan terjangkau dengan fasilitas pendidikan lengkap dan berkualitas.</p>
-              </div>
-              <p class="button text-center"><a href="contact.html" class="btn btn-primary px-4 py-3">Hubungi Kami</a></p>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 ftco-animate">
-            <div class="pricing-entry bg-light pb-4 text-center">
-              <div>
-                <h3 class="mb-3">Uang Pangkal</h3>
-                <p><span class="price">Terjangkau</span></p>
-              </div>
-              <div class="img" style="background-image: url(images/bg_2.jpg);"></div>
-              <div class="px-4">
-                <p>Biaya pendaftaran terjangkau dengan fasilitas pendidikan lengkap.</p>
-              </div>
-              <p class="button text-center"><a href="contact.html" class="btn btn-secondary px-4 py-3">Hubungi Kami</a></p>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 ftco-animate">
-            <div class="pricing-entry bg-light active pb-4 text-center">
-              <div>
-                <h3 class="mb-3">Ekstrakurikuler</h3>
-                <p><span class="price">Opsional</span></p>
-              </div>
-              <div class="img" style="background-image: url(images/bg_3.jpg);"></div>
-              <div class="px-4">
-                <p>Japan Club, Volly, Futsal, English Club, Math Club, Taekwondo, Tahfidz, Badminton.</p>
-              </div>
-              <p class="button text-center"><a href="courses.html" class="btn btn-tertiary px-4 py-3">Lihat Program</a></p>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-3 ftco-animate">
-            <div class="pricing-entry bg-light pb-4 text-center">
-              <div>
-                <h3 class="mb-3">Program Tahfidz</h3>
-                <p><span class="price">Termasuk</span></p>
-              </div>
-              <div class="img" style="background-image: url(images/bg_5.jpg);"></div>
-              <div class="px-4">
-                <p>Program tahfidz intensif gratis untuk seluruh siswa setiap sore.</p>
-              </div>
-              <p class="button text-center"><a href="contact.html" class="btn btn-quarternary px-4 py-3">Daftar Sekarang</a></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
-
-    <footer class="ftco-footer ftco-bg-dark ftco-section">
+<footer class="ftco-footer ftco-bg-dark ftco-section">
       <div class="container">
         <div class="row mb-5">
           <div class="col-md-6 col-lg-3">
@@ -261,10 +1380,10 @@
       </div>
     </footer>
 
-
+    <!-- Loader -->
     <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
-
+    <!-- JavaScript -->
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery-migrate-3.0.1.min.js"></script>
     <script src="js/popper.min.js"></script>
@@ -279,5 +1398,88 @@
     <script src="js/scrollax.min.js"></script>
     <script src="js/main.js"></script>
 
+    <script>
+    function showPricing(jenjang) {
+      // Hide all content
+      document.querySelectorAll('.pricing-content').forEach(function(el) {
+        el.classList.remove('active');
+        el.style.display = 'none';
+      });
+
+      // Remove active from all tabs
+      document.querySelectorAll('.pricing-tab-btn').forEach(function(el) {
+        el.classList.remove('active');
+      });
+
+      // Show selected content
+      var content = document.getElementById('content-' + jenjang);
+      if (content) {
+        content.style.display = 'block';
+        setTimeout(function() {
+          content.classList.add('active');
+        }, 10);
+      }
+
+      // Activate selected tab
+      var tab = document.getElementById('tab-' + jenjang);
+      if (tab) {
+        tab.classList.add('active');
+      }
+
+      // Scroll to top of pricing section
+      document.querySelector('.pricing-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    </script>
+
   </body>
+</html>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery-migrate-3.0.1.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.easing.1.3.js"></script>
+<script src="js/jquery.waypoints.min.js"></script>
+<script src="js/jquery.stellar.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/jquery.magnific-popup.min.js"></script>
+<script src="js/aos.js"></script>
+<script src="js/jquery.animateNumber.min.js"></script>
+<script src="js/scrollax.min.js"></script>
+<script src="js/main.js"></script>
+
+<script>
+function showPricing(jenjang) {
+  // Hide all content
+  document.querySelectorAll('.ps-content').forEach(function(el) {
+    el.classList.remove('active');
+    el.style.display = 'none';
+  });
+
+  // Remove active from all tabs
+  document.querySelectorAll('.ps-tab').forEach(function(el) {
+    el.classList.remove('active');
+  });
+
+  // Show selected content
+  var content = document.getElementById('content-' + jenjang);
+  if (content) {
+    content.style.display = 'block';
+    setTimeout(function() {
+      content.classList.add('active');
+    }, 10);
+  }
+
+  // Activate selected tab
+  var tab = document.getElementById('tab-' + jenjang);
+  if (tab) {
+    tab.classList.add('active');
+  }
+
+  // Scroll to pricing section
+  document.querySelector('.ps-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+</script>
+
+</body>
 </html>

@@ -52,7 +52,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark ftco_navbar ftco-navbar-light" id="ftco-navbar">
       <div class="container d-flex align-items-center">
         <a class="navbar-brand-container" href="index.html">
-          <img src="images/logonurulilmi.png" alt="Logo SDIT Nurul Ilmi" class="navbar-brand-logo">
+          <img src="images/logonurulilmi.png" alt="Logo YPI Nurul Ilmi" class="navbar-brand-logo">
           <span class="navbar-brand-text">
             <span class="navbar-brand-title">YPI Nurul Ilmi Bekasi</span>
             <span class="navbar-brand-subtitle">Yayasan Pendidikan Islam</span>
@@ -93,16 +93,30 @@
         <div class="row justify-content-center mb-5 pb-2">
           <div class="col-md-8 text-center heading-section ftco-animate">
             <h2 class="mb-4">Program <span>&</span> Kegiatan</h2>
-            <p>Berbagai program pendidikan yang mendukung pengembangan akademik dan karakter siswa YPI Nurul Ilmi.</p>
+            <p>Berbagai program pendidikan yang mendukung pengembangan akademik dan karakter siswa YPI Nurul Ilmi di tiga jenjang pendidikan.</p>
           </div>
         </div>
-        <div class="row">
+
+        <!-- Jenjang Tabs -->
+        <div class="row justify-content-center mb-5">
+          <div class="col-md-10">
+            <div class="jenjang-tabs" style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+              <button onclick="showPrograms('all')" id="tab-all" class="jenjang-tab-btn active" style="padding: 12px 30px; border: 2px solid #0A4F42; background: linear-gradient(135deg, #0A4F42, #0d6b5a); color: #fff; border-radius: 50px; font-weight: 600; cursor: pointer; font-size: 14px; border-color: transparent;"><i class="fas fa-graduation-cap mr-2"></i>Semua Jenjang</button>
+              <button onclick="showPrograms('tkit')" id="tab-tkit" class="jenjang-tab-btn" style="padding: 12px 30px; border: 2px solid #D4940A; background: transparent; color: #D4940A; border-radius: 50px; font-weight: 600; cursor: pointer; font-size: 14px;"><i class="fas fa-child mr-2"></i>TKIT Nurul Ilmi</button>
+              <button onclick="showPrograms('sdit')" id="tab-sdit" class="jenjang-tab-btn" style="padding: 12px 30px; border: 2px solid #0A4F42; background: transparent; color: #0A4F42; border-radius: 50px; font-weight: 600; cursor: pointer; font-size: 14px;"><i class="fas fa-book-reader mr-2"></i>SDIT Nurul Ilmi</button>
+              <button onclick="showPrograms('smpit')" id="tab-smpit" class="jenjang-tab-btn" style="padding: 12px 30px; border: 2px solid #1B4F72; background: transparent; color: #1B4F72; border-radius: 50px; font-weight: 600; cursor: pointer; font-size: 14px;"><i class="fas fa-university mr-2"></i>SMPIT Nurul Ilmi</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" id="programs-all">
           <div class="col-md-6 course d-lg-flex ftco-animate">
             <div class="img" style="background-image: url(images/course-1.jpg);"></div>
             <div class="text bg-light p-4">
               <h3><a href="#">Kurikulum Nasional Plus</a></h3>
               <p class="subheading"><span><i class="fas fa-clock"></i> Waktu:</span> Senin - Jumat, 07:00 - 14:00</p>
-              <p>Pembelajaran standar nasional yang diperkaya dengan pendidikan karakter Islami dan digitalisasi.</p>
+              <p>Pembelajaran standar nasional yang diperkaya dengan pendidikan karakter Islami dan digitalisasi untuk seluruh jenjang.</p>
+              <span class="badge badge-tkit">TKIT</span> <span class="badge badge-sdit">SDIT</span> <span class="badge badge-smpit">SMPIT</span>
             </div>
           </div>
           <div class="col-md-6 course d-lg-flex ftco-animate">
@@ -111,6 +125,7 @@
               <h3><a href="#">Bahasa Inggris</a></h3>
               <p class="subheading"><span><i class="fas fa-clock"></i> Waktu:</span> Setiap hari, 14:00 - 15:00</p>
               <p>Program pengajaran bahasa Inggris intensif untuk mempersiapkan siswa menghadapi era global.</p>
+              <span class="badge badge-sdit">SDIT</span> <span class="badge badge-smpit">SMPIT</span>
             </div>
           </div>
           <div class="col-md-6 course d-lg-flex ftco-animate">
@@ -119,6 +134,7 @@
               <h3><a href="#">Tahfidz Al-Quran</a></h3>
               <p class="subheading"><span><i class="fas fa-clock"></i> Waktu:</span> Sore hari, 15:00 - 17:00</p>
               <p>Program hafalan Al-Quran intensif yang diasuh oleh ustadz dan ustadzah berpengalaman.</p>
+              <span class="badge badge-tkit">TKIT</span> <span class="badge badge-sdit">SDIT</span> <span class="badge badge-smpit">SMPIT</span>
             </div>
           </div>
           <div class="col-md-6 course d-lg-flex ftco-animate">
@@ -126,7 +142,8 @@
             <div class="text bg-light p-4">
               <h3><a href="#">Ekstrakurikuler</a></h3>
               <p class="subheading"><span><i class="fas fa-clock"></i> Waktu:</span> Sore hari, 15:00 - 17:00</p>
-              <p>Berbagai kegiatan pilihan seperti Japan Club, Volly, Futsal, English Club, Math Club, Taekwondo, Tahfidz, Badminton.</p>
+              <p>Berbagai kegiatan pilihan sesuai jenjang: Calistung, English Club, Math Club, Tahfidz, Taekwondo, Futsal, Drumband, dll.</p>
+              <span class="badge badge-tkit">TKIT</span> <span class="badge badge-sdit">SDIT</span> <span class="badge badge-smpit">SMPIT</span>
             </div>
           </div>
           <div class="col-md-6 course d-lg-flex ftco-animate">
@@ -134,7 +151,8 @@
             <div class="text bg-light p-4">
               <h3><a href="#">Pembelajaran Digital</a></h3>
               <p class="subheading"><span><i class="fas fa-clock"></i> Waktu:</span> Setiap hari belajar</p>
-              <p>Smart School dengan sistem digital untuk mendukung proses pembelajaran modern dan interaktif.</p>
+              <p>Smart School dengan sistem digital, Digital Learning App, dan e-Library untuk mendukung pembelajaran modern.</p>
+              <span class="badge badge-sdit">SDIT</span> <span class="badge badge-smpit">SMPIT</span>
             </div>
           </div>
           <div class="col-md-6 course d-lg-flex ftco-animate">
@@ -142,10 +160,220 @@
             <div class="text bg-light p-4">
               <h3><a href="#">Kegiatan Islami</a></h3>
               <p class="subheading"><span><i class="fas fa-clock"></i> Waktu:</span> Setiap hari</p>
-              <p>Pembinaan akhlak dan kegiatan Islami seperti shalat berjamaah, doa harian, dan kajian anak.</p>
+              <p>Pembinaan akhlak dan kegiatan Islami seperti shalat berjamaah, doa harian, PHBI, dan kajian anak.</p>
+              <span class="badge badge-tkit">TKIT</span> <span class="badge badge-sdit">SDIT</span> <span class="badge badge-smpit">SMPIT</span>
             </div>
           </div>
         </div>
+
+        <!-- TKIT Programs -->
+        <div class="row" id="programs-tkit" style="display: none;">
+          <div class="col-md-6 course d-lg-flex ftco-animate">
+            <div class="img" style="background-image: url(images/course-1.jpg);"></div>
+            <div class="text bg-light p-4">
+              <h3><a href="#">Kurikulum PAUD Plus</a></h3>
+              <p class="subheading"><span><i class="fas fa-clock"></i> Waktu:</span> Senin - Jumat, 07:00 - 14:00</p>
+              <p>Pembelajaran bermain dan stimulasi karakter Islami untuk usia 4-6 tahun dengan pendekatan menyenangkan.</p>
+              <span class="badge badge-tkit">TKIT</span>
+            </div>
+          </div>
+          <div class="col-md-6 course d-lg-flex ftco-animate">
+            <div class="img" style="background-image: url(images/course-3.jpg);"></div>
+            <div class="text bg-light p-4">
+              <h3><a href="#">Tahfidz Al-Quran</a></h3>
+              <p class="subheading"><span><i class="fas fa-clock"></i> Waktu:</span> Sore hari</p>
+              <p>Program pengenalan dan hafalan surat-surat pilihan serta doa harian untuk anak usia dini.</p>
+              <span class="badge badge-tkit">TKIT</span>
+            </div>
+          </div>
+          <div class="col-md-6 course d-lg-flex ftco-animate">
+            <div class="img" style="background-image: url(images/course-6.jpg);"></div>
+            <div class="text bg-light p-4">
+              <h3><a href="#">Calistung</a></h3>
+              <p class="subheading"><span><i class="fas fa-clock"></i> Waktu:</span> Setiap hari</p>
+              <p>Program belajar membaca, menulis, dan berhitung sesuai kemampuan anak usia dini.</p>
+              <span class="badge badge-tkit">TKIT</span>
+            </div>
+          </div>
+          <div class="col-md-6 course d-lg-flex ftco-animate">
+            <div class="img" style="background-image: url(images/course-4.jpg);"></div>
+            <div class="text bg-light p-4">
+              <h3><a href="#">Aktivitas Kreatif</a></h3>
+              <p class="subheading"><span><i class="fas fa-clock"></i> Waktu:</span> Sore hari</p>
+              <p>Mewarnai, menari, dan aktivitas seni untuk mengembangkan kreativitas dan motorik anak.</p>
+              <span class="badge badge-tkit">TKIT</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SDIT Programs -->
+        <div class="row" id="programs-sdit" style="display: none;">
+          <div class="col-md-6 course d-lg-flex ftco-animate">
+            <div class="img" style="background-image: url(images/course-1.jpg);"></div>
+            <div class="text bg-light p-4">
+              <h3><a href="#">Kurikulum Merdeka</a></h3>
+              <p class="subheading"><span><i class="fas fa-clock"></i> Waktu:</span> Senin - Jumat, 07:00 - 14:00</p>
+              <p>Pembelajaran Kurikulum Merdeka dengan penekanan pada karakter Islami dan kemampuan berpikir kritis.</p>
+              <span class="badge badge-sdit">SDIT</span>
+            </div>
+          </div>
+          <div class="col-md-6 course d-lg-flex ftco-animate">
+            <div class="img" style="background-image: url(images/course-2.jpg);"></div>
+            <div class="text bg-light p-4">
+              <h3><a href="#">English & Japanese Club</a></h3>
+              <p class="subheading"><span><i class="fas fa-clock"></i> Waktu:</span> Sore hari</p>
+              <p>Penguatan bahasa Inggris dan pengenalan bahasa Jepang untuk persiapan menghadapi era global.</p>
+              <span class="badge badge-sdit">SDIT</span>
+            </div>
+          </div>
+          <div class="col-md-6 course d-lg-flex ftco-animate">
+            <div class="img" style="background-image: url(images/course-3.jpg);"></div>
+            <div class="text bg-light p-4">
+              <h3><a href="#">Tahfidz & Hafalan</a></h3>
+              <p class="subheading"><span><i class="fas fa-clock"></i> Waktu:</span> Sore hari</p>
+              <p>Program tahfidz intensif dengan metode yang menyenangkan dan terukur.</p>
+              <span class="badge badge-sdit">SDIT</span>
+            </div>
+          </div>
+          <div class="col-md-6 course d-lg-flex ftco-animate">
+            <div class="img" style="background-image: url(images/course-5.jpg);"></div>
+            <div class="text bg-light p-4">
+              <h3><a href="#">Digital & Robotic</a></h3>
+              <p class="subheading"><span><i class="fas fa-clock"></i> Waktu:</span> Sore hari</p>
+              <p>Pengenalan coding dan robotika untuk mengembangkan kemampuan digital siswa.</p>
+              <span class="badge badge-sdit">SDIT</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SMPIT Programs -->
+        <div class="row" id="programs-smpit" style="display: none;">
+          <div class="col-md-6 course d-lg-flex ftco-animate">
+            <div class="img" style="background-image: url(images/course-1.jpg);"></div>
+            <div class="text bg-light p-4">
+              <h3><a href="#">Kurikulum Merdeka</a></h3>
+              <p class="subheading"><span><i class="fas fa-clock"></i> Waktu:</span> Senin - Jumat, 07:00 - 14:00</p>
+              <p>Pembelajaran Kurikulum Merdeka dengan pendalaman materi dan persiapan menuju jenjang lebih tinggi.</p>
+              <span class="badge badge-smpit">SMPIT</span>
+            </div>
+          </div>
+          <div class="col-md-6 course d-lg-flex ftco-animate">
+            <div class="img" style="background-image: url(images/course-2.jpg);"></div>
+            <div class="text bg-light p-4">
+              <h3><a href="#">English & Japanese Club</a></h3>
+              <p class="subheading"><span><i class="fas fa-clock"></i> Waktu:</span> Sore hari</p>
+              <p>Penguasaan bahasa Inggris dan Jepang untuk persiapan melanjutkan kejenjang更高.</p>
+              <span class="badge badge-smpit">SMPIT</span>
+            </div>
+          </div>
+          <div class="col-md-6 course d-lg-flex ftco-animate">
+            <div class="img" style="background-image: url(images/course-3.jpg);"></div>
+            <div class="text bg-light p-4">
+              <h3><a href="#">Tahfidz Al-Quran</a></h3>
+              <p class="subheading"><span><i class="fas fa-clock"></i> Waktu:</span> Sore hari</p>
+              <p>Program tahfidz intensif untuk mencapai target hafalan yang lebih dalam.</p>
+              <span class="badge badge-smpit">SMPIT</span>
+            </div>
+          </div>
+          <div class="col-md-6 course d-lg-flex ftco-animate">
+            <div class="img" style="background-image: url(images/course-5.jpg);"></div>
+            <div class="text bg-light p-4">
+              <h3><a href="#">Robotic & Coding</a></h3>
+              <p class="subheading"><span><i class="fas fa-clock"></i> Waktu:</span> Sore hari</p>
+              <p>Pelajaran coding dan robotika tingkat lanjut untuk persiapan kompetisi danlimpiade.</p>
+              <span class="badge badge-smpit">SMPIT</span>
+            </div>
+          </div>
+        </div>
+
+        <style>
+        .jenjang-tab-btn {
+          transition: all 0.3s ease;
+          box-shadow: none;
+        }
+        .jenjang-tab-btn:hover {
+          transform: translateY(-2px);
+        }
+        .jenjang-tab-btn.active {
+          box-shadow: 0 8px 25px rgba(10,79,66,0.3);
+        }
+        .badge-tkit {
+          display: inline-block;
+          background: linear-gradient(135deg, #D4940A, #E6A800);
+          color: #fff;
+          padding: 4px 12px;
+          border-radius: 15px;
+          font-size: 11px;
+          font-weight: 600;
+          margin-right: 5px;
+        }
+        .badge-sdit {
+          display: inline-block;
+          background: linear-gradient(135deg, #0A4F42, #0d6b5a);
+          color: #fff;
+          padding: 4px 12px;
+          border-radius: 15px;
+          font-size: 11px;
+          font-weight: 600;
+          margin-right: 5px;
+        }
+        .badge-smpit {
+          display: inline-block;
+          background: linear-gradient(135deg, #1B4F72, #2874A6);
+          color: #fff;
+          padding: 4px 12px;
+          border-radius: 15px;
+          font-size: 11px;
+          font-weight: 600;
+        }
+        </style>
+
+        <script>
+        function showPrograms(jenjang) {
+          // Hide all program sections
+          document.querySelectorAll('[id^="programs-"]').forEach(function(el) {
+            el.style.display = 'none';
+          });
+          // Remove active from all tabs
+          document.querySelectorAll('.jenjang-tab-btn').forEach(function(el) {
+            el.classList.remove('active');
+            el.style.background = 'transparent';
+          });
+
+          // Show selected program section
+          if (jenjang === 'all') {
+            document.getElementById('programs-all').style.display = 'flex';
+          } else {
+            var section = document.getElementById('programs-' + jenjang);
+            if (section) {
+              section.style.display = 'flex';
+              // Set display:flex for all direct row children
+              section.querySelectorAll('.col-md-6').forEach(function(col) {
+                col.style.display = '';
+              });
+            }
+          }
+
+          // Activate selected tab
+          var tab = document.getElementById('tab-' + jenjang);
+          if (tab) {
+            tab.classList.add('active');
+            if (jenjang === 'tkit') {
+              tab.style.background = 'linear-gradient(135deg, #27ae60, #2ecc71)';
+              tab.style.borderColor = 'transparent';
+              tab.style.color = '#fff';
+            } else if (jenjang === 'sdit' || jenjang === 'all') {
+              tab.style.background = 'linear-gradient(135deg, #0A4F42, #0d6b5a)';
+              tab.style.borderColor = 'transparent';
+              tab.style.color = '#fff';
+            } else if (jenjang === 'smpit') {
+              tab.style.background = 'linear-gradient(135deg, #1B4F72, #2874A6)';
+              tab.style.borderColor = 'transparent';
+              tab.style.color = '#fff';
+            }
+          }
+        }
+        </script>
       </div>
     </section>
 

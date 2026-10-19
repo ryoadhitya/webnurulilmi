@@ -10360,30 +10360,64 @@ small, .small {
 
 .navbar-brand-title {
   font-family: 'Poppins', sans-serif;
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.8);
   letter-spacing: 0.5px;
   transition: color 0.3s ease;
 }
 
 .navbar-brand-subtitle {
   font-family: 'Poppins', sans-serif;
-  font-size: 0.6rem;
-  font-weight: 500;
-  color: #E6C87A;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #D4AF37;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
+  letter-spacing: 2px;
   transition: color 0.3s ease;
 }
 
-/* Desktop - Light text on dark navbar */
+/* Smart School Logo on Right Side */
+.navbar-smartschool-logo {
+  display: none;
+  margin-left: 15px;
+  align-items: center;
+  padding-left: 15px;
+  border-left: 1px solid rgba(255,255,255,0.15);
+}
+
+.navbar-smartschool-logo img {
+  height: 44px;
+  width: auto;
+  max-height: 44px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  opacity: 0.95;
+  transition: all 0.3s ease;
+}
+
+.navbar-smartschool-logo:hover img {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
 @media (min-width: 992px) {
+  .navbar-smartschool-logo {
+    display: flex;
+  }
   .ftco-navbar-light .navbar-brand-container .navbar-brand-title {
-    color: #fff;
+    color: rgba(255,255,255,0.8);
   }
   .ftco-navbar-light .navbar-brand-container .navbar-brand-subtitle {
-    color: #E6C87A;
+    color: #D4AF37;
+  }
+}
+
+/* Tablet - Medium size */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .navbar-smartschool-logo img {
+    height: 38px;
+    max-height: 38px;
   }
 }
 
@@ -10397,19 +10431,22 @@ small, .small {
     max-height: 42px !important;
   }
   .navbar-brand-title {
-    font-size: 1.05rem;
+    font-size: 0.6rem;
   }
   .navbar-brand-subtitle {
-    font-size: 0.55rem;
+    font-size: 0.95rem;
+  }
+  .navbar-smartschool-logo {
+    display: none !important;
   }
 }
 
 /* Scrolled state */
 .ftco-navbar-light.scrolled .navbar-brand-container .navbar-brand-title {
-  color: #fff;
+  color: rgba(255,255,255,0.8);
 }
 .ftco-navbar-light.scrolled .navbar-brand-container .navbar-brand-subtitle {
-  color: #E6C87A;
+  color: #D4AF37;
 }
 
 .ftco-navbar-light.scrolled .navbar-brand-container img,

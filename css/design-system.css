@@ -1,0 +1,393 @@
+/**
+ * YPI Nurul Ilmi Design System
+ * CSS Custom Properties for Unit Color Identities
+ *
+ * Color System:
+ * - Sigma (TK Sigma & Daycare): Yellow-Orange
+ * - TK Nurul Ilmi: Orange
+ * - SD Nurul Ilmi: Green
+ * - SMP Nurul Ilmi: Blue
+ */
+
+:root {
+  /* ============================================
+     GLOBAL COLORS
+     ============================================ */
+  --color-primary: #0A4F42;       /* Dark Green - Primary brand */
+  --color-primary-light: #0d6b5a;
+  --color-gold: #D4AF37;          /* Gold accent */
+  --color-gold-light: #e8c864;
+
+  /* ============================================
+     SIGMA COLORS (TK Sigma & Daycare)
+     Yellow-Orange theme - warm, cheerful, child-friendly
+     ============================================ */
+  --sigma-primary: #FFD84D;       /* Bright Yellow - Accent */
+  --sigma-primary-dark: #FF7043;   /* Orange - Primary */
+  --sigma-primary-light: #FFAB91; /* Light Orange - Secondary */
+  --sigma-secondary: #FFF8D9;      /* Light Yellow - Subtle background */
+  --sigma-accent: #FF7043;        /* Orange accent */
+  --sigma-orange: #FF7043;        /* Orange */
+  --sigma-orange-light: #FFAB91;  /* Light Orange */
+  --sigma-text: #333333;           /* Dark text */
+  --sigma-bg: #ffffff;            /* White background */
+
+  /* ============================================
+     TK NURUL ILMI COLORS
+     Orange identity - warm, energetic, playful
+     ============================================ */
+  --tk-primary: #FF7043;          /* Deep Orange */
+  --tk-primary-dark: #E64A19;    /* Darker Orange */
+  --tk-primary-light: #FFAB91;    /* Light Orange */
+  --tk-secondary: #FFA726;        /* Amber */
+  --tk-accent: #FF5722;           /* Deep Orange accent */
+  --tk-text: #4E342E;            /* Brown text */
+  --tk-bg: #FFF3E0;              /* Light orange background */
+
+  /* ============================================
+     SD NURUL ILMI COLORS
+     Green identity - bright leaf green, fresh, natural, growing
+     ============================================ */
+  --sd-primary: #72BE44;          /* Bright Leaf Green */
+  --sd-primary-dark: #5DAA32;    /* Darker Bright Green */
+  --sd-primary-light: #A4D96C;   /* Light Green */
+  --sd-secondary: #8BC34A;        /* Light Green */
+  --sd-accent: #4CAF50;           /* Medium Green */
+  --sd-text: #2E7D32;            /* Dark green text */
+  --sd-bg: #F1F9E9;              /* Light green background */
+
+  /* ============================================
+     SMP NURUL ILMI COLORS
+     Blue identity - professional, academic, modern
+     ============================================ */
+  --smp-primary: #1B4F72;         /* Deep Blue */
+  --smp-primary-dark: #154360;    /* Darker Blue */
+  --smp-primary-light: #2874A6;   /* Lighter Blue */
+  --smp-secondary: #3498DB;        /* Medium Blue */
+  --smp-accent: #2980B9;          /* Blue accent */
+  --smp-text: #1A237E;           /* Dark blue text */
+  --smp-bg: #EBF5FB;             /* Light blue background */
+
+  /* ============================================
+     NEUTRAL COLORS
+     ============================================ */
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-gray-100: #f8f9fa;
+  --color-gray-200: #e9ecef;
+  --color-gray-300: #dee2e6;
+  --color-gray-400: #ced4da;
+  --color-gray-500: #6c757d;
+  --color-gray-600: #495057;
+  --color-gray-700: #343a40;
+  --color-gray-800: #212529;
+  --color-gray-900: #1a1a2e;
+
+  /* ============================================
+     CONTACT NUMBERS (Centralized)
+     ============================================ */
+  /* Bu Ida: +62 812-8230-7424 */
+  /* Bu Linda: +62 812-8525-7593 */
+  /* Bu Sofi: +62 896-9574-2700 */
+  /* Bu Eva: +62 857-2336-3762 */
+
+  /* ============================================
+     SPACING SYSTEM
+     ============================================ */
+  --space-xs: 0.25rem;   /* 4px */
+  --space-sm: 0.5rem;    /* 8px */
+  --space-md: 1rem;      /* 16px */
+  --space-lg: 1.5rem;    /* 24px */
+  --space-xl: 2rem;      /* 32px */
+  --space-2xl: 3rem;     /* 48px */
+  --space-3xl: 4rem;     /* 64px */
+  --space-4xl: 5rem;     /* 80px */
+
+  /* ============================================
+     BORDER RADIUS
+     ============================================ */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-full: 50%;
+
+  /* ============================================
+     SHADOWS
+     ============================================ */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.15);
+
+  /* ============================================
+     TRANSITIONS
+     ============================================ */
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.5s ease;
+}
+
+/* ============================================
+   UNIT CARD STYLES
+   ============================================ */
+
+/* Sigma Card (Yellow-Orange theme) */
+.unit-card-sigma {
+  background: var(--color-white);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.unit-card-sigma:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+}
+
+.unit-card-sigma .card-header {
+  background: linear-gradient(135deg, #FF7043, #FFD84D);
+  color: var(--color-white);
+  padding: var(--space-xl);
+  text-align: center;
+}
+
+.unit-card-sigma .card-icon {
+  width: 80px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-md);
+}
+
+.unit-card-sigma .card-icon i {
+  font-size: 36px;
+  color: var(--color-white);
+}
+
+.unit-card-sigma .card-body {
+  padding: var(--space-xl);
+}
+
+/* TK Card (Orange) */
+.unit-card-tk {
+  background: var(--color-white);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.unit-card-tk:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+}
+
+.unit-card-tk .card-header {
+  background: linear-gradient(135deg, var(--tk-primary-dark), var(--tk-primary));
+  color: var(--color-white);
+  padding: var(--space-xl);
+  text-align: center;
+}
+
+/* SD Card (Green) */
+.unit-card-sd {
+  background: var(--color-white);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.unit-card-sd:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+}
+
+.unit-card-sd .card-header {
+  background: linear-gradient(135deg, var(--sd-primary-dark), var(--sd-primary));
+  color: var(--color-white);
+  padding: var(--space-xl);
+  text-align: center;
+}
+
+/* SMP Card (Blue) */
+.unit-card-smp {
+  background: var(--color-white);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.unit-card-smp:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+}
+
+.unit-card-smp .card-header {
+  background: linear-gradient(135deg, var(--smp-primary-dark), var(--smp-primary));
+  color: var(--color-white);
+  padding: var(--space-xl);
+  text-align: center;
+}
+
+/* ============================================
+   BUTTON STYLES
+   ============================================ */
+
+/* Sigma Button - Yellow with Orange text */
+.btn-sigma {
+  background: linear-gradient(135deg, #FFD84D, #F5C518);
+  color: #FF7043;
+  border: none;
+  padding: var(--space-md) var(--space-xl);
+  border-radius: var(--radius-lg);
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  transition: all var(--transition-base);
+  box-shadow: 0 4px 15px rgba(255, 216, 77, 0.3);
+}
+
+.btn-sigma:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(255, 216, 77, 0.4);
+  color: #FF7043;
+}
+
+/* TK Button */
+.btn-tk {
+  background: linear-gradient(135deg, var(--tk-primary-dark), var(--tk-primary));
+  color: var(--color-white);
+  border: none;
+  padding: var(--space-md) var(--space-xl);
+  border-radius: var(--radius-lg);
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  transition: all var(--transition-base);
+  box-shadow: 0 4px 15px rgba(230, 74, 25, 0.3);
+}
+
+.btn-tk:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(230, 74, 25, 0.4);
+  color: var(--color-white);
+}
+
+/* SD Button */
+.btn-sd {
+  background: linear-gradient(135deg, var(--sd-primary-dark), var(--sd-primary));
+  color: var(--color-white);
+  border: none;
+  padding: var(--space-md) var(--space-xl);
+  border-radius: var(--radius-lg);
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  transition: all var(--transition-base);
+  box-shadow: 0 4px 15px rgba(114, 190, 68, 0.3);
+}
+
+.btn-sd:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(114, 190, 68, 0.4);
+  color: var(--color-white);
+}
+
+/* SMP Button */
+.btn-smp {
+  background: linear-gradient(135deg, var(--smp-primary-dark), var(--smp-primary));
+  color: var(--color-white);
+  border: none;
+  padding: var(--space-md) var(--space-xl);
+  border-radius: var(--radius-lg);
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  transition: all var(--transition-base);
+  box-shadow: 0 4px 15px rgba(27, 79, 114, 0.3);
+}
+
+.btn-smp:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(27, 79, 114, 0.4);
+  color: var(--color-white);
+}
+
+/* ============================================
+   SECTION BADGES
+   ============================================ */
+
+.badge-sigma {
+  background: linear-gradient(135deg, #FF7043, #FFAB91);
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: inline-block;
+}
+
+.badge-tk {
+  background: linear-gradient(135deg, var(--tk-primary-dark), var(--tk-primary));
+  color: var(--color-white);
+  padding: 8px 20px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: inline-block;
+}
+
+.badge-sd {
+  background: linear-gradient(135deg, var(--sd-primary-dark), var(--sd-primary));
+  color: var(--color-white);
+  padding: 8px 20px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: inline-block;
+}
+
+.badge-smp {
+  background: linear-gradient(135deg, var(--smp-primary-dark), var(--smp-primary));
+  color: var(--color-white);
+  padding: 8px 20px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: inline-block;
+}
+
+/* ============================================
+   RESPONSIVE UTILITIES
+   ============================================ */
+
+@media (max-width: 768px) {
+  :root {
+    --space-4xl: 3rem;
+    --space-3xl: 2.5rem;
+  }
+}

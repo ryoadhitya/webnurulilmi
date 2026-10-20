@@ -35,7 +35,7 @@
             <div class="row d-flex">
               <div class="col-md-5 pr-4 d-flex topper align-items-center">
                 <div class="icon mr-2 d-flex justify-content-center align-items-center" style="background: rgba(255,255,255,0.2); width: 35px; height: 35px; border-radius: 50%;"><span class="fas fa-map-marker-alt" style="color: #fff;"></span></div>
-                <span class="text" style="color: rgba(255,255,255,0.9); font-size: 13px;">Perumahan Jl. Bumi Waringin Indah 2 No.1 Blok B1, Waringinjaya, Kec. Kedungwaringin, Kab. Bekasi, Jawa Barat 17540</span>
+                <span class="text" style="color: rgba(255,255,255,0.9); font-size: 13px;">Perumahan Jl. Bumi Waringin Indah 2, Waringinjaya, Kec. Kedungwaringin, Kab. Bekasi, Jawa Barat 17540</span>
               </div>
               <div class="col-md pr-4 d-flex topper align-items-center">
                 <div class="icon mr-2 d-flex justify-content-center align-items-center" style="background: rgba(255,255,255,0.2); width: 35px; height: 35px; border-radius: 50%;"><span class="fas fa-envelope" style="color: #fff;"></span></div>
@@ -1819,13 +1819,13 @@
 	            <h2 class="mb-4">Hubungi Kami</h2>
 	            <p>Ada pertanyaan tentang pendaftaran atau program sekolah? Jangan ragu untuk menghubungi kami.</p>
 	          </div>
-	          <form action="#" class="appointment-form ftco-animate">
+	          <form id="hubungiKamiForm" class="appointment-form ftco-animate">
 	    				<div class="d-md-flex">
 		    				<div class="form-group">
-		    					<input type="text" class="form-control" placeholder="Nama Lengkap">
+		    					<input type="text" name="first_name" class="form-control" placeholder="Nama Lengkap" required>
 		    				</div>
 		    				<div class="form-group ml-md-4">
-		    					<input type="text" class="form-control" placeholder="Last Name">
+		    					<input type="text" name="last_name" class="form-control" placeholder="Last Name">
 		    				</div>
 	    				</div>
 	    				<div class="d-md-flex">
@@ -1833,27 +1833,27 @@
 		    					<div class="form-field">
           					<div class="select-wrap">
                       <div class="icon"><span class="fas fa-chevron-down"></span></div>
-                      <select name="" id="" class="form-control">
+                      <select name="program" id="programSelect" class="form-control" required>
                       	<option value="">Pilih Program</option>
-                        <option value="">TKIT Nurul Ilmi</option>
-                        <option value="">SDIT Nurul Ilmi</option>
-                        <option value="">SMPIT Nurul Ilmi</option>
-                        <option value="">Program Tahfidz</option>
-                        <option value="">Ekstrakurikuler</option>
+                        <option value="TKIT Nurul Ilmi">TKIT Nurul Ilmi</option>
+                        <option value="SDIT Nurul Ilmi">SDIT Nurul Ilmi</option>
+                        <option value="SMPIT Nurul Ilmi">SMPIT Nurul Ilmi</option>
+                        <option value="Program Tahfidz">Program Tahfidz</option>
+                        <option value="Ekstrakurikuler">Ekstrakurikuler</option>
                       </select>
                     </div>
 		              </div>
 		    				</div>
 	    					<div class="form-group ml-md-4">
-		    					<input type="text" class="form-control" placeholder="Nomor Telepon">
+		    					<input type="tel" name="phone" class="form-control" placeholder="Nomor Telepon" required>
 		    				</div>
 	    				</div>
 	    				<div class="d-md-flex">
 	    					<div class="form-group">
-		              <textarea name="" id="" cols="30" rows="2" class="form-control" placeholder="Pesan"></textarea>
+		              <textarea name="message" id="messageInput" cols="30" rows="2" class="form-control" placeholder="Pesan"></textarea>
 		            </div>
 		            <div class="form-group ml-md-4">
-		              <input type="submit" value="Kirim Pesan" class="btn btn-secondary py-3 px-4">
+		              <button type="submit" id="submitBtn" class="btn btn-secondary py-3 px-4"><span id="btnText">Kirim Pesan</span><span id="btnSpinner" class="spinner-border spinner-border-sm ml-2" role="status" aria-hidden="true" style="display: none;"></span></button>
 		            </div>
 	    				</div>
 	    			</form>
@@ -1861,6 +1861,249 @@
         </div>
     	</div>
     </section>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="toast-container" style="position: fixed; top: 20px; right: 20px; z-index: 9999;"></div>
+
+    <style>
+    /* Toast Notification Styles */
+    .custom-toast {
+      max-width: 400px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      padding: 20px 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      animation: toastSlideIn 0.4s ease forwards;
+      margin-bottom: 15px;
+      border-left: 5px solid;
+    }
+    .custom-toast.toast-success {
+      border-left-color: #0A4F42;
+    }
+    .custom-toast.toast-error {
+      border-left-color: #e74c3c;
+    }
+    .custom-toast.toast-exit {
+      animation: toastSlideOut 0.3s ease forwards;
+    }
+    .toast-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .toast-success .toast-icon {
+      background: linear-gradient(135deg, #0A4F42, #0d6b5a);
+    }
+    .toast-error .toast-icon {
+      background: linear-gradient(135deg, #e74c3c, #c0392b);
+    }
+    .toast-icon i {
+      color: #fff;
+      font-size: 18px;
+    }
+    .toast-content {
+      flex: 1;
+    }
+    .toast-title {
+      font-weight: 700;
+      font-size: 15px;
+      margin-bottom: 4px;
+      color: #333;
+    }
+    .toast-message {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.5;
+      margin: 0;
+    }
+    .toast-close {
+      background: none;
+      border: none;
+      color: #999;
+      cursor: pointer;
+      padding: 0;
+      font-size: 18px;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+    .toast-close:hover {
+      color: #333;
+    }
+    @keyframes toastSlideIn {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    @keyframes toastSlideOut {
+      from {
+        transform: translateX(0);
+        opacity: 1;
+      }
+      to {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+    }
+    .form-control.is-invalid {
+      border-color: #e74c3c;
+    }
+    #submitBtn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+    @media (max-width: 768px) {
+      .custom-toast {
+        max-width: calc(100% - 40px);
+        margin-left: 20px;
+        margin-right: 20px;
+      }
+    }
+    </style>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var form = document.getElementById('hubungiKamiForm');
+      var submitBtn = document.getElementById('submitBtn');
+      var btnText = document.getElementById('btnText');
+      var btnSpinner = document.getElementById('btnSpinner');
+      var toastContainer = document.getElementById('toastContainer');
+
+      function showToast(type, title, message) {
+        var toast = document.createElement('div');
+        toast.className = 'custom-toast toast-' + type;
+        var iconClass = type === 'success' ? 'fa-check' : 'fa-exclamation-circle';
+        toast.innerHTML = '<div class="toast-icon"><i class="fas ' + iconClass + '"></i></div>' +
+          '<div class="toast-content"><div class="toast-title">' + title + '</div><p class="toast-message">' + message + '</p></div>' +
+          '<button class="toast-close" onclick="dismissToast(this)">&times;</button>';
+        toastContainer.appendChild(toast);
+
+        setTimeout(function() {
+          var closeBtn = toast.querySelector('.toast-close');
+          dismissToast(closeBtn);
+        }, 5000);
+      }
+
+      window.dismissToast = function(btn) {
+        var toast = btn.closest('.custom-toast');
+        if (toast) {
+          toast.classList.add('toast-exit');
+          setTimeout(function() {
+            if (toast.parentNode) {
+              toast.parentNode.removeChild(toast);
+            }
+          }, 300);
+        }
+      };
+
+      function setLoading(isLoading) {
+        if (isLoading) {
+          submitBtn.disabled = true;
+          btnText.textContent = 'Mengirim...';
+          btnSpinner.style.display = 'inline-block';
+        } else {
+          submitBtn.disabled = false;
+          btnText.textContent = 'Kirim Pesan';
+          btnSpinner.style.display = 'none';
+        }
+      }
+
+      function clearForm() {
+        form.reset();
+      }
+
+      function validateForm() {
+        var isValid = true;
+        var firstName = form.querySelector('input[name="first_name"]');
+        var phone = form.querySelector('input[name="phone"]');
+        var program = form.querySelector('select[name="program"]');
+
+        var inputs = form.querySelectorAll('.form-control');
+        for (var i = 0; i < inputs.length; i++) {
+          inputs[i].classList.remove('is-invalid');
+        }
+
+        if (!firstName.value.trim()) {
+          firstName.classList.add('is-invalid');
+          isValid = false;
+        }
+
+        if (!phone.value.trim()) {
+          phone.classList.add('is-invalid');
+          isValid = false;
+        }
+
+        if (!program.value) {
+          program.classList.add('is-invalid');
+          isValid = false;
+        }
+
+        return isValid;
+      }
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        if (!validateForm()) {
+          showToast('error', 'Form Tidak Lengkap', 'Mohon isi semua field yang wajib diisi.');
+          return;
+        }
+
+        setLoading(true);
+
+        var formData = new FormData(form);
+        var xhr = new XMLHttpRequest();
+
+        xhr.open('POST', 'https://formspree.io/f/xvkznvee', true);
+        xhr.setRequestHeader('Accept', 'application/json');
+
+        xhr.onload = function() {
+          setLoading(false);
+          if (xhr.status === 200) {
+            clearForm();
+            showToast('success', 'Pesan Terkirim!', 'Terima kasih telah menghubungi YPI Nurul Ilmi. Tim kami akan segera menindaklanjuti pesan Anda.');
+          } else {
+            var errorMsg = 'Maaf, terjadi kesalahan saat mengirim pesan. Silakan coba lagi.';
+            try {
+              var response = JSON.parse(xhr.responseText);
+              if (response.errors) {
+                errorMsg = response.errors.map(function(e) { return e.message; }).join(', ');
+              }
+            } catch (err) {}
+            showToast('error', 'Gagal Mengirim', errorMsg);
+          }
+        };
+
+        xhr.onerror = function() {
+          setLoading(false);
+          showToast('error', 'Koneksi Gagal', 'Tidak dapat terhubung ke server. Periksa koneksi internet Anda dan coba lagi.');
+        };
+
+        xhr.send(formData);
+      });
+
+      var inputs = form.querySelectorAll('.form-control');
+      for (var i = 0; i < inputs.length; i++) {
+        inputs[i].addEventListener('input', function() {
+          this.classList.remove('is-invalid');
+        });
+        inputs[i].addEventListener('change', function() {
+          this.classList.remove('is-invalid');
+        });
+      }
+    });
+    </script>
 
         <section class="ftco-section" style="background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);">
     	<div class="container">
@@ -2122,7 +2365,7 @@
                 <ul style="list-style: none; padding: 0; margin: 0;">
                   <li style="display: flex; align-items: flex-start; margin-bottom: 12px;">
                     <span class="fas fa-map-marker-alt" style="color: #fff; margin-right: 15px; margin-top: 3px; flex-shrink: 0;"></span>
-                    <span class="text" style="color: rgba(255,255,255,0.7); line-height: 1.6;">Perumahan Jl. Bumi Waringin Indah 2 No.1 Blok B1, Waringinjaya, Kec. Kedungwaringin, Kab. Bekasi, Jawa Barat 17540</span>
+                    <span class="text" style="color: rgba(255,255,255,0.7); line-height: 1.6;">Perumahan Jl. Bumi Waringin Indah 2, Waringinjaya, Kec. Kedungwaringin, Kab. Bekasi, Jawa Barat 17540</span>
                   </li>
                   <li style="margin-bottom: 12px;">
                     <a href="https://wa.me/6285723363762" target="_blank" style="display: flex; align-items: center; color: rgba(255,255,255,0.7); text-decoration: none;">

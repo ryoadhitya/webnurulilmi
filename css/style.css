@@ -10332,6 +10332,7 @@ small, .small {
 .navbar-brand-container {
   display: flex !important;
   align-items: center;
+  flex-wrap: nowrap;
   text-decoration: none !important;
   padding: 8px 0;
   transition: all 0.3s ease;
@@ -10347,34 +10348,53 @@ small, .small {
   margin-right: 14px !important;
   display: inline-block !important;
   vertical-align: middle !important;
+  flex: 0 0 auto;
   border-radius: 8px;
   transition: all 0.3s ease;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
 }
 
+/* Two-line brand block beside the logo:
+   line 1 "Yayasan Pendidikan Islam"  (smaller, light)
+   line 2 "NURUL ILMI BEKASI"          (larger, bold, gold)
+   --brand-scale drives BOTH lines at once, so the two visual lengths stay
+   in the same proportion at every breakpoint. */
 .navbar-brand-text {
   display: flex !important;
   flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: 2px;
   line-height: 1.2;
+  min-width: 0;
+
+  --brand-scale: 1;
+  --brand-title-size: calc(0.86rem * var(--brand-scale));
+  --brand-title-ls: calc(0.5px * var(--brand-scale));
+  --brand-sub-size: calc(1.1rem * var(--brand-scale));
+  --brand-sub-ls: calc(2px * var(--brand-scale));
 }
 
 .navbar-brand-title {
   font-family: 'Poppins', sans-serif;
-  font-size: 0.65rem;
+  font-size: var(--brand-title-size);
   font-weight: 500;
   color: rgba(255,255,255,0.8);
-  letter-spacing: 0.5px;
+  letter-spacing: var(--brand-title-ls);
   transition: color 0.3s ease;
+  white-space: nowrap;
 }
 
 .navbar-brand-subtitle {
   font-family: 'Poppins', sans-serif;
-  font-size: 1.1rem;
+  font-size: var(--brand-sub-size);
   font-weight: 700;
   color: #D4AF37;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: var(--brand-sub-ls);
   transition: color 0.3s ease;
+  white-space: nowrap;
 }
 
 /* Smart School Logo on Right Side */
@@ -10421,23 +10441,62 @@ small, .small {
   }
 }
 
+/* Keep the two-line brand block compact without crowding the menu (992px - 1199px) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .navbar-brand-text {
+    --brand-scale: 0.86;
+  }
+  /* Tighten menu spacing so the nav + Smart School logo stay inside the
+     container instead of being pushed past the right edge of the screen */
+  .ftco-navbar-light .navbar-nav > .nav-item > .nav-link {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
 /* Mobile - White text on dark navbar */
 @media (max-width: 991.98px) {
+  .navbar-brand-text {
+    --brand-scale: 0.82;
+  }
   .navbar-brand-container img,
   .navbar-brand-logo {
     width: 42px !important;
     height: 42px !important;
     max-width: 42px !important;
     max-height: 42px !important;
-  }
-  .navbar-brand-title {
-    font-size: 0.6rem;
-  }
-  .navbar-brand-subtitle {
-    font-size: 0.95rem;
+    margin-right: 10px !important;
   }
   .navbar-smartschool-logo {
     display: none !important;
+  }
+}
+
+/* Small tablets & large phones */
+@media (max-width: 767.98px) {
+  .navbar-brand-text {
+    --brand-scale: 0.75;
+  }
+  .navbar-brand-container img,
+  .navbar-brand-logo {
+    width: 40px !important;
+    height: 40px !important;
+    max-width: 40px !important;
+    max-height: 40px !important;
+  }
+}
+
+/* Narrow phones */
+@media (max-width: 479.98px) {
+  .navbar-brand-text {
+    --brand-scale: 0.7;
+  }
+  .navbar-brand-container img,
+  .navbar-brand-logo {
+    width: 38px !important;
+    height: 38px !important;
+    max-width: 38px !important;
+    max-height: 38px !important;
   }
 }
 

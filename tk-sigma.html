@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="css/icomoon.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/fasilitas-gallery.css">
   <style>
     /* TK SIGMA SPECIFIC STYLES - Yellow & Orange Theme */
     .sigma-theme {
@@ -297,12 +298,62 @@
       color: #D4940A;
     }
 
+    .sigma-top-contacts,
+    .sigma-contact-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .sigma-top-contacts {
+      align-items: center;
+      gap: 4px 12px;
+    }
+
+    .sigma-top-contacts a {
+      color: #fff;
+      font-weight: 600;
+      font-size: 13px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .sigma-contact-options .sigma-btn {
+      flex: 1 1 0;
+      justify-content: center;
+      min-width: 0;
+      padding: 12px 10px;
+      gap: 7px;
+      text-align: center;
+    }
+
+    .sigma-cta-options {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .sigma-cta-options .sigma-contact-options {
+      flex: 1 1 100%;
+    }
+
     @media (max-width: 768px) {
       .hero-section {
         padding: 100px 0 60px;
       }
       .section-title {
         font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .sigma-contact-options {
+        flex-direction: column;
+      }
+
+      .sigma-contact-options .sigma-btn {
+        width: 100%;
       }
     }
   </style>
@@ -324,7 +375,10 @@
             </div>
             <div class="col-md pr-4 d-flex topper align-items-center">
               <div class="icon mr-2 d-flex justify-content-center align-items-center" style="background: rgba(255,255,255,0.2); width: 35px; height: 35px; border-radius: 50%;"><span class="fab fa-whatsapp" style="color: #fff;"></span></div>
-              <a href="https://wa.me/6281282307424" target="_blank" style="color: #fff; font-weight: 600; font-size: 14px; text-decoration: none;">+62 812-8230-7424 (Bu Ida)</a>
+              <div class="sigma-top-contacts">
+                <a href="https://wa.me/6281282307424" target="_blank" rel="noopener">Bu Ida</a>
+                <a href="https://wa.me/6281214095882" target="_blank" rel="noopener">Bu Ulfah</a>
+              </div>
             </div>
           </div>
         </div>
@@ -339,7 +393,7 @@
         <img src="images/logonurulilmi.png" alt="Logo YPI Nurul Ilmi" class="navbar-brand-logo">
         <span class="navbar-brand-text">
           <span class="navbar-brand-title">Yayasan Pendidikan Islam</span>
-          <span class="navbar-brand-subtitle">NURUL ILMI</span>
+            <span class="navbar-brand-subtitle">NURUL ILMI BEKASI</span>
         </span>
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
@@ -403,7 +457,7 @@
               </div>
               <div>
                 <p class="mb-0" style="opacity: 0.9; font-size: 14px;">Berdiri Sejak</p>
-                <h3 class="mb-0" style="font-size: 1.5rem; font-weight: 700;">Tahun 2013</h3>
+                <h3 class="mb-0" style="font-size: 1.5rem; font-weight: 700;">Tahun 2008</h3>
               </div>
             </div>
             <p style="line-height: 1.8; font-size: 1.05rem; opacity: 0.95;">TK Sigma adalah Taman Kanak-Kanak Islam Terpadu di bawah naungan <strong>YPI Nurul Ilmi Bekasi</strong>. Berawal dari kepedulian akan pentingnya pendidikan usia dini yang memadukan nilai Islami, karakter, dan stimulasi tumbuh kembang optimal.</p>
@@ -448,7 +502,7 @@
           <div class="visi-card">
             <i class="fas fa-eye mb-3" style="font-size: 36px; opacity: 0.9;"></i>
             <h3>Visi</h3>
-            <p style="font-size: 1.2rem; margin-bottom: 0; opacity: 0.95; line-height: 1.7;">Mewujudkan generasi sholeh, cerdas, kreatif, dan berakhlak mulia sejak usia dini.</p>
+            <p style="font-size: 1.2rem; margin-bottom: 0; opacity: 0.95; line-height: 1.7;">Dengan visi menciptakan generasi Islam yang beriman, berilmu, dan berakhlak mulia,beliau memimpin YPI Nurul Ilmi yang menaungi TKIT, SDIT, dan SMPIT Nurul Ilmi menuju pendidikan Islam yang berkualitas.</p>
           </div>
         </div>
       </div>
@@ -593,12 +647,12 @@
 
       <div class="row">
         <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
-          <div class="program-card">
-            <i class="fas fa-music"></i>
-            <h5 style="color: #D4940A; font-weight: 700; margin-bottom: 10px;">Menari</h5>
-            <p style="color: #666; font-size: 14px; margin-bottom: 0;">Kursus tari untuk mengembangkan ekspresi dan kreativitas anak.</p>
-          </div>
-        </div>
+  <div class="program-card">
+    <i class="fas fa-music"></i>
+    <h5 style="color: #D4940A; font-weight: 700; margin-bottom: 10px;">Menari & Menyanyi</h5>
+    <p style="color: #666; font-size: 14px; margin-bottom: 0;">Kegiatan menari dan menyanyi untuk mengembangkan kreativitas, melatih keberanian, serta menumbuhkan rasa percaya diri anak.</p>
+  </div>
+</div>
         <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="150">
           <div class="program-card">
             <i class="fas fa-palette"></i>
@@ -607,91 +661,133 @@
           </div>
         </div>
         <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
-          <div class="program-card">
-            <i class="fas fa-microphone-alt"></i>
-            <h5 style="color: #D4940A; font-weight: 700; margin-bottom: 10px;">Public Speaking</h5>
-            <p style="color: #666; font-size: 14px; margin-bottom: 0;">Program Public Speaking Anak untuk membangun kepercayaan diri.</p>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="250">
-          <div class="program-card">
-            <i class="fas fa-tree"></i>
-            <h5 style="color: #D4940A; font-weight: 700; margin-bottom: 10px;">Outing Class</h5>
-            <p style="color: #666; font-size: 14px; margin-bottom: 0;">Kegiatan belajar di luar kelas untuk pengalaman langsung.</p>
-          </div>
-        </div>
+  <div class="program-card">
+    <i class="fas fa-language"></i>
+    <h5 style="color: #D4940A; font-weight: 700; margin-bottom: 10px;">Bahasa Inggris</h5>
+    <p style="color: #666; font-size: 14px; margin-bottom: 0;">Kegiatan belajar Bahasa Inggris untuk mengenalkan kosakata dan melatih kemampuan berkomunikasi sejak dini.</p>
+  </div>
+</div>
+
+<div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="250">
+  <div class="program-card">
+    <i class="fas fa-book-reader"></i>
+    <h5 style="color: #D4940A; font-weight: 700; margin-bottom: 10px;">Calistung</h5>
+    <p style="color: #666; font-size: 14px; margin-bottom: 0;">Kegiatan belajar membaca, menulis, dan berhitung untuk mengembangkan kemampuan dasar anak.</p>
+  </div>
+</div>
       </div>
     </div>
   </section>
 
   <!-- Fasilitas Section -->
-  <section style="background: #fff; padding: 80px 0;">
+  <section class="ni-theme-gold" style="background: #fff; padding: 80px 0;">
     <div class="container">
       <div class="row justify-content-center mb-5">
         <div class="col-md-8 text-center" data-aos="fade-down">
           <span class="sigma-badge" style="background: linear-gradient(135deg, #D4940A, #E6A800); color: #fff;">Fasilitas</span>
           <h2 class="section-title mt-4">Fasilitas <span>TK Sigma</span></h2>
           <p style="color: #666; max-width: 600px; margin: 15px auto 0;">Fasilitas lengkap dan aman untuk mendukung kenyamanan belajar Ananda.</p>
+          <p style="color: #777; font-size: 14px; max-width: 600px; margin: 8px auto 0;">Klik salah satu fasilitas di bawah untuk melihat dokumentasi foto khusus fasilitas tersebut.</p>
         </div>
       </div>
 
-      <div class="row">
-        <div class="col-lg-3 col-md-4 col-sm-6 mb-4" data-aos="fade-up" data-aos-delay="100">
-          <div class="facility-card">
-            <i class="fas fa-snowflake"></i>
-            <h6 style="color: #333; font-weight: 600; margin-bottom: 5px;">Ruang Kelas AC</h6>
-            <small style="color: #666;">Nyaman & ergonomis untuk anak</small>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 mb-4" data-aos="fade-up" data-aos-delay="150">
-          <div class="facility-card">
-            <i class="fas fa-gamepad"></i>
-            <h6 style="color: #333; font-weight: 600; margin-bottom: 5px;">Playground Indoor</h6>
-            <small style="color: #666;">Aman untuk bermain</small>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 mb-4" data-aos="fade-up" data-aos-delay="200">
-          <div class="facility-card">
-            <i class="fas fa-book-reader"></i>
-            <h6 style="color: #333; font-weight: 600; margin-bottom: 5px;">Perpustakaan Mini</h6>
-            <small style="color: #666;">Pojok baca buku</small>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 mb-4" data-aos="fade-up" data-aos-delay="250">
-          <div class="facility-card">
-            <i class="fas fa-first-aid"></i>
-            <h6 style="color: #333; font-weight: 600; margin-bottom: 5px;">UKS</h6>
-            <small style="color: #666;">Ruang konsultasi tumbuh kembang</small>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 mb-4" data-aos="fade-up" data-aos-delay="300">
-          <div class="facility-card">
-            <i class="fas fa-home"></i>
-            <h6 style="color: #333; font-weight: 600; margin-bottom: 5px;">Aula Serbaguna</h6>
-            <small style="color: #666;">Untuk berbagai kegiatan</small>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 mb-4" data-aos="fade-up" data-aos-delay="350">
-          <div class="facility-card">
-            <i class="fas fa-video"></i>
-            <h6 style="color: #333; font-weight: 600; margin-bottom: 5px;">CCTV 24 Jam</h6>
-            <small style="color: #666;">Akses keamanan terjaga</small>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 mb-4" data-aos="fade-up" data-aos-delay="400">
-          <div class="facility-card">
-            <i class="fas fa-shield-alt"></i>
-            <h6 style="color: #333; font-weight: 600; margin-bottom: 5px;">Sistem Keamanan</h6>
-            <small style="color: #666;">Akses kontrol ketat</small>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 mb-4" data-aos="fade-up" data-aos-delay="450">
-          <div class="facility-card">
-            <i class="fas fa-restroom"></i>
-            <h6 style="color: #333; font-weight: 600; margin-bottom: 5px;">Toilet Bersih</h6>
-            <small style="color: #666;">Ramah anak</small>
-          </div>
-        </div>
+      <div class="ni-fas-grid">
+      <button type="button" class="ni-fas-card" data-ni-facility="kelas-ac">
+        <span class="ni-fas-media">
+          <img src="images/kelas.jpeg" alt="Ruang Kelas AC" loading="lazy">
+          <span class="ni-fas-icon" aria-hidden="true"><i class="fas fa-snowflake"></i></span>
+          <span class="ni-fas-count"></span>
+        </span>
+        <span class="ni-fas-body">
+          <span class="ni-fas-title">Ruang Kelas AC</span>
+          <span class="ni-fas-desc">Nyaman & ergonomis untuk anak</span>
+          <span class="ni-fas-cta">Lihat Galeri <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+        </span>
+      </button>
+      <button type="button" class="ni-fas-card" data-ni-facility="playground">
+        <span class="ni-fas-media">
+          <img src="images/main.jpeg" alt="Playground Indoor" loading="lazy">
+          <span class="ni-fas-icon" aria-hidden="true"><i class="fas fa-gamepad"></i></span>
+          <span class="ni-fas-count"></span>
+        </span>
+        <span class="ni-fas-body">
+          <span class="ni-fas-title">Playground Indoor</span>
+          <span class="ni-fas-desc">Aman untuk bermain</span>
+          <span class="ni-fas-cta">Lihat Galeri <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+        </span>
+      </button>
+      <button type="button" class="ni-fas-card" data-ni-facility="perpustakaan-mini">
+        <span class="ni-fas-media">
+          <!-- foto belum tersedia untuk fasilitas ini -->
+          <span class="ni-fas-icon" aria-hidden="true"><i class="fas fa-book-reader"></i></span>
+          <span class="ni-fas-count"></span>
+        </span>
+        <span class="ni-fas-body">
+          <span class="ni-fas-title">Perpustakaan Mini</span>
+          <span class="ni-fas-desc">Pojok baca buku</span>
+          <span class="ni-fas-cta">Lihat Galeri <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+        </span>
+      </button>
+      <button type="button" class="ni-fas-card" data-ni-facility="uks">
+        <span class="ni-fas-media">
+          <!-- foto belum tersedia untuk fasilitas ini -->
+          <span class="ni-fas-icon" aria-hidden="true"><i class="fas fa-first-aid"></i></span>
+          <span class="ni-fas-count"></span>
+        </span>
+        <span class="ni-fas-body">
+          <span class="ni-fas-title">UKS</span>
+          <span class="ni-fas-desc">Ruang konsultasi tumbuh kembang</span>
+          <span class="ni-fas-cta">Lihat Galeri <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+        </span>
+      </button>
+      <button type="button" class="ni-fas-card" data-ni-facility="aula">
+        <span class="ni-fas-media">
+          <!-- foto belum tersedia untuk fasilitas ini -->
+          <span class="ni-fas-icon" aria-hidden="true"><i class="fas fa-home"></i></span>
+          <span class="ni-fas-count"></span>
+        </span>
+        <span class="ni-fas-body">
+          <span class="ni-fas-title">Aula Serbaguna</span>
+          <span class="ni-fas-desc">Untuk berbagai kegiatan</span>
+          <span class="ni-fas-cta">Lihat Galeri <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+        </span>
+      </button>
+      <button type="button" class="ni-fas-card" data-ni-facility="cctv">
+        <span class="ni-fas-media">
+          <!-- foto belum tersedia untuk fasilitas ini -->
+          <span class="ni-fas-icon" aria-hidden="true"><i class="fas fa-video"></i></span>
+          <span class="ni-fas-count"></span>
+        </span>
+        <span class="ni-fas-body">
+          <span class="ni-fas-title">CCTV 24 Jam</span>
+          <span class="ni-fas-desc">Akses keamanan terjaga</span>
+          <span class="ni-fas-cta">Lihat Galeri <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+        </span>
+      </button>
+      <button type="button" class="ni-fas-card" data-ni-facility="keamanan">
+        <span class="ni-fas-media">
+          <img src="images/idcard.jpeg" alt="Sistem Keamanan" loading="lazy">
+          <span class="ni-fas-icon" aria-hidden="true"><i class="fas fa-shield-alt"></i></span>
+          <span class="ni-fas-count"></span>
+        </span>
+        <span class="ni-fas-body">
+          <span class="ni-fas-title">Sistem Keamanan</span>
+          <span class="ni-fas-desc">Akses kontrol ketat</span>
+          <span class="ni-fas-cta">Lihat Galeri <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+        </span>
+      </button>
+      <button type="button" class="ni-fas-card" data-ni-facility="toilet">
+        <span class="ni-fas-media">
+          <!-- foto belum tersedia untuk fasilitas ini -->
+          <span class="ni-fas-icon" aria-hidden="true"><i class="fas fa-restroom"></i></span>
+          <span class="ni-fas-count"></span>
+        </span>
+        <span class="ni-fas-body">
+          <span class="ni-fas-title">Toilet Bersih</span>
+          <span class="ni-fas-desc">Ramah anak</span>
+          <span class="ni-fas-cta">Lihat Galeri <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+        </span>
+      </button>
       </div>
     </div>
   </section>
@@ -753,23 +849,23 @@
             <div class="text-left">
               <div class="price-item">
                 <span style="color: #666;">Biaya Pendaftaran</span>
-                <span style="color: #D4940A; font-weight: 600;">Rp 300.000</span>
+                <span style="color: #D4940A; font-weight: 600;"></span>
               </div>
               <div class="price-item">
                 <span style="color: #666;">Uang Pangkal + Sarana</span>
-                <span style="color: #D4940A; font-weight: 600;">Rp 1.400.000</span>
+                <span style="color: #D4940A; font-weight: 600;"></span>
               </div>
               <div class="price-item">
                 <span style="color: #666;">SPP Juli</span>
-                <span style="color: #D4940A; font-weight: 600;">Rp 290.000</span>
+                <span style="color: #D4940A; font-weight: 600;"></span>
               </div>
               <div class="price-item">
                 <span style="color: #666;">Seragam Siswa + Tas Sekolah</span>
-                <span style="color: #D4940A; font-weight: 600;">Rp 1.300.000</span>
+                <span style="color: #D4940A; font-weight: 600;"></span>
               </div>
               <div class="price-item">
                 <span style="color: #666;">Buku dan Alat Tulis + Buku Paket</span>
-                <span style="color: #D4940A; font-weight: 600;">Rp 1.000.000</span>
+                <span style="color: #D4940A; font-weight: 600;"></span>
               </div>
               <div class="price-item">
                 <span style="color: #666;">Kegiatan Pendidikan</span>
@@ -784,9 +880,14 @@
               <p style="color: #666; font-size: 14px; margin-bottom: 20px;">
                 <strong>Ekstrakurikuler:</strong> Calistung, English Club, Tahfidz, Mewarnai, dan Menari
               </p>
-              <a href="https://wa.me/6281282307424?text=Halo%20Bu%20Ida,%20saya%20ingin%20bertanya%20tentang%20pendaftaran%20TK%20Sigma" target="_blank" class="sigma-btn" style="width: 100%; justify-content: center;">
-                <i class="fab fa-whatsapp"></i> Tanya Biaya via WhatsApp
-              </a>
+              <div class="sigma-contact-options">
+                <a href="https://wa.me/6281282307424?text=Halo%20Bu%20Ida,%20saya%20ingin%20bertanya%20tentang%20pendaftaran%20TK%20Sigma" target="_blank" rel="noopener" class="sigma-btn">
+                  <i class="fab fa-whatsapp"></i> Tanya Bu Ida
+                </a>
+                <a href="https://wa.me/6281214095882?text=Halo%20Bu%20Ulfah,%20saya%20ingin%20bertanya%20tentang%20pendaftaran%20TK%20Sigma" target="_blank" rel="noopener" class="sigma-btn">
+                  <i class="fab fa-whatsapp"></i> Tanya Bu Ulfah
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -868,10 +969,15 @@
                     </h5>
                     <p style="margin: 0; opacity: 0.95;">Setelah melakukan pembayaran daftar ulang, Ananda resmi menjadi siswa TK Sigma.</p>
                   </div>
-                  <div class="col-lg-4 text-lg-right">
-                    <a href="https://wa.me/6281282307424?text=Halo%20Bu%20Ida,%20saya%20ingin%20mendaftarkan%20anak%20di%20TK%20Sigma" target="_blank" class="sigma-btn" style="background: #fff; color: #D4940A;">
-                      <i class="fab fa-whatsapp"></i> Daftar Sekarang
-                    </a>
+                  <div class="col-lg-4">
+                    <div class="sigma-contact-options">
+                      <a href="https://wa.me/6281282307424?text=Halo%20Bu%20Ida,%20saya%20ingin%20mendaftarkan%20anak%20di%20TK%20Sigma" target="_blank" rel="noopener" class="sigma-btn" style="background: #fff; color: #D4940A;">
+                        <i class="fab fa-whatsapp"></i> Daftar ke Bu Ida
+                      </a>
+                      <a href="https://wa.me/6281214095882?text=Halo%20Bu%20Ulfah,%20saya%20ingin%20mendaftarkan%20anak%20di%20TK%20Sigma" target="_blank" rel="noopener" class="sigma-btn" style="background: #fff; color: #D4940A;">
+                        <i class="fab fa-whatsapp"></i> Daftar ke Bu Ulfah
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -883,24 +989,46 @@
   </section>
 
   <!-- CTA Section -->
-  <section style="background: linear-gradient(135deg, #D4940A, #E6A800); padding: 60px 0;">
+ 
+  <!-- Artikel Section -->
+  <section class="ni-art-section ni-theme-gold" style="background: linear-gradient(180deg, #ffffff 0%, #FFFDE7 100%); padding: 80px 0;">
+    <div class="container">
+      <div class="row justify-content-center mb-5">
+        <div class="col-md-8 text-center" data-aos="fade-down">
+          <span class="sigma-badge" style="background: linear-gradient(135deg, #D4940A, #E6A800); color: #fff;">Artikel</span>
+          <h2 class="section-title mt-4">Artikel &amp; Kegiatan <span>TK Sigma</span></h2>
+          <p style="color: #666; max-width: 640px; margin: 15px auto 0;">Dokumentasi kegiatan, program, dan prestasi TK Sigma. Daftar artikel akan dipublikasikan melalui tampilan ini.</p>
+        </div>
+      </div>
+      <div id="tkSigmaArtikel"></div>
+    </div>
+  </section>
+ <section style="background: linear-gradient(135deg, #D4940A, #E6A800); padding: 60px 0;">
     <div class="container">
       <div class="row align-items-center">
         <div class="col-lg-8 mb-4 mb-lg-0" data-aos="fade-right">
           <h2 style="color: #fff; font-size: 2rem; font-weight: 700; margin-bottom: 15px;">Tertarik dengan TK Sigma?</h2>
           <p style="color: rgba(255,255,255,0.95); font-size: 1.1rem; margin: 0;">Hubungi kami untuk informasi lebih lanjut atau jadwalkan kunjungan ke TK Sigma.</p>
         </div>
-        <div class="col-lg-4 text-lg-right" data-aos="fade-left">
-          <a href="https://wa.me/6281282307424?text=Halo%20Bu%20Ida,%20saya%20tertarik%20dengan%20TK%20Sigma" target="_blank" class="sigma-btn" style="background: #fff; color: #D4940A; margin-right: 15px;">
-            <i class="fab fa-whatsapp"></i> Hubungi Kami
-          </a>
-          <a href="contact.html" class="sigma-btn" style="background: rgba(255,255,255,0.2); color: #fff; border: 2px solid #fff;">
-            <i class="fas fa-map-marker-alt"></i> Lokasi
-          </a>
+        <div class="col-lg-4" data-aos="fade-left">
+          <div class="sigma-cta-options">
+            <div class="sigma-contact-options">
+              <a href="https://wa.me/6281282307424?text=Halo%20Bu%20Ida,%20saya%20tertarik%20dengan%20TK%20Sigma" target="_blank" rel="noopener" class="sigma-btn" style="background: #fff; color: #D4940A;">
+                <i class="fab fa-whatsapp"></i> Hubungi Bu Ida
+              </a>
+              <a href="https://wa.me/6281214095882?text=Halo%20Bu%20Ulfah,%20saya%20tertarik%20dengan%20TK%20Sigma" target="_blank" rel="noopener" class="sigma-btn" style="background: #fff; color: #D4940A;">
+                <i class="fab fa-whatsapp"></i> Hubungi Bu Ulfah
+              </a>
+            </div>
+            <a href="contact.html" class="sigma-btn" style="background: rgba(255,255,255,0.2); color: #fff; border: 2px solid #fff;">
+              <i class="fas fa-map-marker-alt"></i> Lokasi
+            </a>
+          </div>
         </div>
       </div>
     </div>
   </section>
+
 
   <!-- Footer -->
   <footer class="ftco-footer ftco-bg-dark ftco-section">
@@ -916,28 +1044,16 @@
                   <span class="text" style="color: rgba(255,255,255,0.7); line-height: 1.6;">Perumahan Jl. Bumi Waringin Indah 2, Waringinjaya, Kec. Kedungwaringin, Kab. Bekasi, Jawa Barat 17540</span>
                 </li>
                 <li style="margin-bottom: 12px;">
-                  <a href="https://wa.me/6281282307424" target="_blank" style="display: flex; align-items: center; color: rgba(255,255,255,0.7); text-decoration: none;">
+                  <a href="https://wa.me/6281282307424" target="_blank" rel="noopener" style="display: flex; align-items: center; color: rgba(255,255,255,0.7); text-decoration: none;">
                     <span class="fab fa-whatsapp" style="color: #25D366; margin-right: 15px; font-size: 16px;"></span>
                     <span>+62 812-8230-7424 (Bu Ida)</span>
                   </a>
                 </li>
                 <li style="margin-bottom: 12px;">
-                  <a href="https://wa.me/6281285257593" target="_blank" style="display: flex; align-items: center; color: rgba(255,255,255,0.7); text-decoration: none;">
+                  <a href="https://wa.me/6281214095882" target="_blank" rel="noopener" style="display: flex; align-items: center; color: rgba(255,255,255,0.7); text-decoration: none;">
                     <span class="fab fa-whatsapp" style="color: #25D366; margin-right: 15px; font-size: 16px;"></span>
-                    <span>+62 812-8525-7593 (Bu Linda)</span>
-                  </a>
-                </li>
-                <li style="margin-bottom: 12px;">
-                  <a href="https://wa.me/6289695742700" target="_blank" style="display: flex; align-items: center; color: rgba(255,255,255,0.7); text-decoration: none;">
-                    <span class="fab fa-whatsapp" style="color: #25D366; margin-right: 15px; font-size: 16px;"></span>
-                    <span>+62 896-9574-2700 (Bu Sofi)</span>
-                  </a>
-                </li>
-                <li style="margin-bottom: 12px;">
-                  <a href="https://wa.me/6285723363762" target="_blank" style="display: flex; align-items: center; color: rgba(255,255,255,0.7); text-decoration: none;">
-                    <span class="fab fa-whatsapp" style="color: #25D366; margin-right: 15px; font-size: 16px;"></span>
-                    <span>+62 857-2336-3762 (Bu Eva)</span>
-                  </a>
+                    <span>+62 812-1409-5882 (Bu Ulfah)</span>
+                   </a>
                 </li>
                 <li>
                   <a href="mailto:yayasan@ypinurulilmi.or.id" style="display: flex; align-items: center; color: rgba(255,255,255,0.7); text-decoration: none;">
@@ -1008,5 +1124,92 @@
   <script src="js/jquery.stellar.min.js"></script>
   <script src="js/aos.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/fasilitas-gallery.js"></script>
+  <script>
+    /* Data galeri fasilitas & artikel TK Sigma (frontend statis, tanpa backend).
+       Setiap facility card membuka galeri KHUSUS untuk fasilitas tersebut. */
+    (function () {
+      var FASILITAS = {
+        'kelas-ac': {
+          title: 'Ruang Kelas AC',
+          desc: 'Ruang kelas ber-AC yang nyaman dan ergonomis untuk mendukung fokus belajar Ananda.',
+          photos: [
+            { src: 'images/kelas.jpeg', alt: 'Ruang Kelas AC TK Sigma', caption: 'Ruang Kelas AC' }
+          ]
+        },
+        'playground': {
+          title: 'Playground Indoor',
+          desc: 'Area bermain yang aman untuk eksplorasi dan kegiatan motorik anak.',
+          photos: [
+            { src: 'images/main.jpeg', alt: 'Playground di area sekolah', caption: 'Playground' },
+            { src: 'images/WhatsApp%20Image%202026-10-19%20at%2016.21.49%20(5).jpeg', alt: 'Taman bermain anak', caption: 'Taman Bermain' }
+          ]
+        },
+        'perpustakaan-mini': {
+          title: 'Perpustakaan Mini',
+          desc: 'Pojok baca buku untuk memperkaya kelas dan minat baca Ananda.',
+          photos: []
+        },
+        'uks': {
+          title: 'UKS',
+          desc: 'Ruang konsultasi tumbuh kembang dan penanganan kesehatan awal.',
+          photos: []
+        },
+        'aula': {
+          title: 'Aula Serbaguna',
+          desc: 'Ruang serbaguna untuk berbagai kegiatan sekolah dan acara bersama.',
+          photos: []
+        },
+        'cctv': {
+          title: 'CCTV 24 Jam',
+          desc: 'Pemantauan area sekolah 24 jam agar akses keamanan terjaga.',
+          photos: []
+        },
+        'keamanan': {
+          title: 'Sistem Keamanan',
+          desc: 'Akses kontrol ketat menggunakan kartu identitas di pintu masuk area sekolah.',
+          photos: [
+            { src: 'images/idcard.jpeg', alt: 'Sistem akses kartu di sekolah', caption: 'Akses Kontrol Kartu' }
+          ]
+        },
+        'toilet': {
+          title: 'Toilet Bersih',
+          desc: 'Toilet bersih dan ramah anak dengan kebersihan terjaga.',
+          photos: []
+        }
+      };
+
+      /* Struktur data artikel TK Sigma (frontend statis).
+         Contoh isi array ARTIKEL:
+         { cover: 'images/foto.jpg', category: 'Kegiatan', title: 'Judul Artikel',
+           date: '12 Oktober 2026', excerpt: 'Ringkasan artikel...', url: 'blog-single.html' } */
+      var ARTIKEL = [];
+
+      function boot() {
+        if (!window.NIGaleri) return;
+
+        window.NIGaleri.initFasilitas({
+          cardsSelector: '.ni-fas-card',
+          data: FASILITAS,
+          theme: 'gold'
+        });
+
+        window.NIGaleri.initArtikel({
+          container: '#tkSigmaArtikel',
+          data: ARTIKEL,
+          emptyTitle: 'Belum ada artikel TK Sigma',
+          emptyText: 'Belum ada artikel yang dipublikasikan untuk TK Sigma. Informasi kegiatan dan program TK Sigma juga dapat Anda ikuti melalui halaman Artikel YPI Nurul Ilmi.',
+          emptyLinkHref: 'blog.html',
+          emptyLinkText: 'Lihat Artikel YPI Nurul Ilmi'
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', boot);
+      } else {
+        boot();
+      }
+    })();
+  </script>
 </body>
 </html>

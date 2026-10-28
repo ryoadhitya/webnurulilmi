@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Fredericka+the+Great" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
   <link rel="stylesheet" href="css/animate.css">
@@ -681,6 +682,202 @@
   }
 }
 
+/* SPMB Contact Section */
+.spmb-contact-section {
+  width: 100%;
+  margin: 30px auto;
+  font-family: inherit;
+}
+
+.spmb-contact-heading {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.spmb-contact-heading h3 {
+  color: #173b32;
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.spmb-contact-heading p {
+  color: #666;
+  font-size: 15px;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.spmb-contact-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  align-items: stretch;
+}
+
+.spmb-contact-card {
+  --contact-color: #0A4F42;
+  --contact-light: #0d6b5a;
+
+  background: #fff;
+  border: 1px solid #edf0ee;
+  border-top: 4px solid var(--contact-color);
+  border-radius: 16px;
+  padding: 28px 18px;
+  text-align: center;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.spmb-contact-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.11);
+}
+
+.spmb-contact-card.ida {
+  --contact-color: #0A4F42;
+  --contact-light: #0d6b5a;
+}
+
+.spmb-contact-card.linda {
+  --contact-color: #1B4F72;
+  --contact-light: #2874A6;
+}
+
+.spmb-contact-card.sofi {
+  --contact-color: #269957;
+  --contact-light: #5EDC8A;
+}
+
+.spmb-contact-card.eva {
+  --contact-color: #D4940A;
+  --contact-light: #E6A800;
+}
+
+.spmb-contact-icon {
+  width: 58px;
+  height: 58px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    var(--contact-color),
+    var(--contact-light)
+  );
+  color: #fff;
+  font-size: 23px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.spmb-contact-card h4 {
+  color: #333;
+  font-size: 17px;
+  font-weight: 700;
+  margin: 0 0 10px;
+}
+
+.spmb-contact-label {
+  display: inline-block;
+  max-width: 100%;
+  background: linear-gradient(
+    135deg,
+    var(--contact-color),
+    var(--contact-light)
+  );
+  color: #fff;
+  padding: 5px 13px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.spmb-contact-number {
+  color: #555;
+  font-size: 13px;
+  font-weight: 500;
+  margin: 0 0 20px;
+  overflow-wrap: anywhere;
+}
+
+.spmb-whatsapp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 190px;
+  min-height: 42px;
+  margin-top: auto;
+  padding: 11px 12px;
+  border-radius: 25px;
+  background: #25D366;
+  color: #fff !important;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none !important;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.2);
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.spmb-whatsapp-btn:hover {
+  background: #1DA851;
+  color: #fff !important;
+  transform: translateY(-2px);
+}
+
+.spmb-whatsapp-btn i {
+  font-size: 17px;
+}
+
+/* Tablet */
+@media (max-width: 991px) {
+  .spmb-contact-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 575px) {
+  .spmb-contact-section {
+    margin: 20px auto;
+  }
+
+  .spmb-contact-heading {
+    margin-bottom: 22px;
+  }
+
+  .spmb-contact-heading p {
+    font-size: 14px;
+  }
+
+  .spmb-contact-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .spmb-contact-card {
+    padding: 24px 20px;
+  }
+
+  .spmb-contact-number {
+    font-size: 14px;
+  }
+
+  .spmb-whatsapp-btn {
+    max-width: 220px;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -716,7 +913,7 @@
           <img src="images/logonurulilmi.png" alt="Logo YPI Nurul Ilmi" class="navbar-brand-logo">
           <span class="navbar-brand-text">
             <span class="navbar-brand-title">Yayasan Pendidikan Islam</span>
-            <span class="navbar-brand-subtitle">NURUL ILMI</span>
+            <span class="navbar-brand-subtitle">NURUL ILMI BEKASI</span>
           </span>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
@@ -811,24 +1008,24 @@
               <!-- Fee Details -->
               <div class="ps-fee-header ps-fee-header-tkit">
                 <i class="fas fa-receipt"></i>
-                <h3 class="ps-fee-title">Rincian Biaya Pendaftaran</h3>
+                <h3 class="ps-fee-title">Meliputi</h3>
               </div>
               <ul class="ps-fee-list">
                 <li class="ps-fee-item">
                   <span class="ps-fee-name">Uang Pangkal / Sarana</span>
-                  <span class="ps-fee-amount ps-fee-amount-tkit">Rp1.400.000</span>
+                  <span class="ps-fee-amount ps-fee-amount-tkit"></span>
                 </li>
                 <li class="ps-fee-item">
                   <span class="ps-fee-name">SPP Bulan Juli 2027</span>
-                  <span class="ps-fee-amount ps-fee-amount-tkit">Rp290.000</span>
+                  <span class="ps-fee-amount ps-fee-amount-tkit"></span>
                 </li>
                 <li class="ps-fee-item">
                   <span class="ps-fee-name">Seragam + Tas Sekolah (5 stel)</span>
-                  <span class="ps-fee-amount ps-fee-amount-tkit">Rp1.300.000</span>
+                  <span class="ps-fee-amount ps-fee-amount-tkit"></span>
                 </li>
                 <li class="ps-fee-item">
                   <span class="ps-fee-name">Buku + Alat Tulis + Buku Paket (1 tahun + bahan practise)</span>
-                  <span class="ps-fee-amount ps-fee-amount-tkit">Rp1.000.000</span>
+                  <span class="ps-fee-amount ps-fee-amount-tkit"></span>
                 </li>
                 <li class="ps-fee-item">
                   <span class="ps-fee-name">Kegiatan Pendidikan</span>
@@ -963,28 +1160,28 @@
               <!-- Fee Details -->
               <div class="ps-fee-header ps-fee-header-sdit">
                 <i class="fas fa-receipt"></i>
-                <h3 class="ps-fee-title">Rincian Biaya Pendaftaran</h3>
+                <h3 class="ps-fee-title">Meliputi</h3>
               </div>
               <ul class="ps-fee-list">
                 <li class="ps-fee-item">
                   <span class="ps-fee-name">Uang Pangkal / gedung</span>
-                  <span class="ps-fee-amount ps-fee-amount-sdit">Rp2.500.000</span>
+                  <span class="ps-fee-amount ps-fee-amount-sdit"></span>
                 </li>
                 <li class="ps-fee-item">
                   <span class="ps-fee-name">Sarana</span>
-                  <span class="ps-fee-amount ps-fee-amount-sdit">Rp1.500.000</span>
+                  <span class="ps-fee-amount ps-fee-amount-sdit"></span>
                 </li>
                 <li class="ps-fee-item">
                   <span class="ps-fee-name">Seragam Siswa + e-ID Card (6 stel)</span>
-                  <span class="ps-fee-amount ps-fee-amount-sdit">Rp1.600.000</span>
+                  <span class="ps-fee-amount ps-fee-amount-sdit"></span>
                 </li>
                 <li class="ps-fee-item">
                   <span class="ps-fee-name">Jas</span>
-                  <span class="ps-fee-amount ps-fee-amount-sdit">Rp250.000</span>
+                  <span class="ps-fee-amount ps-fee-amount-sdit"></span>
                 </li>
                 <li class="ps-fee-item">
                   <span class="ps-fee-name">Buku Paket (Umum dan Agama)</span>
-                  <span class="ps-fee-amount ps-fee-amount-sdit">Rp2.000.000</span>
+                  <span class="ps-fee-amount ps-fee-amount-sdit"></span>
                 </li>
               </ul>
 
@@ -1129,28 +1326,28 @@
               <!-- Fee Details -->
               <div class="ps-fee-header ps-fee-header-smpit">
                 <i class="fas fa-receipt"></i>
-                <h3 class="ps-fee-title">Rincian Biaya Pendaftaran</h3>
+                <h3 class="ps-fee-title">Meliputi</h3>
               </div>
               <ul class="ps-fee-list">
                 <li class="ps-fee-item">
                   <span class="ps-fee-name">Uang Pangkal / gedung</span>
-                  <span class="ps-fee-amount ps-fee-amount-smpit">Rp2.500.000</span>
+                  <span class="ps-fee-amount ps-fee-amount-smpit"></span>
                 </li>
                 <li class="ps-fee-item">
                   <span class="ps-fee-name">Sarana</span>
-                  <span class="ps-fee-amount ps-fee-amount-smpit">Rp1.500.000</span>
+                  <span class="ps-fee-amount ps-fee-amount-smpit"></span>
                 </li>
                 <li class="ps-fee-item">
                   <span class="ps-fee-name">Seragam Siswa + e-ID Card (6 stel)</span>
-                  <span class="ps-fee-amount ps-fee-amount-smpit">Rp1.600.000</span>
+                  <span class="ps-fee-amount ps-fee-amount-smpit"></span>
                 </li>
                 <li class="ps-fee-item">
                   <span class="ps-fee-name">Jas</span>
-                  <span class="ps-fee-amount ps-fee-amount-smpit">Rp250.000</span>
+                  <span class="ps-fee-amount ps-fee-amount-smpit"></span>
                 </li>
                 <li class="ps-fee-item">
                   <span class="ps-fee-name">Buku Paket (Umum dan Agama)</span>
-                  <span class="ps-fee-amount ps-fee-amount-smpit">Rp2.300.000</span>
+                  <span class="ps-fee-amount ps-fee-amount-smpit"></span>
                 </li>
               </ul>
 
@@ -1270,14 +1467,82 @@
         </div>
 
         <!-- CTA -->
-        <div class="ps-cta">
-          <h3>Butuh Informasi Lebih Lanjut?</h3>
-          <p>Hubungi kami untuk konsultasi pendaftaran dan pertanyaan lainnya</p>
-          <a href="contact.html">
-            <i class="fas fa-phone-alt"></i>
-            Hubungi Kami
-          </a>
-        </div>
+       
+<div class="spmb-contact-section">
+  <div class="spmb-contact-heading">
+    <h3>Butuh Informasi Lebih Lanjut?</h3>
+    <p>Hubungi kami untuk konsultasi pendaftaran dan pertanyaan lainnya.</p>
+  </div>
+
+  <div class="spmb-contact-grid">
+
+    <!-- Bu Ida -->
+    <div class="spmb-contact-card ida">
+      <div class="spmb-contact-icon">
+        <i class="fas fa-user-tie"></i>
+      </div>
+      <h4>Bu Ida</h4>
+      <span class="spmb-contact-label">TK / SD / SMP</span>
+      <p class="spmb-contact-number">+62 812-8230-7424</p>
+      <a href="https://wa.me/6281282307424"
+         target="_blank" rel="noopener noreferrer"
+         class="spmb-whatsapp-btn">
+        <i class="fab fa-whatsapp"></i>
+        Chat WhatsApp
+      </a>
+    </div>
+
+    <!-- Bu Linda -->
+    <div class="spmb-contact-card linda">
+      <div class="spmb-contact-icon">
+        <i class="fas fa-user-graduate"></i>
+      </div>
+      <h4>Bu Linda</h4>
+      <span class="spmb-contact-label">Admin</span>
+      <p class="spmb-contact-number">+62 812-8525-7593</p>
+      <a href="https://wa.me/6281285257593"
+         target="_blank" rel="noopener noreferrer"
+         class="spmb-whatsapp-btn">
+        <i class="fab fa-whatsapp"></i>
+        Chat WhatsApp
+      </a>
+    </div>
+
+    <!-- Bu Sofi -->
+    <div class="spmb-contact-card sofi">
+      <div class="spmb-contact-icon">
+        <i class="fas fa-chalkboard-teacher"></i>
+      </div>
+      <h4>Bu Sofi</h4>
+      <span class="spmb-contact-label">Jenjang SD</span>
+      <p class="spmb-contact-number">+62 896-3739-2574</p>
+      <a href="https://wa.me/6289637392574"
+         target="_blank" rel="noopener noreferrer"
+         class="spmb-whatsapp-btn">
+        <i class="fab fa-whatsapp"></i>
+        Chat WhatsApp
+      </a>
+    </div>
+
+    <!-- Bu Eva -->
+    <div class="spmb-contact-card eva">
+      <div class="spmb-contact-icon">
+        <i class="fas fa-user"></i>
+      </div>
+      <h4>Bu Eva</h4>
+      <span class="spmb-contact-label">Jenjang SMP</span>
+      <p class="spmb-contact-number">+62 857-2336-3762</p>
+      <a href="https://wa.me/6285723363762"
+         target="_blank" rel="noopener noreferrer"
+         class="spmb-whatsapp-btn">
+        <i class="fab fa-whatsapp"></i>
+        Chat WhatsApp
+      </a>
+    </div>
+
+  </div>
+</div>
+
 
       </div>
     </section>
@@ -1298,19 +1563,19 @@
                   <li style="margin-bottom: 12px;">
                     <a href="https://wa.me/6281282307424" target="_blank" style="display: flex; align-items: center; color: rgba(255,255,255,0.7); text-decoration: none;">
                       <span class="fab fa-whatsapp" style="color: #25D366; margin-right: 15px; font-size: 16px;"></span>
-                      <span>+62 812-8230-7424 (Bu Ida)</span>
+                      <span>+62 812-8230-7424 (Bu Ida - TK / SD / SMP)</span>
                     </a>
                   </li>
                   <li style="margin-bottom: 12px;">
                     <a href="https://wa.me/6285723363762" target="_blank" style="display: flex; align-items: center; color: rgba(255,255,255,0.7); text-decoration: none;">
                       <span class="fab fa-whatsapp" style="color: #25D366; margin-right: 15px; font-size: 16px;"></span>
-                      <span>+62 857-2336-3762 (Bu Eva - Admin SMP)</span>
+                      <span>+62 857-2336-3762 (Bu Eva - SMP)</span>
                     </a>
                   </li>
                   <li style="margin-bottom: 12px;">
                     <a href="https://wa.me/6289637392574" target="_blank" style="display: flex; align-items: center; color: rgba(255,255,255,0.7); text-decoration: none;">
                       <span class="fab fa-whatsapp" style="color: #25D366; margin-right: 15px; font-size: 16px;"></span>
-                      <span>+62 896-3739-2574 (Bu Sofi - Admin SD)</span>
+                      <span>+62 896-3739-2574 (Bu Sofi - SD)</span>
                     </a>
                   </li>
                   <li>

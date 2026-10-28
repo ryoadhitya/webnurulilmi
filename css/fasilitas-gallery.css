@@ -1,0 +1,662 @@
+/* ==========================================================================
+   NURUL ILMI - FASILITAS GALLERY & ARTIKEL (scoped, opt-in per page)
+   prefixed with .ni-  so nothing leaks into other pages/sections
+   ========================================================================== */
+
+/* --- Theme tokens (activate on the section wrapper) --------------------- */
+.ni-theme-green {
+  --ni-accent: #0A4F42;
+  --ni-accent-2: #0d6b5a;
+  --ni-accent-soft: rgba(10, 79, 66, 0.10);
+  --ni-gold: #D4AF37;
+  --ni-on-accent: #ffffff;
+  --ni-media-bg: linear-gradient(135deg, #0A4F42 0%, #0d6b5a 100%);
+}
+
+.ni-theme-gold {
+  --ni-accent: #D4940A;
+  --ni-accent-2: #E6A800;
+  --ni-accent-soft: rgba(212, 148, 10, 0.12);
+  --ni-gold: #D4940A;
+  --ni-on-accent: #ffffff;
+  --ni-media-bg: linear-gradient(135deg, #D4940A 0%, #E6A800 100%);
+}
+
+.ni-theme-warm {
+  --ni-accent: #F5C518;
+  --ni-accent-2: #FFD84D;
+  --ni-accent-soft: rgba(245, 197, 24, 0.16);
+  --ni-gold: #F5C518;
+  --ni-on-accent: #3d2f00;
+  --ni-media-bg: linear-gradient(135deg, #F5C518 0%, #FFD84D 100%);
+}
+
+/* ==========================================================================
+   1. FASILITAS CARD GRID
+   ========================================================================== */
+.ni-fas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.ni-fas-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  font: inherit;
+  text-align: left;
+  appearance: none;
+  -webkit-appearance: none;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.07);
+  text-decoration: none;
+  color: inherit;
+  height: 100%;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.ni-fas-card:hover,
+.ni-fas-card:focus-visible {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.13);
+  border-color: var(--ni-accent);
+  text-decoration: none;
+  color: inherit;
+}
+
+.ni-fas-card:focus-visible {
+  outline: 3px solid var(--ni-accent);
+  outline-offset: 4px;
+}
+
+/* Media area: fixed height so every card lines up */
+.ni-fas-media {
+  position: relative;
+  display: block;
+  height: 190px;
+  background: var(--ni-media-bg);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.ni-fas-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.ni-fas-card:hover .ni-fas-media img,
+.ni-fas-card:focus-visible .ni-fas-media img {
+  transform: scale(1.07);
+}
+
+/* Icon fallback shown when a facility has no photo asset */
+.ni-fas-icon {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  color: var(--ni-on-accent);
+  font-size: 44px;
+  opacity: 0.95;
+}
+
+.ni-fas-icon i {
+  font-size: 44px;
+}
+
+.ni-fas-card.is-placeholder .ni-fas-media img {
+  display: none;
+}
+
+.ni-fas-card.is-placeholder .ni-fas-icon {
+  display: flex;
+}
+
+.ni-fas-card.is-placeholder:hover .ni-fas-icon i {
+  transform: scale(1.12);
+}
+
+.ni-fas-icon i {
+  transition: transform 0.3s ease;
+}
+
+/* Count badge on the media */
+.ni-fas-count {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(0, 0, 0, 0.62);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  backdrop-filter: blur(4px);
+}
+
+/* Body */
+.ni-fas-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 20px 20px 18px;
+  text-align: left;
+}
+
+.ni-fas-title {
+  font-family: 'Playfair Display', 'Nunito', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--ni-accent);
+  margin-bottom: 6px;
+  line-height: 1.35;
+}
+
+.ni-fas-desc {
+  font-size: 13.5px;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 12px;
+  flex: 1;
+}
+
+.ni-fas-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 14px;
+}
+
+.ni-fas-tag {
+  display: inline-block;
+  background: var(--ni-accent);
+  color: var(--ni-on-accent);
+  padding: 3px 10px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.ni-fas-tag.is-alt {
+  background: rgba(0, 0, 0, 0.06);
+  color: var(--ni-accent);
+}
+
+/* CTA */
+.ni-fas-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ni-accent);
+  padding-top: 12px;
+  border-top: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+.ni-fas-cta i {
+  transition: transform 0.25s ease;
+}
+
+.ni-fas-card:hover .ni-fas-cta i,
+.ni-fas-card:focus-visible .ni-fas-cta i {
+  transform: translateX(4px);
+}
+
+/* ==========================================================================
+   2. GALLERY MODAL (Bootstrap 4 modal, scoped)
+   ========================================================================== */
+.ni-gallery-modal .modal-content {
+  border: 0;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+}
+
+.ni-gallery-modal .modal-header {
+  background: var(--ni-media-bg);
+  border: 0;
+  padding: 22px 26px;
+  align-items: flex-start;
+}
+
+.ni-gallery-modal .modal-title {
+  color: #fff;
+  font-family: 'Playfair Display', 'Nunito', serif;
+  font-weight: 700;
+  font-size: 1.35rem;
+  margin: 0 0 4px;
+}
+
+.ni-gallery-modal .ni-gallery-subtitle {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 13.5px;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.ni-gallery-modal .close {
+  color: #fff;
+  opacity: 0.85;
+  text-shadow: none;
+  font-size: 1.9rem;
+  line-height: 1;
+  padding: 4px 8px;
+}
+
+.ni-gallery-modal .close:hover {
+  color: #fff;
+  opacity: 1;
+}
+
+.ni-gallery-modal .close:focus {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.ni-gallery-modal .modal-body {
+  padding: 24px 26px 28px;
+  background: #fff;
+  max-height: 68vh;
+  overflow-y: auto;
+}
+
+.ni-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 16px;
+}
+
+.ni-gallery-item {
+  position: relative;
+  display: block;
+  border: 0;
+  padding: 0;
+  background: #f1f3f4;
+  border-radius: 14px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  cursor: zoom-in;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ni-gallery-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+}
+
+.ni-gallery-item:focus-visible {
+  outline: 3px solid var(--ni-accent);
+  outline-offset: 3px;
+}
+
+.ni-gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ni-gallery-item .ni-gallery-zoom {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+}
+
+.ni-gallery-empty {
+  text-align: center;
+  padding: 34px 20px;
+  color: #777;
+}
+
+.ni-gallery-empty i {
+  font-size: 40px;
+  color: var(--ni-accent);
+  opacity: 0.55;
+  margin-bottom: 14px;
+  display: block;
+}
+
+.ni-gallery-empty h5 {
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+.ni-gallery-empty p {
+  font-size: 14px;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   3. LIGHTBOX (full screen viewer inside the gallery)
+   ========================================================================== */
+.ni-lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.94);
+  z-index: 10050;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.ni-lightbox.is-active {
+  display: flex;
+}
+
+.ni-lightbox-content {
+  max-width: 92%;
+  max-height: 88vh;
+  position: relative;
+  text-align: center;
+}
+
+.ni-lightbox-content img {
+  max-width: 100%;
+  max-height: 78vh;
+  border-radius: 10px;
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.6);
+}
+
+.ni-lightbox-caption {
+  margin-top: 14px;
+  color: #fff;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.ni-lightbox-btn {
+  position: absolute;
+  background: transparent;
+  border: 0;
+  color: #fff;
+  font-size: 34px;
+  line-height: 1;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: opacity 0.2s ease, color 0.2s ease;
+  opacity: 0.75;
+}
+
+.ni-lightbox-btn:hover,
+.ni-lightbox-btn:focus-visible {
+  opacity: 1;
+  color: var(--ni-gold, #D4AF37);
+  outline: none;
+}
+
+.ni-lightbox-btn:focus-visible {
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.7);
+}
+
+.ni-lightbox-close {
+  top: 14px;
+  right: 18px;
+  font-size: 40px;
+}
+
+.ni-lightbox-prev {
+  left: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.ni-lightbox-next {
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* ==========================================================================
+   4. ARTIKEL SECTION
+   ========================================================================== */
+.ni-art-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.ni-art-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.07);
+  height: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ni-art-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.13);
+}
+
+.ni-art-media {
+  position: relative;
+  height: 190px;
+  background: var(--ni-media-bg);
+  overflow: hidden;
+}
+
+.ni-art-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ni-art-cat {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: var(--ni-accent);
+  color: var(--ni-on-accent);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 20px;
+}
+
+.ni-art-body {
+  padding: 20px 22px 22px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.ni-art-date {
+  font-size: 12.5px;
+  color: #999;
+  margin-bottom: 8px;
+}
+
+.ni-art-title {
+  font-family: 'Playfair Display', 'Nunito', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--ni-accent);
+  line-height: 1.35;
+  margin-bottom: 10px;
+}
+
+.ni-art-excerpt {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.65;
+  margin-bottom: 16px;
+  flex: 1;
+}
+
+.ni-art-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  background: var(--ni-accent);
+  color: var(--ni-on-accent);
+  border: 0;
+  padding: 11px 22px;
+  border-radius: 30px;
+  font-size: 13.5px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.ni-art-btn:hover,
+.ni-art-btn:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px var(--ni-accent-soft);
+  color: var(--ni-on-accent);
+  text-decoration: none;
+}
+
+.ni-art-btn:focus-visible {
+  outline: 3px solid var(--ni-accent);
+  outline-offset: 3px;
+}
+
+/* Empty state */
+.ni-art-empty {
+  background: #fff;
+  border: 2px dashed var(--ni-accent-soft);
+  border-radius: 20px;
+  padding: 50px 26px;
+  text-align: center;
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.05);
+}
+
+.ni-art-empty-icon {
+  width: 84px;
+  height: 84px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  background: var(--ni-accent-soft);
+  color: var(--ni-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34px;
+}
+
+.ni-art-empty h4 {
+  font-family: 'Playfair Display', 'Nunito', serif;
+  font-weight: 700;
+  color: var(--ni-accent);
+  font-size: 1.35rem;
+  margin-bottom: 10px;
+}
+
+.ni-art-empty p {
+  color: #666;
+  font-size: 15px;
+  line-height: 1.7;
+  max-width: 620px;
+  margin: 0 auto 20px;
+}
+
+.ni-art-empty .ni-art-btn {
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   5. RESPONSIVE
+   ========================================================================== */
+@media (max-width: 991.98px) {
+  .ni-fas-grid,
+  .ni-art-grid {
+    gap: 24px;
+  }
+
+  .ni-gallery-modal .modal-body {
+    max-height: 62vh;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .ni-fas-grid,
+  .ni-art-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+  }
+
+  .ni-fas-media,
+  .ni-art-media {
+    height: 165px;
+  }
+
+  .ni-gallery-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+  }
+
+  .ni-gallery-modal .modal-header {
+    padding: 18px 20px;
+  }
+
+  .ni-gallery-modal .modal-body {
+    padding: 18px 20px 22px;
+  }
+
+  .ni-gallery-modal .modal-title {
+    font-size: 1.15rem;
+  }
+
+  .ni-lightbox-btn {
+    font-size: 26px;
+    padding: 8px 10px;
+  }
+
+  .ni-lightbox-close {
+    font-size: 32px;
+    top: 8px;
+    right: 10px;
+  }
+
+  .ni-art-empty {
+    padding: 38px 20px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .ni-fas-grid,
+  .ni-art-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ni-fas-media,
+  .ni-art-media {
+    height: 200px;
+  }
+
+  .ni-gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

@@ -1,0 +1,1257 @@
+@extends('landing_page.layout')
+
+@section('title', 'Pembiasaan Pagi - YPI Nurul Ilmi Bekasi')
+
+@section('head')
+    <style>
+      .hero-section {
+        background: linear-gradient(135deg, #0A4F42 0%, #0d6b5a 100%);
+        padding: 100px 0;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('images/bg_2.jpg') center/cover;
+        opacity: 0.1;
+      }
+      .hero-content {
+        position: relative;
+        z-index: 2;
+      }
+      .table-responsive {
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 15px 50px rgba(0,0,0,0.1);
+      }
+      .table thead th {
+        background: linear-gradient(135deg, #0A4F42, #0d6b5a);
+        color: #fff;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 14px;
+        padding: 18px 15px;
+        border: none;
+      }
+      .table tbody td {
+        padding: 15px;
+        vertical-align: middle;
+        font-size: 14px;
+        color: #555;
+        border-color: #e9ecef;
+      }
+      .table tbody tr:hover {
+        background-color: rgba(10, 79, 66, 0.03);
+      }
+      .time-slot {
+        background: #f8f9fa !important;
+        font-weight: 600;
+        color: #0A4F42 !important;
+        white-space: nowrap;
+      }
+      .kegiatan-utama {
+        font-weight: 500;
+        color: #333;
+      }
+      .kegiatan-ikrar {
+        color: #D4AF37;
+        font-weight: 700;
+      }
+      .btn-ikrar {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 15px 30px;
+        background: linear-gradient(135deg, #D4AF37, #e8c864);
+        color: #fff;
+        border-radius: 30px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s;
+        box-shadow: 0 8px 25px rgba(212,175,55,0.3);
+      }
+      .btn-ikrar:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 35px rgba(212,175,55,0.4);
+        color: #fff;
+        text-decoration: none;
+      }
+    </style>
+@endsection
+
+@section('content')
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="container hero-content">
+        <div class="row justify-content-center text-center">
+          <div class="col-lg-10">
+            <span class="badge-label" style="background: rgba(212,175,55,0.2); color: #D4AF37; padding: 10px 25px; border-radius: 30px; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; display: inline-block; margin-bottom: 20px;"><i class="fas fa-sun mr-2"></i>Rutinitas Pagi</span>
+            <h1 class="mb-4" style="color: #fff; font-size: 48px; font-weight: 700; font-family: 'Playfair Display', serif;">Pembiasaan <span style="color: #D4AF37;">Pagi</span></h1>
+            <p class="mb-0" style="color: rgba(255,255,255,0.9); font-size: 18px; max-width: 600px; margin: 0 auto; line-height: 1.7;">Rutinitas pembiasaan positif siswa sebelum memulai kegiatan belajar setiap harinya untuk membangun karakter dan kebiasaan baik.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pembiasaan Pagi Section -->
+    <section class="ftco-section" style="background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%); padding: 80px 0;">
+      <div class="container">
+        <!-- Section Header -->
+        <div class="row justify-content-center mb-5" data-aos="fade-down">
+          <div class="col-md-8 text-center">
+            <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 700; color: #0A4F42;">Jadwal Pembiasaan <span style="color: #D4AF37;">Pagi</span></h2>
+            <p style="color: #666; font-size: 1.05rem; max-width: 600px; margin: 15px auto 0;">Pilih minggu untuk melihat jadwal pembiasaan yang berbeda.</p>
+          </div>
+        </div>
+
+        <!-- Tab Buttons -->
+        <div class="row justify-content-center mb-4" data-aos="fade-up">
+          <div class="col-md-auto">
+            <div style="display: inline-flex; background: #fff; padding: 8px; border-radius: 50px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); gap: 8px;">
+              <button onclick="showPagian('pekan1')" class="btn-pagi active" id="btn-pekan1" style="padding: 14px 35px; border: none; border-radius: 30px; background: linear-gradient(135deg, #0A4F42, #0d6b5a); color: #fff; font-weight: 600; cursor: pointer; transition: all 0.3s;">Pekan 1</button>
+              <button onclick="showPagian('pekan2')" class="btn-pagi" id="btn-pekan2" style="padding: 14px 35px; border: none; border-radius: 30px; background: transparent; color: #0A4F42; font-weight: 600; cursor: pointer; transition: all 0.3s;">Pekan 2</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabel Pekan 1 -->
+        <div id="pekan1" class="pagi-content">
+          <div class="row justify-content-center mt-4">
+            <div class="col-lg-12">
+              <div class="table-responsive" data-aos="fade-up">
+                <table class="table table-bordered text-center mb-0">
+                  <thead>
+                    <tr>
+                      <th style="width: 15%;">Waktu</th>
+                      <th>Senin</th>
+                      <th>Selasa</th>
+                      <th>Rabu</th>
+                      <th>Kamis</th>
+                      <th>Jumat</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- 06.40-07.00 -->
+                    <tr>
+                      <td class="time-slot">06.40-07.00</td>
+                      <td class="kegiatan-utama">Upacara<br><span class="kegiatan-ikrar">Ikrar</span></td>
+                      <td><span class="kegiatan-ikrar">Ikrar</span><br>Mengaji</td>
+                      <td class="kegiatan-utama">Mengaji<br><span class="kegiatan-ikrar">Al-Masurat</span><br><span class="kegiatan-ikrar">Ikrar</span></td>
+                      <td><span class="kegiatan-ikrar">Ikrar</span><br>Mengaji</td>
+                      <td><span class="kegiatan-ikrar">Ikrar</span><br>Mengaji</td>
+                    </tr>
+                    <!-- 07.00-07.15 -->
+                    <tr>
+                      <td class="time-slot">07.00-07.15</td>
+                      <td><span class="kegiatan-ikrar">Ikrar</span><br>Solat Duha</td>
+                      <td><span class="kegiatan-ikrar">Ikrar</span><br>Solat Duha</td>
+                      <td><span class="kegiatan-ikrar">Ikrar</span><br>Revolusi Akhlak</td>
+                      <td><span class="kegiatan-ikrar">Ikrar</span></td>
+                      <td><span class="kegiatan-ikrar">Ikrar</span><br>Solat Duha</td>
+                    </tr>
+                    <!-- 07.15-07.30 -->
+                    <tr>
+                      <td class="time-slot">07.15-07.30</td>
+                      <td><span class="kegiatan-ikrar">Ikrar</span><br>Solat Duha</td>
+                      <td><span class="kegiatan-ikrar">Ikrar</span><br>Olahraga</td>
+                      <td><span class="kegiatan-ikrar">Ikrar</span><br>Solat Duha</td>
+                      <td><span class="kegiatan-ikrar">Ikrar</span><br>Solat Duha</td>
+                      <td><span class="kegiatan-ikrar">Ikrar</span><br>Al-Kahfi</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabel Pekan 2 -->
+        <div id="pekan2" class="pagi-content" style="display: none;">
+          <div class="row justify-content-center mt-4">
+            <div class="col-lg-12">
+              <div class="table-responsive" data-aos="fade-up">
+                <table class="table table-bordered text-center mb-0">
+                  <thead>
+                    <tr>
+                      <th style="width: 15%;">Waktu</th>
+                      <th>Senin</th>
+                      <th>Selasa</th>
+                      <th>Rabu</th>
+                      <th>Kamis</th>
+                      <th>Jumat</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- 06.40-07.00 -->
+                    <tr>
+                      <td class="time-slot">06.40-07.00</td>
+                      <td class="kegiatan-utama">Mengaji di kelas<br><span class="kegiatan-ikrar">Ikrar</span></td>
+                      <td><span class="kegiatan-ikrar">Ikrar</span><br>Mengaji</td>
+                      <td class="kegiatan-utama">Mengaji<br><span class="kegiatan-ikrar">Al-Masurat di Kelas</span><br><span class="kegiatan-ikrar">Ikrar</span></td>
+                      <td><span class="kegiatan-ikrar">Ikrar</span><br>Mengaji</td>
+                      <td><span class="kegiatan-ikrar">Ikrar</span><br>Mengaji</td>
+                    </tr>
+                    <!-- 07.00-07.15 -->
+                    <tr>
+                      <td class="time-slot">07.00-07.15</td>
+                      <td><span class="kegiatan-ikrar">Ikrar</span><br>Solat Duha</td>
+                      <td><span class="kegiatan-ikrar">Ikrar</span><br>Solat Duha</td>
+                      <td><span class="kegiatan-ikrar">Ikrar</span><br>Revolusi Akhlak</td>
+                      <td><span class="kegiatan-ikrar">Ikrar</span></td>
+                      <td><span class="kegiatan-ikrar">Ikrar</span><br>Solat Duha</td>
+                    </tr>
+                    <!-- 07.15-07.30 -->
+                    <tr>
+                      <td class="time-slot">07.15-07.30</td>
+                      <td><span class="kegiatan-ikrar">Ikrar</span><br>Solat Duha di kelas</td>
+                      <td><span class="kegiatan-ikrar">Ikrar</span><br>Olahraga</td>
+                      <td><span class="kegiatan-ikrar">Ikrar</span><br>Solat Duha</td>
+                      <td><span class="kegiatan-ikrar">Ikrar</span><br>Solat Duha di kelas</td>
+                      <td><span class="kegiatan-ikrar">Ikrar</span><br>Al-Kahfi</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Note -->
+        <div class="row mt-5" data-aos="fade-up">
+          <div class="col-lg-12 text-center">
+            <div style="background: linear-gradient(135deg, rgba(10,79,66,0.08), rgba(10,79,66,0.03)); border-radius: 20px; padding: 30px; max-width: 800px; margin: 0 auto; border-left: 4px solid #D4AF37;">
+              <h4 style="color: #0A4F42; font-weight: 700; margin-bottom: 15px;"><i class="fas fa-info-circle" style="color: #D4AF37; margin-right: 10px;"></i>Catatan Penting</h4>
+              <p style="color: #666; margin: 0; line-height: 1.8;">Ikrar dilakukan setiap hari di setiap waktu yang tersedia. Kegiatan <strong>Solat Duha</strong> dan <strong>Al-Kahfi</strong> dilakukan secara berjamaah. <strong>Al-Masurat</strong> dilakukan di masjid pada hari tertentu sesuai jadwal.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mars Nurul Ilmi Section -->
+    <section class="mars-section" id="mars-nurul-ilmi">
+      <!-- Background Decorations -->
+      <div class="mars-bg-decor mars-bg-decor-1"></div>
+      <div class="mars-bg-decor mars-bg-decor-2"></div>
+      <div class="mars-bg-decor mars-bg-decor-3"></div>
+
+      <div class="container">
+        <!-- Section Header -->
+        <div class="row justify-content-center mb-5" data-aos="fade-down">
+          <div class="col-md-8 text-center">
+            <div class="mars-header-badge">
+              <span class="mars-section-badge">
+                <i class="fas fa-music"></i>
+                Mars Nurul Ilmi
+              </span>
+            </div>
+            <h2 class="mars-title mt-4 mb-3">Mars <span class="mars-title-accent">Nurul Ilmi</span></h2>
+            <p class="mars-description">Nyanyikan lagu mars sekolah bersama seluruh warga YPI Nurul Ilmi Bekasi</p>
+          </div>
+        </div>
+
+        <!-- Audio Player -->
+        <div class="row justify-content-center mb-5">
+          <div class="col-lg-10 col-xl-9">
+            <div class="mars-player" data-aos="fade-up">
+              <div class="mars-player-inner">
+                <!-- Album Art -->
+                <div class="mars-album-art">
+                  <div class="mars-album-art-inner">
+                    <div class="mars-music-icon">
+                      <i class="fas fa-music"></i>
+                    </div>
+                    <div class="mars-album-glow"></div>
+                  </div>
+                  <div class="mars-album-ring"></div>
+                </div>
+
+                <!-- Player Info & Controls -->
+                <div class="mars-player-content">
+                  <div class="mars-player-info">
+                    <h4 class="mars-song-title">Mars Nurul Ilmi</h4>
+                    <p class="mars-song-artist">Yayasan Pendidikan Islam Nurul Ilmi Bekasi</p>
+                  </div>
+
+                  <!-- Audio Controls -->
+                  <div class="mars-audio-controls">
+                    <audio id="marsAudio" preload="metadata">
+                      <source src="audio/Mars%20Nurul%20Ilmi.mp3" type="audio/mpeg">
+                      Browser Anda tidak mendukung pemutaran audio.
+                    </audio>
+
+                    <!-- Progress Bar -->
+                    <div class="mars-progress-container" id="progressContainer">
+                      <div class="mars-progress-bar">
+                        <div id="progressBar" class="mars-progress-fill"></div>
+                      </div>
+                      <div class="mars-progress-thumb" id="progressThumb"></div>
+                    </div>
+
+                    <!-- Time Display -->
+                    <div class="mars-time-display">
+                      <span id="currentTime">0:00</span>
+                      <span id="duration">0:00</span>
+                    </div>
+
+                    <!-- Controls Row -->
+                    <div class="mars-controls-row">
+                      <!-- Volume (Desktop) -->
+                      <div class="mars-volume-control" id="volumeControl">
+                        <i class="fas fa-volume-up" id="volumeIcon"></i>
+                        <input type="range" id="volumeSlider" min="0" max="1" step="0.05" value="1" class="mars-volume-slider" aria-label="Volume">
+                      </div>
+
+                      <!-- Play Button -->
+                      <button onclick="togglePlay()" id="playBtn" class="mars-play-btn" aria-label="Putar">
+                        <i class="fas fa-play" id="playIcon"></i>
+                      </button>
+
+                      <!-- Spacer for volume -->
+                      <div class="mars-volume-spacer"></div>
+                    </div>
+
+                    <!-- Error Message -->
+                    <div class="mars-error-message" id="marsErrorMessage" style="display: none;">
+                      <i class="fas fa-exclamation-circle"></i>
+                      <span>File audio tidak dapat diputar</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lirik Section -->
+        <div class="row justify-content-center" data-aos="fade-up">
+          <div class="col-lg-10">
+            <div class="mars-lyrics-header">
+              <div class="mars-lyrics-badge">
+                <i class="fas fa-scroll"></i>
+                Lirik Lagu
+              </div>
+              <h3 class="mars-lyrics-title">Mars <span>Nurul Ilmi</span></h3>
+            </div>
+            <div class="mars-lyrics-container">
+              <div class="mars-lyrics-inner">
+                <div class="mars-lyrics" id="marsLyrics">
+                  <p class="mars-lyrics-bait">
+                    <strong class="mars-lyrics-title-line">Kami semua siswa di yayasan nurul ilmi</strong>
+                    <span>Santun dan berbudi luhur</span>
+                    <span>Belajar berlandaskan Al-Qur'an dan sunah Nabi Muhammad</span>
+                  </p>
+
+                  <p class="mars-lyrics-bait">
+                    <span>Sehat kuat iman kita</span>
+                    <span>Selalu menjaga akidah</span>
+                    <span>Rajin belajar bukan sekadar</span>
+                    <span>Pandai dunia semata</span>
+                  </p>
+
+                  <p class="mars-lyrics-bait">
+                    <span>Menjadi siswa yang unggul</span>
+                    <span>Berprestasi dan berakhlak</span>
+                    <span>Jiwa berani sabar peduli</span>
+                    <span>Menjunjung kalam ilahi</span>
+                  </p>
+
+                  <p class="mars-lyrics-bait">
+                    <span>Marilah membangun bangsa</span>
+                    <span>Tuk negeri kita tercinta</span>
+                    <span>Pribadi cerdas insan pilihan</span>
+                    <span>Untuk dunia akhirat</span>
+                  </p>
+
+                  <p class="mars-lyrics-refrain">
+                    <i class="fas fa-redo"></i>
+                    Balik lagi ke awal
+                  </p>
+
+                  <p class="mars-lyrics-final">
+                    <i class="fas fa-star"></i>
+                    Nurul Ilmi Berprestasi
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mars Section Styles -->
+    <style>
+    /* Mars Section Base */
+    .mars-section {
+      background: linear-gradient(180deg, #f8f9fa 0%, #e8f5e9 50%, #0A4F42 100%);
+      padding: 80px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Background Decorations */
+    .mars-bg-decor {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .mars-bg-decor-1 {
+      top: -80px;
+      right: -80px;
+      width: 250px;
+      height: 250px;
+      background: radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 70%);
+    }
+    .mars-bg-decor-2 {
+      bottom: 100px;
+      left: -60px;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(10,79,66,0.1) 0%, transparent 70%);
+    }
+    .mars-bg-decor-3 {
+      top: 40%;
+      right: 5%;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    }
+
+    /* Section Header */
+    .mars-header-badge {
+      margin-bottom: 20px;
+    }
+    .mars-section-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #0A4F42, #0d7a5f);
+      color: #fff;
+      padding: 10px 24px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      box-shadow: 0 4px 20px rgba(10,79,66,0.3);
+    }
+    .mars-section-badge i {
+      color: #D4AF37;
+    }
+    .mars-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: #0A4F42;
+      margin-bottom: 15px;
+    }
+    .mars-title-accent {
+      color: #D4AF37;
+      position: relative;
+    }
+    .mars-description {
+      color: #666;
+      font-size: 1.05rem;
+      max-width: 550px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* Audio Player */
+    .mars-player {
+      background: linear-gradient(145deg, #ffffff, #f8faf8);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow:
+        0 20px 60px rgba(10,79,66,0.12),
+        0 8px 25px rgba(0,0,0,0.05);
+      border: 1px solid rgba(10,79,66,0.08);
+      position: relative;
+      overflow: hidden;
+    }
+    .mars-player::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #0A4F42, #D4AF37, #0A4F42);
+    }
+    .mars-player-inner {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    /* Album Art */
+    .mars-album-art {
+      position: relative;
+      flex-shrink: 0;
+    }
+    .mars-album-art-inner {
+      width: 140px;
+      height: 140px;
+      background: linear-gradient(145deg, #0A4F42, #0d7a5f);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow:
+        0 15px 35px rgba(10,79,66,0.4),
+        inset 0 -5px 20px rgba(0,0,0,0.2);
+    }
+    .mars-music-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(145deg, #D4AF37, #e8c864);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 25px rgba(212,175,55,0.5);
+      transition: transform 0.3s ease;
+    }
+    .mars-music-icon i {
+      font-size: 32px;
+      color: #fff;
+    }
+    .mars-album-glow {
+      position: absolute;
+      inset: -10px;
+      background: radial-gradient(circle, rgba(212,175,55,0.3) 0%, transparent 70%);
+      border-radius: 50%;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    .mars-player.playing .mars-music-icon {
+      animation: mars-pulse 2s ease-in-out infinite;
+    }
+    .mars-player.playing .mars-album-glow {
+      opacity: 1;
+      animation: mars-glow 2s ease-in-out infinite;
+    }
+    .mars-album-ring {
+      position: absolute;
+      inset: -8px;
+      border: 2px solid rgba(212,175,55,0.3);
+      border-radius: 50%;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    .mars-player.playing .mars-album-ring {
+      opacity: 1;
+      animation: mars-ring-pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes mars-pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    @keyframes mars-glow {
+      0%, 100% { opacity: 0.5; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.1); }
+    }
+    @keyframes mars-ring-pulse {
+      0%, 100% { transform: scale(1); opacity: 0.5; }
+      50% { transform: scale(1.15); opacity: 0.8; }
+    }
+
+    /* Player Content */
+    .mars-player-content {
+      flex: 1;
+      min-width: 0;
+    }
+    .mars-player-info {
+      margin-bottom: 20px;
+    }
+    .mars-song-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #0A4F42;
+      margin: 0 0 5px;
+    }
+    .mars-song-artist {
+      color: #888;
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    /* Audio Controls */
+    .mars-audio-controls {
+      background: linear-gradient(135deg, #f5f7f5, #e8f0e8);
+      border-radius: 16px;
+      padding: 20px 25px;
+    }
+
+    /* Progress Bar */
+    .mars-progress-container {
+      position: relative;
+      height: 8px;
+      margin-bottom: 12px;
+      cursor: pointer;
+    }
+    .mars-progress-bar {
+      position: absolute;
+      inset: 0;
+      background: #ddd;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .mars-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #0A4F42, #D4AF37);
+      border-radius: 4px;
+      width: 0%;
+      transition: width 0.1s linear;
+      position: relative;
+    }
+    .mars-progress-fill::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 14px;
+      height: 14px;
+      background: #D4AF37;
+      border-radius: 50%;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .mars-progress-container:hover .mars-progress-fill::after {
+      opacity: 1;
+    }
+
+    /* Time Display */
+    .mars-time-display {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #888;
+      margin-bottom: 15px;
+      font-weight: 500;
+    }
+
+    /* Controls Row */
+    .mars-controls-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Play Button */
+    .mars-play-btn {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(145deg, #D4AF37, #c9a432);
+      border: none;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 20px rgba(212,175,55,0.4);
+      transition: all 0.3s ease;
+      margin: 0 auto;
+    }
+    .mars-play-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 8px 28px rgba(212,175,55,0.5);
+    }
+    .mars-play-btn:active {
+      transform: scale(0.95);
+    }
+    .mars-play-btn:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(212,175,55,0.4), 0 6px 20px rgba(212,175,55,0.4);
+    }
+
+    /* Volume Control */
+    .mars-volume-control {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #888;
+    }
+    .mars-volume-slider {
+      width: 80px;
+      height: 4px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: #ccc;
+      border-radius: 2px;
+      cursor: pointer;
+    }
+    .mars-volume-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 14px;
+      height: 14px;
+      background: #D4AF37;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .mars-volume-slider::-moz-range-thumb {
+      width: 14px;
+      height: 14px;
+      background: #D4AF37;
+      border-radius: 50%;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .mars-volume-spacer {
+      width: 80px;
+    }
+
+    /* Error Message */
+    .mars-error-message {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(220,53,69,0.1);
+      color: #dc3545;
+      padding: 10px 15px;
+      border-radius: 8px;
+      font-size: 13px;
+      margin-top: 15px;
+    }
+
+    /* Lyrics Section */
+    .mars-lyrics-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .mars-lyrics-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #D4AF37, #e8c864);
+      color: #0A4F42;
+      padding: 8px 20px;
+      border-radius: 25px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 15px;
+    }
+    .mars-lyrics-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #fff;
+      margin: 0;
+    }
+    .mars-lyrics-title span {
+      color: #D4AF37;
+    }
+    .mars-lyrics-container {
+      background: linear-gradient(145deg, rgba(10,79,66,0.95), rgba(13,106,90,0.95));
+      border-radius: 24px;
+      padding: 50px 40px;
+      border: 2px solid rgba(212,175,55,0.3);
+      box-shadow:
+        0 25px 70px rgba(0,0,0,0.3),
+        inset 0 1px 0 rgba(255,255,255,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    .mars-lyrics-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+    }
+    .mars-lyrics-inner {
+      position: relative;
+      z-index: 1;
+    }
+    .mars-lyrics {
+      color: #fff;
+      font-size: 16px;
+      line-height: 2.2;
+      text-align: center;
+    }
+    .mars-lyrics-bait {
+      margin: 0 0 35px;
+      padding-bottom: 30px;
+      border-bottom: 1px solid rgba(212,175,55,0.15);
+    }
+    .mars-lyrics-bait:last-of-type {
+      border-bottom: none;
+    }
+    .mars-lyrics-bait strong.mars-lyrics-title-line {
+      display: block;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #FFD700;
+      margin-bottom: 12px;
+    }
+    .mars-lyrics-bait span {
+      display: block;
+      font-style: italic;
+      opacity: 0.9;
+    }
+    .mars-lyrics-refrain {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 30px 0;
+      padding: 12px 28px;
+      background: rgba(212,175,55,0.2);
+      border-radius: 30px;
+      color: #FFD700;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .mars-lyrics-refrain i {
+      font-size: 12px;
+    }
+    .mars-lyrics-final {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #FFD700;
+      margin: 25px 0 0;
+      text-shadow: 0 2px 15px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+    .mars-lyrics-final i {
+      color: #FFD700;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 991px) {
+      .mars-player-inner {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+      }
+      .mars-volume-spacer {
+        display: none;
+      }
+      .mars-controls-row {
+        justify-content: center;
+        gap: 40px;
+      }
+      .mars-volume-control {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .mars-section {
+        padding: 60px 0;
+      }
+      .mars-title {
+        font-size: 2rem;
+      }
+      .mars-player {
+        padding: 25px 20px;
+      }
+      .mars-album-art-inner {
+        width: 110px;
+        height: 110px;
+      }
+      .mars-music-icon {
+        width: 65px;
+        height: 65px;
+      }
+      .mars-music-icon i {
+        font-size: 26px;
+      }
+      .mars-song-title {
+        font-size: 1.3rem;
+      }
+      .mars-audio-controls {
+        padding: 15px 18px;
+      }
+      .mars-play-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 18px;
+      }
+      .mars-lyrics-container {
+        padding: 35px 25px;
+      }
+      .mars-lyrics {
+        font-size: 14px;
+        line-height: 2;
+      }
+      .mars-lyrics-bait {
+        margin-bottom: 25px;
+        padding-bottom: 20px;
+      }
+      .mars-lyrics-title {
+        font-size: 1.4rem;
+      }
+      .mars-lyrics-final {
+        font-size: 1.3rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .mars-section {
+        padding: 50px 0;
+      }
+      .mars-title {
+        font-size: 1.7rem;
+      }
+      .mars-description {
+        font-size: 0.95rem;
+      }
+      .mars-section-badge {
+        font-size: 11px;
+        padding: 8px 18px;
+      }
+      .mars-player {
+        padding: 20px 15px;
+        border-radius: 18px;
+      }
+      .mars-album-art-inner {
+        width: 95px;
+        height: 95px;
+      }
+      .mars-music-icon {
+        width: 55px;
+        height: 55px;
+      }
+      .mars-music-icon i {
+        font-size: 22px;
+      }
+      .mars-song-title {
+        font-size: 1.15rem;
+      }
+      .mars-song-artist {
+        font-size: 0.8rem;
+      }
+      .mars-lyrics-container {
+        padding: 25px 18px;
+        border-radius: 18px;
+      }
+      .mars-lyrics {
+        font-size: 13px;
+      }
+      .mars-lyrics-title-line {
+        font-size: 1rem !important;
+      }
+      .mars-lyrics-refrain {
+        padding: 10px 20px;
+        font-size: 12px;
+      }
+      .mars-lyrics-final {
+        font-size: 1.1rem;
+      }
+    }
+
+    /* Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+      .mars-player.playing .mars-music-icon,
+      .mars-player.playing .mars-album-glow,
+      .mars-player.playing .mars-album-ring {
+        animation: none;
+      }
+      .mars-progress-fill {
+        transition: none;
+      }
+      .mars-play-btn {
+        transition: none;
+      }
+    }
+    </style>
+
+    <script>
+    // Mars Nurul Ilmi Audio Player
+    (function() {
+      const audio = document.getElementById('marsAudio');
+      const playBtn = document.getElementById('playBtn');
+      const playIcon = document.getElementById('playIcon');
+      const progressFill = document.getElementById('progressBar');
+      const progressContainer = document.getElementById('progressContainer');
+      const currentTimeEl = document.getElementById('currentTime');
+      const durationEl = document.getElementById('duration');
+      const volumeSlider = document.getElementById('volumeSlider');
+      const volumeIcon = document.getElementById('volumeIcon');
+      const marsPlayer = document.querySelector('.mars-player');
+      const marsErrorMessage = document.getElementById('marsErrorMessage');
+
+      let isPlaying = false;
+      let audioLoaded = false;
+
+      // Check if audio source is valid
+      function checkAudioSource() {
+        const sources = audio.querySelectorAll('source');
+        if (sources.length === 0 || !sources[0].src || sources[0].src === window.location.href) {
+          return false;
+        }
+        return true;
+      }
+
+      // Update volume icon
+      function updateVolumeIcon() {
+        if (audio.volume === 0) {
+          volumeIcon.className = 'fas fa-volume-mute';
+        } else if (audio.volume < 0.5) {
+          volumeIcon.className = 'fas fa-volume-down';
+        } else {
+          volumeIcon.className = 'fas fa-volume-up';
+        }
+      }
+
+      // Format time
+      function formatTime(seconds) {
+        if (isNaN(seconds) || !isFinite(seconds)) return '0:00';
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return mins + ':' + (secs < 10 ? '0' : '') + secs;
+      }
+
+      // Toggle play/pause
+      function togglePlay() {
+        if (!audioLoaded && !checkAudioSource()) {
+          marsErrorMessage.style.display = 'flex';
+          return;
+        }
+
+        if (isPlaying) {
+          audio.pause();
+          playIcon.className = 'fas fa-play';
+          marsPlayer.classList.remove('playing');
+        } else {
+          audio.play().then(() => {
+            playIcon.className = 'fas fa-pause';
+            marsPlayer.classList.add('playing');
+          }).catch(error => {
+            console.log('Tidak dapat memutar audio:', error);
+            marsErrorMessage.style.display = 'flex';
+          });
+        }
+        isPlaying = !isPlaying;
+      }
+
+      // Audio events
+      audio.addEventListener('timeupdate', function() {
+        if (audio.duration) {
+          const progress = (audio.currentTime / audio.duration) * 100;
+          progressFill.style.width = progress + '%';
+          currentTimeEl.textContent = formatTime(audio.currentTime);
+        }
+      });
+
+      audio.addEventListener('loadedmetadata', function() {
+        audioLoaded = true;
+        durationEl.textContent = formatTime(audio.duration);
+        marsErrorMessage.style.display = 'none';
+      });
+
+      audio.addEventListener('canplay', function() {
+        audioLoaded = true;
+        marsErrorMessage.style.display = 'none';
+      });
+
+      audio.addEventListener('ended', function() {
+        isPlaying = false;
+        playIcon.className = 'fas fa-play';
+        marsPlayer.classList.remove('playing');
+        progressFill.style.width = '0%';
+        currentTimeEl.textContent = '0:00';
+      });
+
+      audio.addEventListener('error', function() {
+        audioLoaded = false;
+        marsErrorMessage.style.display = 'flex';
+        isPlaying = false;
+        playIcon.className = 'fas fa-play';
+        marsPlayer.classList.remove('playing');
+      });
+
+      audio.addEventListener('play', function() {
+        isPlaying = true;
+        playIcon.className = 'fas fa-pause';
+        marsPlayer.classList.add('playing');
+      });
+
+      audio.addEventListener('pause', function() {
+        if (!audio.ended) {
+          isPlaying = false;
+          playIcon.className = 'fas fa-play';
+          marsPlayer.classList.remove('playing');
+        }
+      });
+
+      // Volume control
+      volumeSlider.addEventListener('input', function() {
+        audio.volume = this.value;
+        updateVolumeIcon();
+      });
+
+      // Initial volume icon
+      updateVolumeIcon();
+
+      // Progress bar click
+      if (progressContainer) {
+        progressContainer.addEventListener('click', function(e) {
+          if (!audioLoaded && !checkAudioSource()) return;
+
+          const rect = this.getBoundingClientRect();
+          const percent = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+          if (audio.duration) {
+            audio.currentTime = percent * audio.duration;
+          }
+        });
+      }
+
+      // Expose togglePlay globally
+      window.togglePlay = togglePlay;
+    })();
+    </script>
+
+    <script>
+    function showPagian(pekan) {
+      document.getElementById('pekan1').style.display = 'none';
+      document.getElementById('pekan2').style.display = 'none';
+      document.getElementById(pekan).style.display = 'block';
+
+      // Reset button styles
+      document.getElementById('btn-pekan1').classList.remove('active');
+      document.getElementById('btn-pekan1').style.background = 'transparent';
+      document.getElementById('btn-pekan1').style.color = '#0A4F42';
+
+      document.getElementById('btn-pekan2').classList.remove('active');
+      document.getElementById('btn-pekan2').style.background = 'transparent';
+      document.getElementById('btn-pekan2').style.color = '#0A4F42';
+
+      // Highlight active button
+      document.getElementById('btn-' + pekan).classList.add('active');
+      document.getElementById('btn-' + pekan).style.background = 'linear-gradient(135deg, #0A4F42, #0d6b5a)';
+      document.getElementById('btn-' + pekan).style.color = '#fff';
+    }
+    </script>
+
+    @if (false)
+    <!-- Legacy footer replaced by the shared layout -->
+    <footer class="ftco-footer ftco-bg-dark ftco-section">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-md-6 col-lg-3">
+            <div class="ftco-footer-widget mb-5">
+              <h2 class="ftco-heading-2">Hubungi Kami</h2>
+              <div class="block-23 mb-3">
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                  <li style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                    <span class="fas fa-map-marker-alt" style="color: #fff; margin-right: 15px; margin-top: 3px; flex-shrink: 0;"></span>
+                    <span class="text" style="color: rgba(255,255,255,0.7); line-height: 1.6;">Perumahan Jl. Bumi Waringin Indah 2, Waringinjaya, Kec. Kedungwaringin, Kab. Bekasi, Jawa Barat 17540</span>
+                  </li>
+                  <li style="margin-bottom: 12px;">
+                    <a href="https://wa.me/6281282307424" target="_blank" style="display: flex; align-items: center; color: rgba(255,255,255,0.7); text-decoration: none;">
+                      <span class="fab fa-whatsapp" style="color: #25D366; margin-right: 15px; font-size: 16px;"></span>
+                      <span>+62 812-8230-7424 (Bu Ida)</span>
+                    </a>
+                  </li>
+                  <li style="margin-bottom: 12px;">
+                    <a href="https://wa.me/6281285257593" target="_blank" style="display: flex; align-items: center; color: rgba(255,255,255,0.7); text-decoration: none;">
+                      <span class="fab fa-whatsapp" style="color: #25D366; margin-right: 15px; font-size: 16px;"></span>
+                      <span>+62 812-8525-7593 (Bu Linda - Admin TK)</span>
+                    </a>
+                  </li>
+                  <li style="margin-bottom: 12px;">
+                    <a href="https://wa.me/6289695742700" target="_blank" style="display: flex; align-items: center; color: rgba(255,255,255,0.7); text-decoration: none;">
+                      <span class="fab fa-whatsapp" style="color: #25D366; margin-right: 15px; font-size: 16px;"></span>
+                      <span>+62 896-9574-2700 (Bu Sofi - Admin SD)</span>
+                    </a>
+                  </li>
+                  <li style="margin-bottom: 12px;">
+                    <a href="https://wa.me/6285723363762" target="_blank" style="display: flex; align-items: center; color: rgba(255,255,255,0.7); text-decoration: none;">
+                      <span class="fab fa-whatsapp" style="color: #25D366; margin-right: 15px; font-size: 16px;"></span>
+                      <span>+62 857-2336-3762 (Bu Eva - Admin SMP)</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="mailto:yayasan@ypinurulilmi.or.id" style="display: flex; align-items: center; color: rgba(255,255,255,0.7); text-decoration: none;">
+                      <span class="fas fa-envelope" style="margin-right: 15px; font-size: 16px;"></span>
+                      <span>yayasan@ypinurulilmi.or.id</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="ftco-footer-widget mb-5">
+              <h2 class="ftco-heading-2">Artikel Terbaru</h2>
+              <div class="block-21 mb-4 d-flex">
+                <a class="blog-img mr-4" style="background-image: url(images/image_1.jpg);"></a>
+                <div class="text">
+                  <h3 class="heading"><a href="#">Prestasi siswa dalam kompetisi sains</a></h3>
+                  <div class="meta">
+                    <div><a href="#"><span class="far fa-calendar"></span> 20 Jan 2025</a></div>
+                    <div><a href="#"><span class="fas fa-user"></span> Admin</a></div>
+                    <div><a href="#"><span class="fas fa-comment"></span> 5</a></div>
+                  </div>
+                </div>
+              </div>
+              <div class="block-21 mb-5 d-flex">
+                <a class="blog-img mr-4" style="background-image: url(images/image_2.jpg);"></a>
+                <div class="text">
+                  <h3 class="heading"><a href="#">Program tahfidz semakin berkembang</a></h3>
+                  <div class="meta">
+                    <div><a href="#"><span class="far fa-calendar"></span> 18 Jan 2025</a></div>
+                    <div><a href="#"><span class="fas fa-user"></span> Admin</a></div>
+                    <div><a href="#"><span class="fas fa-comment"></span> 8</a></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="ftco-footer-widget mb-5 ml-md-4">
+              <h2 class="ftco-heading-2">Tautan</h2>
+              <ul class="list-unstyled">
+                <li><a href="index.html"><span class="fas fa-arrow-right mr-2"></span>Home</a></li>
+                <li><a href="about.html"><span class="fas fa-arrow-right mr-2"></span>Tentang Kami</a></li>
+                <li><a href="courses.html"><span class="fas fa-arrow-right mr-2"></span>Program</a></li>
+                <li><a href="pricing.html"><span class="fas fa-arrow-right mr-2"></span>Biaya</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="ftco-footer-widget mb-5">
+              <h2 class="ftco-heading-2 mb-0">Sosial Media</h2>
+              <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-3">
+                <li class="ftco-animate"><a href="#"><span class="fab fa-twitter"></span></a></li>
+                <li class="ftco-animate"><a href="#"><span class="fab fa-facebook-f"></span></a></li>
+                <li class="ftco-animate"><a href="#"><span class="fab fa-instagram"></span></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <p>Hak Cipta Dilindungi | YPI Nurul Ilmi Bekasi <span class="fas fa-heart" style="color: #e74c3c;"></span> 2025</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    @endif
+@endsection

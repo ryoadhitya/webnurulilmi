@@ -1,0 +1,439 @@
+@extends('landing_page.layout')
+
+@section('title', 'Hubungi Kami - YPI Nurul Ilmi Bekasi')
+
+@section('content')
+
+    <section class="hero-wrap hero-wrap-2" style="background-image: url('{{ asset('landingPage/images/bg_2.jpg') }}');">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+          <div class="col-md-9 ftco-animate text-center">
+            <h1 class="mb-2 bread">Hubungi Kami</h1>
+            <p class="breadcrumbs"><span class="mr-2"><a href="{{ route('home') }}">Home <i class="fas fa-arrow-right"></i></a></span> <span>Hubungi Kami <i class="fas fa-arrow-right"></i></span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Info Cards - Redesigned -->
+    <section class="ftco-section" style="background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%); padding: 80px 0;">
+      <div class="container">
+        <div class="row justify-content-center mb-5">
+          <div class="col-md-8 text-center">
+            <span class="section-subtitle" style="display: inline-block; background: linear-gradient(135deg, rgba(15,106,87,0.1), rgba(15,106,87,0.05)); color: #0F6A57; padding: 8px 20px; border-radius: 25px; font-size: 14px; font-weight: 500; margin-bottom: 15px;">Hubungi Kami</span>
+            <h2 class="section-title mb-3" style="font-size: 36px; font-weight: 700; color: #2d3436;">Informasi Kontak</h2>
+            <p class="text-muted" style="max-width: 500px; margin: 0 auto;">Silakan hubungi kami melalui kontak di bawah ini untuk informasi lebih lanjut</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- Alamat Card -->
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="contact-card" style="background: white; border-radius: 20px; padding: 35px 30px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.08); transition: all 0.4s ease; height: 100%; border: 1px solid rgba(15,106,87,0.1);">
+              <div class="card-icon" style="width: 80px; height: 80px; background: linear-gradient(135deg, #0F6A57, #0d5a4a); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; box-shadow: 0 10px 30px rgba(15,106,87,0.3);">
+                <i class="fas fa-map-marked-alt" style="font-size: 32px; color: white;"></i>
+              </div>
+              <h4 style="color: #2d3436; font-weight: 600; margin-bottom: 15px; font-size: 20px;">Alamat Sekolah</h4>
+              <p style="color: #636e72; font-size: 14px; line-height: 1.8; margin-bottom: 0;">Perumahan Jl. Bumi Waringin Indah 2 No.1 Blok B1, Waringinjaya, Kec. Kedungwaringin, Kab. Bekasi, Jawa Barat 17540</p>
+            </div>
+          </div>
+
+          <!-- Telepon Card -->
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="contact-card" style="background: white; border-radius: 20px; padding: 35px 30px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.08); transition: all 0.4s ease; height: 100%; border: 1px solid rgba(15,106,87,0.1);">
+              <div class="card-icon" style="width: 80px; height: 80px; background: linear-gradient(135deg, #e74c3c, #c0392b); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; box-shadow: 0 10px 30px rgba(231,76,60,0.3);">
+                <i class="fas fa-phone-alt" style="font-size: 32px; color: white;"></i>
+              </div>
+              <h4 style="color: #2d3436; font-weight: 600; margin-bottom: 15px; font-size: 20px;">Telepon</h4>
+              <p style="color: #636e72; font-size: 14px; margin-bottom: 5px;">021-89953223</p>
+              <small style="color: #b2bec3; font-size: 12px;">Jam Operasional: 07.00 - 16.00 WIB</small>
+            </div>
+          </div>
+
+          <!-- Email Card -->
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="contact-card" style="background: white; border-radius: 20px; padding: 35px 30px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.08); transition: all 0.4s ease; height: 100%; border: 1px solid rgba(15,106,87,0.1);">
+              <div class="card-icon" style="width: 80px; height: 80px; background: linear-gradient(135deg, #3498db, #2980b9); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; box-shadow: 0 10px 30px rgba(52,152,219,0.3);">
+                <i class="fas fa-envelope-open-text" style="font-size: 32px; color: white;"></i>
+              </div>
+              <h4 style="color: #2d3436; font-weight: 600; margin-bottom: 15px; font-size: 20px;">Email</h4>
+              <a href="mailto:yayasan@ypinurulilmi.or.id" style="color: #0F6A57; font-size: 15px; font-weight: 500; text-decoration: none;">yayasan@ypinurulilmi.or.id</a>
+              <p style="color: #b2bec3; font-size: 12px; margin-top: 8px; margin-bottom: 0;">Kami akan merespons dalam 1x24 jam</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- WhatsApp Contacts Section -->
+        <div class="row mt-5">
+          <div class="col-12 text-center mb-4">
+            <h3 style="font-size: 24px; font-weight: 600; color: #2d3436;">
+              <i class="fab fa-whatsapp" style="color: #25D366; font-size: 28px; margin-right: 10px;"></i>
+              Hubungi via WhatsApp
+            </h3>
+            <p style="color: #636e72; font-size: 14px;">Klik untuk langsung chat dengan kami</p>
+          </div>
+        </div>
+
+        <div class="row justify-content-center">
+          <!-- Bu Ida - Kepala Sekolah -->
+          <div class="col-lg-4 col-md-6 mb-4">
+            <a href="https://wa.me/6285723363762" target="_blank" class="whatsapp-card" style="display: block; background: white; border-radius: 20px; padding: 30px; text-decoration: none; box-shadow: 0 10px 40px rgba(0,0,0,0.08); transition: all 0.4s ease; border: 2px solid transparent; position: relative; overflow: hidden;">
+              <div style="position: absolute; top: 0; right: 0; background: linear-gradient(135deg, #0F6A57, #0d5a4a); color: white; padding: 5px 15px; font-size: 11px; font-weight: 600; border-radius: 0 20px 0 15px;">Utama</div>
+              <div class="d-flex align-items-center">
+                <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #0F6A57, #0d5a4a); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 20px; flex-shrink: 0;">
+                  <i class="fas fa-user-tie" style="font-size: 30px; color: white;"></i>
+                </div>
+                <div class="text-left">
+                  <h5 style="color: #2d3436; font-weight: 600; margin-bottom: 5px; font-size: 18px;">Bu Ida</h5>
+                  <p style="color: #0F6A57; font-weight: 500; margin-bottom: 3px; font-size: 14px;">Kepala Sekolah</p>
+                  <p style="color: #636e72; margin-bottom: 0; font-size: 15px; font-weight: 500;">
+                    <i class="fab fa-whatsapp" style="color: #25D366;"></i> +62 857-2336-3762
+                  </p>
+                </div>
+              </div>
+              <div style="margin-top: 20px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #0F6A57, #0d5a4a); color: white; padding: 12px; border-radius: 12px; font-weight: 500; font-size: 14px;">
+                <i class="fab fa-whatsapp mr-2" style="font-size: 18px;"></i> Chat Sekarang
+              </div>
+            </a>
+          </div>
+
+          <!-- Bu Linda - Admin SMP -->
+          <div class="col-lg-4 col-md-6 mb-4">
+            <a href="https://wa.me/6281285257593" target="_blank" class="whatsapp-card" style="display: block; background: white; border-radius: 20px; padding: 30px; text-decoration: none; box-shadow: 0 10px 40px rgba(0,0,0,0.08); transition: all 0.4s ease; border: 2px solid transparent; position: relative; overflow: hidden;">
+              <div style="position: absolute; top: 0; right: 0; background: linear-gradient(135deg, #1B4F72, #2874A6); color: white; padding: 5px 15px; font-size: 11px; font-weight: 600; border-radius: 0 20px 0 15px;">Admin SMP</div>
+              <div class="d-flex align-items-center">
+                <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #1B4F72, #2874A6); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 20px; flex-shrink: 0;">
+                  <i class="fas fa-user-graduate" style="font-size: 30px; color: white;"></i>
+                </div>
+                <div class="text-left">
+                  <h5 style="color: #2d3436; font-weight: 600; margin-bottom: 5px; font-size: 18px;">Bu Linda</h5>
+                  <p style="color: #1B4F72; font-weight: 500; margin-bottom: 3px; font-size: 14px;">Admin SMP</p>
+                  <p style="color: #636e72; margin-bottom: 0; font-size: 15px; font-weight: 500;">
+                    <i class="fab fa-whatsapp" style="color: #25D366;"></i> +62 812-8525-7593
+                  </p>
+                </div>
+              </div>
+              <div style="margin-top: 20px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #1B4F72, #2874A6); color: white; padding: 12px; border-radius: 12px; font-weight: 500; font-size: 14px;">
+                <i class="fab fa-whatsapp mr-2" style="font-size: 18px;"></i> Chat Sekarang
+              </div>
+            </a>
+          </div>
+
+          <!-- Bu Sofi - Admin SD -->
+          <div class="col-lg-4 col-md-6 mb-4">
+            <a href="https://wa.me/6289637392574" target="_blank" class="whatsapp-card" style="display: block; background: white; border-radius: 20px; padding: 30px; text-decoration: none; box-shadow: 0 10px 40px rgba(0,0,0,0.08); transition: all 0.4s ease; border: 2px solid transparent; position: relative; overflow: hidden;">
+              <div style="position: absolute; top: 0; right: 0; background: linear-gradient(135deg, #0A4F42, #0D6B5A); color: white; padding: 5px 15px; font-size: 11px; font-weight: 600; border-radius: 0 20px 0 15px;">Admin SD</div>
+              <div class="d-flex align-items-center">
+                <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #0A4F42, #0D6B5A); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 20px; flex-shrink: 0;">
+                  <i class="fas fa-chalkboard-teacher" style="font-size: 30px; color: white;"></i>
+                </div>
+                <div class="text-left">
+                  <h5 style="color: #2d3436; font-weight: 600; margin-bottom: 5px; font-size: 18px;">Bu Sofi</h5>
+                  <p style="color: #0A4F42; font-weight: 500; margin-bottom: 3px; font-size: 14px;">Admin SD</p>
+                  <p style="color: #636e72; margin-bottom: 0; font-size: 15px; font-weight: 500;">
+                    <i class="fab fa-whatsapp" style="color: #25D366;"></i> +62 896-3739-2574
+                  </p>
+                </div>
+              </div>
+              <div style="margin-top: 20px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #0A4F42, #0D6B5A); color: white; padding: 12px; border-radius: 12px; font-weight: 500; font-size: 14px;">
+                <i class="fab fa-whatsapp mr-2" style="font-size: 18px;"></i> Chat Sekarang
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Form & Map Section -->
+    <section class="ftco-section ftco-no-pt" style="background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%); padding: 80px 0;">
+      <div class="container">
+        <div class="row justify-content-center mb-5">
+          <div class="col-md-8 text-center">
+            <span class="section-subtitle" style="display: inline-block; background: linear-gradient(135deg, rgba(15,106,87,0.1), rgba(15,106,87,0.05)); color: #0F6A57; padding: 8px 20px; border-radius: 25px; font-size: 14px; font-weight: 500; margin-bottom: 15px;">Kirim Pesan</span>
+            <h2 class="section-title mb-3" style="font-size: 36px; font-weight: 700; color: #2d3436;">Hubungi Kami</h2>
+            <p class="text-muted" style="max-width: 500px; margin: 0 auto;">Tulis pesan Anda dan kami akan segera merespons</p>
+          </div>
+        </div>
+
+        <div class="row d-flex align-items-stretch no-gutters">
+          <!-- Form -->
+          <div class="col-lg-6 p-4 p-lg-5 order-lg-last" style="background: white; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.08);">
+            <h3 class="mb-4" style="color: #2d3436; font-weight: 600;">
+              <i class="fas fa-paper-plane" style="color: #0F6A57; margin-right: 10px;"></i>
+              Kirim Pesan
+            </h3>
+            <form action="#">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Nama Lengkap" style="border-radius: 12px; padding: 15px; border: 2px solid #e9ecef; transition: all 0.3s ease;">
+              </div>
+              <div class="form-group">
+                <input type="email" class="form-control" placeholder="Email Aktif" style="border-radius: 12px; padding: 15px; border: 2px solid #e9ecef; transition: all 0.3s ease;">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Nomor WhatsApp" style="border-radius: 12px; padding: 15px; border: 2px solid #e9ecef; transition: all 0.3s ease;">
+              </div>
+              <div class="form-group">
+                <select class="form-control" style="border-radius: 12px; padding: 15px; border: 2px solid #e9ecef; color: #636e72;">
+                  <option value="">Pilih Subjek</option>
+                  <option value="pendaftaran">Pendaftaran Siswa Baru</option>
+                  <option value="info">Informasi Umum</option>
+                  <option value="kurikulum">Kurikulum & Pembelajaran</option>
+                  <option value="biaya">Biaya Pendidikan</option>
+                  <option value="kegiatan">Kegiatan Sekolah</option>
+                  <option value="lainnya">Lainnya</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <textarea name="" id="" cols="30" rows="5" class="form-control" placeholder="Tulis pesan Anda di sini..." style="border-radius: 12px; padding: 15px; border: 2px solid #e9ecef; transition: all 0.3s ease;"></textarea>
+              </div>
+              <div class="form-group">
+                <input type="submit" value="Kirim Pesan" class="btn btn-primary btn-lg btn-block py-3" style="background: linear-gradient(135deg, #0F6A57, #0d5a4a); border: none; border-radius: 12px; font-weight: 600; font-size: 16px; transition: all 0.3s ease;">
+              </div>
+            </form>
+          </div>
+
+          <!-- Map -->
+          <div class="col-lg-6 d-flex align-items-stretch mb-4 mb-lg-0">
+            <a href="https://maps.app.goo.gl/wZi9Ab2ejqXpK2Hk8" target="_blank" rel="noopener noreferrer" class="map-wrapper" style="display: block; position: relative; width: 100%; text-decoration: none; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.1); min-height: 500px;">
+              <!-- Map Background -->
+              <div class="map-bg" style="width: 100%; height: 100%; min-height: 500px; background: #e8e8e8; position: relative; overflow: hidden;">
+                <!-- Grid Pattern -->
+                <svg width="100%" height="100%" style="position: absolute; top: 0; left: 0;">
+                  <defs>
+                    <pattern id="grid2" width="40" height="40" patternUnits="userSpaceOnUse">
+                      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#d0d0d0" stroke-width="1"/>
+                    </pattern>
+                  </defs>
+                  <rect width="100%" height="100%" fill="url(#grid2)"/>
+                </svg>
+
+                <!-- Roads -->
+                <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0;">
+                  <div style="position: absolute; top: 50%; left: 0; right: 0; height: 50px; background: #f5f5f5; transform: translateY(-50%);"></div>
+                  <div style="position: absolute; left: 50%; top: 0; bottom: 0; width: 50px; background: #f5f5f5; transform: translateX(-50%);"></div>
+                  <div style="position: absolute; top: 25%; left: 0; right: 0; height: 20px; background: #fafafa;"></div>
+                  <div style="position: absolute; top: 75%; left: 0; right: 0; height: 20px; background: #fafafa;"></div>
+                  <div style="position: absolute; left: 25%; top: 0; bottom: 0; width: 20px; background: #fafafa;"></div>
+                  <div style="position: absolute; left: 75%; top: 0; bottom: 0; width: 20px; background: #fafafa;"></div>
+                </div>
+
+                <!-- Buildings/Blocks -->
+                <div style="position: absolute; top: 10%; left: 10%; width: 22%; height: 25%; background: #f0f0f0; border-radius: 6px;"></div>
+                <div style="position: absolute; top: 10%; right: 10%; width: 25%; height: 25%; background: #f2f2f2; border-radius: 6px;"></div>
+                <div style="position: absolute; top: 60%; left: 10%; width: 30%; height: 28%; background: #f0f0f0; border-radius: 6px;"></div>
+                <div style="position: absolute; top: 60%; right: 10%; width: 25%; height: 28%; background: #f2f2f2; border-radius: 6px;"></div>
+
+                <!-- School Icon -->
+                <div style="position: absolute; top: 35%; left: 38%; width: 80px; height: 80px; background: linear-gradient(135deg, #0F6A57, #0d5a4a); border-radius: 15px; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 20px rgba(15,106,87,0.3);">
+                  <i class="fas fa-school" style="font-size: 35px; color: white;"></i>
+                </div>
+
+                <!-- Map Pin Marker -->
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10;">
+                  <div style="position: relative; display: flex; flex-direction: column; align-items: center;">
+                    <div style="position: absolute; width: 70px; height: 70px; background: rgba(231, 76, 60, 0.3); border-radius: 50%; top: -35px; left: 50%; transform: translateX(-50%); animation: mapPulse 2s infinite;"></div>
+                    <div style="width: 55px; height: 55px; background: linear-gradient(135deg, #e74c3c, #c0392b); border-radius: 50% 50% 0 50%; transform: rotate(45deg); box-shadow: 0 5px 20px rgba(231,76,60,0.5); display: flex; align-items: center; justify-content: center;">
+                      <div style="width: 18px; height: 18px; background: white; border-radius: 50%; transform: rotate(-45deg);"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Overlay Card -->
+              <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 20; background: white; padding: 30px 35px; border-radius: 20px; box-shadow: 0 15px 50px rgba(0,0,0,0.2); text-align: center; max-width: 300px; width: 85%;">
+                <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #0F6A57, #0d5a4a); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; box-shadow: 0 8px 25px rgba(15,106,87,0.4);">
+                  <i class="fas fa-directions" style="font-size: 32px; color: white;"></i>
+                </div>
+                <h4 style="color: #0F6A57; font-weight: 700; margin-bottom: 10px; font-size: 20px;">Lihat di Google Maps</h2>
+                <p style="color: #636e72; font-size: 14px; margin-bottom: 20px;">Klik untuk membuka lokasi YPI Nurul Ilmi di Google Maps</p>
+                <span style="display: inline-block; background: linear-gradient(135deg, #0F6A57, #0d5a4a); color: white; padding: 14px 28px; border-radius: 30px; font-size: 14px; font-weight: 600; box-shadow: 0 5px 20px rgba(15,106,87,0.3);">
+                  <i class="fas fa-map-marker-alt mr-2"></i>Buka Petunjuk Arah
+                </span>
+              </div>
+
+              <!-- Border -->
+              <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; border: 4px solid #0F6A57; border-radius: 20px; pointer-events: none; z-index: 30;"></div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<style>
+@keyframes mapPulse {
+  0% { transform: translateX(-50%) scale(0.5); opacity: 1; }
+  100% { transform: translateX(-50%) scale(2); opacity: 0; }
+}
+
+/* Contact Card Hover Effects */
+.contact-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+  border-color: #0F6A57;
+}
+
+.contact-card:hover .card-icon {
+  transform: scale(1.1);
+}
+
+/* WhatsApp Card Hover Effects */
+.whatsapp-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  border-color: #25D366;
+}
+
+.whatsapp-card:hover .fab.fa-whatsapp {
+  animation: whatsappShake 0.5s ease-in-out;
+}
+
+@keyframes whatsappShake {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-10deg); }
+  75% { transform: rotate(10deg); }
+}
+
+/* Section Title Animation */
+.section-subtitle {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.section-title {
+  animation: fadeInUp 0.6s ease 0.2s forwards;
+  opacity: 0;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Card Icons Animation */
+.card-icon {
+  transition: transform 0.4s ease;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+  .whatsapp-card {
+    margin-bottom: 20px;
+  }
+}
+</style>
+
+    @if (false)
+    <footer class="ftco-footer ftco-bg-dark ftco-section">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-md-6 col-lg-3">
+            <div class="ftco-footer-widget mb-5">
+              <h2 class="ftco-heading-2">Hubungi Kami</h2>
+              <div class="block-23 mb-3">
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                  <li style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                    <span class="fas fa-map-marker-alt" style="color: #fff; margin-right: 15px; margin-top: 3px; flex-shrink: 0;"></span>
+                    <span class="text" style="color: rgba(255,255,255,0.7); line-height: 1.6;">Perumahan Jl. Bumi Waringin Indah 2 No.1 Blok B1, Waringinjaya, Kec. Kedungwaringin, Kab. Bekasi, Jawa Barat 17540</span>
+                  </li>
+                  <li style="margin-bottom: 12px;">
+                    <a href="https://wa.me/6285723363762" target="_blank" style="display: flex; align-items: center; color: rgba(255,255,255,0.7); text-decoration: none;">
+                      <span class="fab fa-whatsapp" style="color: #25D366; margin-right: 15px; font-size: 16px;"></span>
+                      <span>+62 857-2336-3762 (Bu Ida - Kepala Sekolah)</span>
+                    </a>
+                  </li>
+                  <li style="margin-bottom: 12px;">
+                    <a href="https://wa.me/6281285257593" target="_blank" style="display: flex; align-items: center; color: rgba(255,255,255,0.7); text-decoration: none;">
+                      <span class="fab fa-whatsapp" style="color: #25D366; margin-right: 15px; font-size: 16px;"></span>
+                      <span>+62 812-8525-7593 (Bu Linda - Admin SMP)</span>
+                    </a>
+                  </li>
+                  <li style="margin-bottom: 12px;">
+                    <a href="https://wa.me/6289637392574" target="_blank" style="display: flex; align-items: center; color: rgba(255,255,255,0.7); text-decoration: none;">
+                      <span class="fab fa-whatsapp" style="color: #25D366; margin-right: 15px; font-size: 16px;"></span>
+                      <span>+62 896-3739-2574 (Bu Sofi - Admin SD)</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="mailto:yayasan@ypinurulilmi.or.id" style="display: flex; align-items: center; color: rgba(255,255,255,0.7); text-decoration: none;">
+                      <span class="fas fa-envelope" style="margin-right: 15px; font-size: 16px;"></span>
+                      <span>yayasan@ypinurulilmi.or.id</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="ftco-footer-widget mb-5">
+              <h2 class="ftco-heading-2">Artikel Terbaru</h2>
+              <div class="block-21 mb-4 d-flex">
+                <a class="blog-img mr-4" style="background-image: url('{{ asset('landingPage/images/image_1.jpg') }}');"></a>
+                <div class="text">
+                  <h3 class="heading"><a href="#">Prestasi siswa dalam kompetisi sains</a></h3>
+                  <div class="meta">
+                    <div><a href="#"><span class="far fa-calendar"></span> 20 Jan 2025</a></div>
+                    <div><a href="#"><span class="fas fa-user"></span> Admin</a></div>
+                    <div><a href="#"><span class="fas fa-comment"></span> 5</a></div>
+                  </div>
+                </div>
+              </div>
+              <div class="block-21 mb-5 d-flex">
+                <a class="blog-img mr-4" style="background-image: url('{{ asset('landingPage/images/image_2.jpg') }}');"></a>
+                <div class="text">
+                  <h3 class="heading"><a href="#">Program tahfidz semakin berkembang</a></h3>
+                  <div class="meta">
+                    <div><a href="#"><span class="far fa-calendar"></span> 18 Jan 2025</a></div>
+                    <div><a href="#"><span class="fas fa-user"></span> Admin</a></div>
+                    <div><a href="#"><span class="fas fa-comment"></span> 8</a></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="ftco-footer-widget mb-5 ml-md-4">
+              <h2 class="ftco-heading-2">Tautan</h2>
+              <ul class="list-unstyled">
+                <li><a href="#"><span class="fas fa-arrow-right mr-2"></span>Home</a></li>
+                <li><a href="#"><span class="fas fa-arrow-right mr-2"></span>Tentang Kami</a></li>
+                <li><a href="#"><span class="fas fa-arrow-right mr-2"></span>Program</a></li>
+                <li><a href="#"><span class="fas fa-arrow-right mr-2"></span>Biaya</a></li>
+                <li><a href="#"><span class="fas fa-arrow-right mr-2"></span>Hubungi Kami</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="ftco-footer-widget mb-5">
+              <h2 class="ftco-heading-2">Berlangganan</h2>
+              <form action="#" class="subscribe-form">
+                <div class="form-group">
+                  <input type="text" class="form-control mb-2 text-center" placeholder="Masukkan email Anda">
+                  <input type="submit" value="Berlangganan" class="form-control submit px-3">
+                </div>
+              </form>
+            </div>
+            <div class="ftco-footer-widget mb-5">
+              <h2 class="ftco-heading-2 mb-0">Hubungi Kami</h2>
+              <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-3">
+                <li class="ftco-animate"><a href="#"><span class="fab fa-twitter"></span></a></li>
+                <li class="ftco-animate"><a href="#"><span class="fab fa-facebook-f"></span></a></li>
+                <li class="ftco-animate"><a href="#"><span class="fab fa-instagram"></span></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <p>Hak Cipta Dilindungi | YPI Nurul Ilmi Bekasi <span class="fas fa-heart" style="color: #e74c3c;"></span> 2025</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    @endif
+@endsection

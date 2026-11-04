@@ -1,0 +1,1051 @@
+@extends('landing_page.layout')
+
+@section('title', 'TK Sigma - Taman Kanak-Kanak Islam Terpadu YPI Nurul Ilmi')
+
+@section('head')
+  <meta name="description" content="TK Sigma - Taman Kanak-Kanak Islam Terpadu di bawah YPI Nurul Ilmi Bekasi. Belajar melalui bermain dengan Kurikulum Merdeka yang menyenangkan.">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ asset('landingPage/css/design-system.css') }}">
+  <link rel="stylesheet" href="{{ asset('landingPage/css/galeri-fasilitas.css') }}">
+  <style>
+    /* TK SIGMA SPECIFIC STYLES - Yellow & Orange Theme */
+    .sigma-theme {
+      --sigma-primary: #D4940A;
+      --sigma-primary-dark: #D4940A;
+      --sigma-primary-light: #FFAB91;
+      --sigma-secondary: #FFFDE7;
+    }
+
+    .hero-section {
+      background: linear-gradient(135deg, #D4940A 0%, #E6A800 100%);
+      padding: 120px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(255,255,255,0.25) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .hero-section::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      left: -10%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(212,148,10,0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .sigma-badge {
+      display: inline-block;
+      background: rgba(212,148,10,0.2);
+      color: #D4940A;
+      padding: 10px 25px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+      backdrop-filter: blur(10px);
+    }
+
+    .sigma-section {
+      padding: 80px 0;
+      background: linear-gradient(180deg, #ffffff 0%, #FFFDE7 100%);
+    }
+
+    .sigma-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 35px 30px;
+      text-align: center;
+      box-shadow: 0 15px 50px rgba(0,0,0,0.08);
+      transition: all 0.4s ease;
+      height: 100%;
+      border-top: 5px solid #D4940A;
+    }
+
+    .sigma-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 25px 60px rgba(212,148,10,0.15);
+    }
+
+    .sigma-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #D4940A, #E6A800);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      box-shadow: 0 10px 30px rgba(212,148,10,0.3);
+    }
+
+    .sigma-icon i {
+      font-size: 32px;
+      color: #fff;
+    }
+
+    .sigma-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #D4940A, #E6A800);
+      color: #fff;
+      padding: 15px 35px;
+      border-radius: 30px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s;
+      box-shadow: 0 8px 25px rgba(212,148,10,0.3);
+    }
+
+    .sigma-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(212,148,10,0.4);
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .program-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 25px;
+      text-align: center;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+      transition: all 0.3s;
+      height: 100%;
+      border-left: 4px solid #D4940A;
+    }
+
+    .program-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(212,148,10,0.15);
+    }
+
+    .program-card i {
+      font-size: 28px;
+      color: #D4940A;
+      margin-bottom: 15px;
+    }
+
+    .facility-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 25px;
+      text-align: center;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+      transition: all 0.3s;
+      height: 100%;
+    }
+
+    .facility-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+    }
+
+    .facility-card i {
+      font-size: 28px;
+      color: #D4940A;
+      margin-bottom: 15px;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 40px;
+      margin-bottom: 30px;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 12px;
+      top: 30px;
+      bottom: -30px;
+      width: 2px;
+      background: linear-gradient(to bottom, #D4940A, #D4940A);
+    }
+
+    .timeline-item:last-child::before {
+      display: none;
+    }
+
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 5px;
+      width: 26px;
+      height: 26px;
+      background: linear-gradient(135deg, #D4940A, #E6A800);
+      border-radius: 50%;
+      border: 4px solid #fff;
+      box-shadow: 0 2px 8px rgba(212,148,10,0.3);
+    }
+
+    .visi-card {
+      background: linear-gradient(135deg, #D4940A, #E6A800);
+      color: #fff;
+      border-radius: 20px;
+      padding: 40px;
+      text-align: center;
+      box-shadow: 0 15px 50px rgba(212,148,10,0.25);
+    }
+
+    .visi-card h3 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .misi-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      transition: all 0.3s;
+    }
+
+    .misi-card:hover {
+      transform: translateX(5px);
+      box-shadow: 0 10px 30px rgba(212,148,10,0.1);
+    }
+
+    .misi-number {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #D4940A, #E6A800);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .price-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 35px;
+      text-align: center;
+      box-shadow: 0 15px 50px rgba(0,0,0,0.08);
+      transition: all 0.3s;
+      border-top: 5px solid #D4940A;
+    }
+
+    .price-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 60px rgba(212,148,10,0.12);
+    }
+
+    .price-total {
+      background: linear-gradient(135deg, #D4940A, #E6A800);
+      color: #fff;
+      padding: 25px;
+      border-radius: 15px;
+      margin-bottom: 25px;
+    }
+
+    .price-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .price-item:last-child {
+      border-bottom: none;
+    }
+
+    .section-title {
+      font-family: 'Nunito', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #D4940A;
+    }
+
+    .section-title span {
+      color: #D4940A;
+    }
+
+    .sigma-top-contacts,
+    .sigma-contact-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .sigma-top-contacts {
+      align-items: center;
+      gap: 4px 12px;
+    }
+
+    .sigma-top-contacts a {
+      color: #fff;
+      font-weight: 600;
+      font-size: 13px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .sigma-contact-options .sigma-btn {
+      flex: 1 1 0;
+      justify-content: center;
+      min-width: 0;
+      padding: 12px 10px;
+      gap: 7px;
+      text-align: center;
+    }
+
+    .sigma-cta-options {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .sigma-cta-options .sigma-contact-options {
+      flex: 1 1 100%;
+    }
+
+    @media (max-width: 768px) {
+      .hero-section {
+        padding: 100px 0 60px;
+      }
+      .section-title {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .sigma-contact-options {
+        flex-direction: column;
+      }
+
+      .sigma-contact-options .sigma-btn {
+        width: 100%;
+      }
+    }
+  </style>
+@endsection
+
+@section('content')
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="row justify-content-center text-center">
+        <div class="col-lg-10" data-aos="fade-up">
+          <div class="sigma-badge">
+            <i class="fas fa-star mr-2"></i> TK Islam Terpadu
+          </div>
+          <h1 class="mb-4" style="color: #fff; font-size: 3.5rem; font-weight: 800; font-family: 'Nunito', sans-serif; text-shadow: 0 4px 20px rgba(0,0,0,0.15);">TK <span style="color: #333;">Sigma</span></h1>
+          <p class="mb-0" style="color: rgba(255,255,255,0.95); font-size: 1.2rem; max-width: 650px; margin: 0 auto; line-height: 1.8;">Taman Kanak-Kanak Islam Terpadu yang hadir sebagai rumah kedua yang aman, nyaman, dan penuh kasih sayang untuk Ananda.</p>
+          <div class="mt-4">
+            <a href="#pendaftaran" class="sigma-btn">
+              <i class="fas fa-edit"></i> Daftar Sekarang
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Profil Section -->
+  <section class="sigma-section">
+    <div class="container">
+      <div class="row justify-content-center mb-5">
+        <div class="col-md-8 text-center" data-aos="fade-down">
+          <span class="sigma-badge" style="background: linear-gradient(135deg, #D4940A, #E6A800); margin-bottom: 20px;">Profil</span>
+          <h2 class="section-title mb-4">Mengenal <span>TK Sigma</span></h2>
+        </div>
+      </div>
+
+      <div class="row align-items-center">
+        <div class="col-lg-6 mb-5 mb-lg-0" data-aos="fade-right">
+          <div style="background: linear-gradient(135deg, #D4940A, #E6A800); border-radius: 20px; padding: 40px; color: #fff; box-shadow: 0 20px 50px rgba(212,148,10,0.3);">
+            <div class="d-flex align-items-center mb-4">
+              <div style="width: 60px; height: 60px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 20px;">
+                <i class="fas fa-calendar-alt" style="font-size: 24px;"></i>
+              </div>
+              <div>
+                <p class="mb-0" style="opacity: 0.9; font-size: 14px;">Berdiri Sejak</p>
+                <h3 class="mb-0" style="font-size: 1.5rem; font-weight: 700;">Tahun 2008</h3>
+              </div>
+            </div>
+            <p style="line-height: 1.8; font-size: 1.05rem; opacity: 0.95;">TK Sigma adalah Taman Kanak-Kanak Islam Terpadu di bawah naungan <strong>YPI Nurul Ilmi Bekasi</strong>. Berawal dari kepedulian akan pentingnya pendidikan usia dini yang memadukan nilai Islami, karakter, dan stimulasi tumbuh kembang optimal.</p>
+          </div>
+        </div>
+        <div class="col-lg-6" data-aos="fade-left">
+          <div style="background: #fff; border-radius: 20px; padding: 35px; box-shadow: 0 15px 50px rgba(0,0,0,0.08);">
+            <h4 style="color: #D4940A; font-weight: 700; margin-bottom: 20px;">
+              <i class="fas fa-heart" style="color: #D4940A; margin-right: 10px;"></i>
+              Pendekatan Belajar
+            </h4>
+            <p style="color: #666; line-height: 1.8; margin-bottom: 25px;">Kami menggunakan pendekatan <strong>belajar melalui bermain (Learn Through Play)</strong> dengan <strong>Kurikulum Merdeka</strong> yang menyenangkan, sehingga anak tidak hanya cerdas secara akademis, tetapi juga <strong>sholeh, mandiri, dan percaya diri</strong>.</p>
+            <div class="d-flex flex-wrap gap-3">
+              <span style="background: rgba(212,148,10,0.1); color: #D4940A; padding: 8px 18px; border-radius: 20px; font-size: 13px; font-weight: 600;">
+                <i class="fas fa-check-circle mr-2"></i>Learn Through Play
+              </span>
+              <span style="background: rgba(212,148,10,0.2); color: #D4940A; padding: 8px 18px; border-radius: 20px; font-size: 13px; font-weight: 600;">
+                <i class="fas fa-check-circle mr-2"></i>Kurikulum Merdeka
+              </span>
+              <span style="background: rgba(212,148,10,0.1); color: #D4940A; padding: 8px 18px; border-radius: 20px; font-size: 13px; font-weight: 600;">
+                <i class="fas fa-check-circle mr-2"></i>Nilai Islami
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Visi Misi Section -->
+  <section style="background: #fff; padding: 80px 0;">
+    <div class="container">
+      <div class="row justify-content-center mb-5">
+        <div class="col-md-8 text-center" data-aos="fade-down">
+          <span class="sigma-badge" style="background: linear-gradient(135deg, #D4940A, #E6A800); color: #fff;">Visi & Misi</span>
+          <h2 class="section-title mt-4">Arah <span>Kami</span></h2>
+        </div>
+      </div>
+
+      <div class="row justify-content-center mb-5">
+        <div class="col-lg-8" data-aos="fade-up">
+          <div class="visi-card">
+            <i class="fas fa-eye mb-3" style="font-size: 36px; opacity: 0.9;"></i>
+            <h3>Visi</h3>
+            <p style="font-size: 1.2rem; margin-bottom: 0; opacity: 0.95; line-height: 1.7;">Dengan visi menciptakan generasi Islam yang beriman, berilmu, dan berakhlak mulia,beliau memimpin YPI Nurul Ilmi yang menaungi TKIT, SDIT, dan SMPIT Nurul Ilmi menuju pendidikan Islam yang berkualitas.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="misi-card">
+            <div class="misi-number">1</div>
+            <div>
+              <h5 style="color: #D4940A; font-weight: 700; margin-bottom: 8px;">Nilai Keislaman</h5>
+              <p style="color: #666; margin-bottom: 0; line-height: 1.7;">Menanamkan nilai-nilai keislaman dan akhlakul karimah dalam kegiatan sehari-hari.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="150">
+          <div class="misi-card">
+            <div class="misi-number">2</div>
+            <div>
+              <h5 style="color: #D4940A; font-weight: 700; margin-bottom: 8px;">Stimulasi Optimal</h5>
+              <p style="color: #666; margin-bottom: 0; line-height: 1.7;">Mengembangkan potensi kognitif, motorik, bahasa, sosial-emosional anak secara optimal.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="misi-card">
+            <div class="misi-number">3</div>
+            <div>
+              <h5 style="color: #D4940A; font-weight: 700; margin-bottom: 8px;">Lingkungan Islami</h5>
+              <p style="color: #666; margin-bottom: 0; line-height: 1.7;">Menciptakan lingkungan belajar yang aman, bersih, menyenangkan, dan islami.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="250">
+          <div class="misi-card">
+            <div class="misi-number">4</div>
+            <div>
+              <h5 style="color: #D4940A; font-weight: 700; margin-bottom: 8px;">Kemitraan</h5>
+              <p style="color: #666; margin-bottom: 0; line-height: 1.7;">Menjalin kemitraan yang baik antara sekolah dan orang tua.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Program Section -->
+  <section class="sigma-section">
+    <div class="container">
+      <div class="row justify-content-center mb-5">
+        <div class="col-md-8 text-center" data-aos="fade-down">
+          <span class="sigma-badge" style="background: linear-gradient(135deg, #D4940A, #E6A800);">Program</span>
+          <h2 class="section-title mt-4">Program <span>Pembelajaran</span></h2>
+          <p style="color: #666; max-width: 600px; margin: 15px auto 0;">Berbagai program pembelajaran yang dirancang untuk mengembangkan potensi anak secara menyeluruh.</p>
+        </div>
+      </div>
+
+      <!-- Kurikulum -->
+      <div class="row mb-5">
+        <div class="col-12" data-aos="fade-up">
+          <div class="sigma-card" style="text-align: left;">
+            <div class="row align-items-center">
+              <div class="col-lg-2 text-center mb-4 mb-lg-0">
+                <div class="sigma-icon" style="margin: 0 auto;">
+                  <i class="fas fa-book-open"></i>
+                </div>
+              </div>
+              <div class="col-lg-10">
+                <h4 style="color: #D4940A; font-weight: 700; margin-bottom: 10px;">Kurikulum Merdeka PAUD</h4>
+                <p style="color: #666; margin-bottom: 15px; line-height: 1.7;">Kurikulum Merdeka PAUD yang dipadukan dengan nilai-nilai Islam, memberikan pengalaman belajar yang bermakna dan menyenangkan bagi anak usia dini.</p>
+                <span style="background: rgba(212,148,10,0.3); color: #D4940A; padding: 6px 15px; border-radius: 20px; font-size: 13px; font-weight: 600;">
+                  <i class="fas fa-check mr-2"></i>Terintegrasi Nilai Islami
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Program Unggulan -->
+      <div class="row mb-4">
+        <div class="col-12 text-center" data-aos="fade-up">
+          <h4 style="color: #D4940A; font-weight: 700; margin-bottom: 30px;">
+            <i class="fas fa-star" style="color: #D4940A; margin-right: 10px;"></i>
+            Program Unggulan
+          </h4>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="program-card">
+            <i class="fas fa-book-quran"></i>
+            <h5 style="color: #D4940A; font-weight: 700; margin-bottom: 10px;">Tahfidz Juz 30</h5>
+            <p style="color: #666; font-size: 14px; margin-bottom: 0;">Program hafalan Al-Quran Juz 30 dan Hadits Harian untuk membangun fondasi keislaman sejak dini.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="150">
+          <div class="program-card">
+            <i class="fas fa-language"></i>
+            <h5 style="color: #D4940A; font-weight: 700; margin-bottom: 10px;">Bilingual Fun</h5>
+            <p style="color: #666; font-size: 14px; margin-bottom: 0;">Bahasa Inggris dan Bahasa Arab Dasar dengan metode yang menyenangkan dan aplikatif.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="program-card">
+            <i class="fas fa-pencil-alt"></i>
+            <h5 style="color: #D4940A; font-weight: 700; margin-bottom: 10px;">Calistung</h5>
+            <p style="color: #666; font-size: 14px; margin-bottom: 0;">Calistung Menyenangkan (Baca Tulis Hitung) dengan pendekatan bermain yang tidak membebani.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="250">
+          <div class="program-card">
+            <i class="fas fa-puzzle-piece"></i>
+            <h5 style="color: #D4940A; font-weight: 700; margin-bottom: 10px;">Sensory Play</h5>
+            <p style="color: #666; font-size: 14px; margin-bottom: 0;">Sensory Play dan Montessori Activity untuk merangsang perkembangan sensorik anak.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+          <div class="program-card">
+            <i class="fas fa-hands"></i>
+            <h5 style="color: #D4940A; font-weight: 700; margin-bottom: 10px;">Adab & Sunnah</h5>
+            <p style="color: #666; font-size: 14px; margin-bottom: 0;">Adab dan Sunnah Harian untuk membentuk karakter anak yang santun dan berakhlak mulia.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="350">
+          <div class="program-card">
+            <i class="fas fa-child"></i>
+            <h5 style="color: #D4940A; font-weight: 700; margin-bottom: 10px;">Play-Based Learning</h5>
+            <p style="color: #666; font-size: 14px; margin-bottom: 0;">Belajar melalui bermain yang menyenangkan sesuai prinsip perkembangan anak usia dini.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ekstrakurikuler -->
+      <div class="row mt-5">
+        <div class="col-12 text-center" data-aos="fade-up">
+          <h4 style="color: #D4940A; font-weight: 700; margin-bottom: 30px;">
+            <i class="fas fa-star" style="color: #D4940A; margin-right: 10px;"></i>
+            Ekstrakurikuler
+          </h4>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+  <div class="program-card">
+    <i class="fas fa-music"></i>
+    <h5 style="color: #D4940A; font-weight: 700; margin-bottom: 10px;">Menari & Menyanyi</h5>
+    <p style="color: #666; font-size: 14px; margin-bottom: 0;">Kegiatan menari dan menyanyi untuk mengembangkan kreativitas, melatih keberanian, serta menumbuhkan rasa percaya diri anak.</p>
+  </div>
+</div>
+        <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="150">
+          <div class="program-card">
+            <i class="fas fa-palette"></i>
+            <h5 style="color: #D4940A; font-weight: 700; margin-bottom: 10px;">Menggambar</h5>
+            <p style="color: #666; font-size: 14px; margin-bottom: 0;">Aktivitas menggambar dan mewarnai untukstimulasi motorik halus.</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+  <div class="program-card">
+    <i class="fas fa-language"></i>
+    <h5 style="color: #D4940A; font-weight: 700; margin-bottom: 10px;">Bahasa Inggris</h5>
+    <p style="color: #666; font-size: 14px; margin-bottom: 0;">Kegiatan belajar Bahasa Inggris untuk mengenalkan kosakata dan melatih kemampuan berkomunikasi sejak dini.</p>
+  </div>
+</div>
+
+<div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="250">
+  <div class="program-card">
+    <i class="fas fa-book-reader"></i>
+    <h5 style="color: #D4940A; font-weight: 700; margin-bottom: 10px;">Calistung</h5>
+    <p style="color: #666; font-size: 14px; margin-bottom: 0;">Kegiatan belajar membaca, menulis, dan berhitung untuk mengembangkan kemampuan dasar anak.</p>
+  </div>
+</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fasilitas Section -->
+  <section class="ni-theme-gold" style="background: #fff; padding: 80px 0;">
+    <div class="container">
+      <div class="row justify-content-center mb-5">
+        <div class="col-md-8 text-center" data-aos="fade-down">
+          <span class="sigma-badge" style="background: linear-gradient(135deg, #D4940A, #E6A800); color: #fff;">Fasilitas</span>
+          <h2 class="section-title mt-4">Fasilitas <span>TK Sigma</span></h2>
+          <p style="color: #666; max-width: 600px; margin: 15px auto 0;">Fasilitas lengkap dan aman untuk mendukung kenyamanan belajar Ananda.</p>
+          <p style="color: #777; font-size: 14px; max-width: 600px; margin: 8px auto 0;">Klik salah satu fasilitas di bawah untuk melihat dokumentasi foto khusus fasilitas tersebut.</p>
+        </div>
+      </div>
+
+      <div class="ni-fas-grid">
+      <button type="button" class="ni-fas-card" data-ni-facility="kelas-ac">
+        <span class="ni-fas-media">
+          <img src="images/kelas.jpeg" alt="Ruang Kelas AC" loading="lazy">
+          <span class="ni-fas-icon" aria-hidden="true"><i class="fas fa-snowflake"></i></span>
+          <span class="ni-fas-count"></span>
+        </span>
+        <span class="ni-fas-body">
+          <span class="ni-fas-title">Ruang Kelas AC</span>
+          <span class="ni-fas-desc">Nyaman & ergonomis untuk anak</span>
+          <span class="ni-fas-cta">Lihat Galeri <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+        </span>
+      </button>
+      <button type="button" class="ni-fas-card" data-ni-facility="playground">
+        <span class="ni-fas-media">
+          <img src="images/main.jpeg" alt="Playground Indoor" loading="lazy">
+          <span class="ni-fas-icon" aria-hidden="true"><i class="fas fa-gamepad"></i></span>
+          <span class="ni-fas-count"></span>
+        </span>
+        <span class="ni-fas-body">
+          <span class="ni-fas-title">Playground Indoor</span>
+          <span class="ni-fas-desc">Aman untuk bermain</span>
+          <span class="ni-fas-cta">Lihat Galeri <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+        </span>
+      </button>
+      <button type="button" class="ni-fas-card" data-ni-facility="perpustakaan-mini">
+        <span class="ni-fas-media">
+          <!-- foto belum tersedia untuk fasilitas ini -->
+          <span class="ni-fas-icon" aria-hidden="true"><i class="fas fa-book-reader"></i></span>
+          <span class="ni-fas-count"></span>
+        </span>
+        <span class="ni-fas-body">
+          <span class="ni-fas-title">Perpustakaan Mini</span>
+          <span class="ni-fas-desc">Pojok baca buku</span>
+          <span class="ni-fas-cta">Lihat Galeri <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+        </span>
+      </button>
+      <button type="button" class="ni-fas-card" data-ni-facility="uks">
+        <span class="ni-fas-media">
+          <!-- foto belum tersedia untuk fasilitas ini -->
+          <span class="ni-fas-icon" aria-hidden="true"><i class="fas fa-first-aid"></i></span>
+          <span class="ni-fas-count"></span>
+        </span>
+        <span class="ni-fas-body">
+          <span class="ni-fas-title">UKS</span>
+          <span class="ni-fas-desc">Ruang konsultasi tumbuh kembang</span>
+          <span class="ni-fas-cta">Lihat Galeri <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+        </span>
+      </button>
+      <button type="button" class="ni-fas-card" data-ni-facility="aula">
+        <span class="ni-fas-media">
+          <!-- foto belum tersedia untuk fasilitas ini -->
+          <span class="ni-fas-icon" aria-hidden="true"><i class="fas fa-home"></i></span>
+          <span class="ni-fas-count"></span>
+        </span>
+        <span class="ni-fas-body">
+          <span class="ni-fas-title">Aula Serbaguna</span>
+          <span class="ni-fas-desc">Untuk berbagai kegiatan</span>
+          <span class="ni-fas-cta">Lihat Galeri <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+        </span>
+      </button>
+      <button type="button" class="ni-fas-card" data-ni-facility="cctv">
+        <span class="ni-fas-media">
+          <!-- foto belum tersedia untuk fasilitas ini -->
+          <span class="ni-fas-icon" aria-hidden="true"><i class="fas fa-video"></i></span>
+          <span class="ni-fas-count"></span>
+        </span>
+        <span class="ni-fas-body">
+          <span class="ni-fas-title">CCTV 24 Jam</span>
+          <span class="ni-fas-desc">Akses keamanan terjaga</span>
+          <span class="ni-fas-cta">Lihat Galeri <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+        </span>
+      </button>
+      <button type="button" class="ni-fas-card" data-ni-facility="keamanan">
+        <span class="ni-fas-media">
+          <img src="images/idcard.jpeg" alt="Sistem Keamanan" loading="lazy">
+          <span class="ni-fas-icon" aria-hidden="true"><i class="fas fa-shield-alt"></i></span>
+          <span class="ni-fas-count"></span>
+        </span>
+        <span class="ni-fas-body">
+          <span class="ni-fas-title">Sistem Keamanan</span>
+          <span class="ni-fas-desc">Akses kontrol ketat</span>
+          <span class="ni-fas-cta">Lihat Galeri <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+        </span>
+      </button>
+      <button type="button" class="ni-fas-card" data-ni-facility="toilet">
+        <span class="ni-fas-media">
+          <!-- foto belum tersedia untuk fasilitas ini -->
+          <span class="ni-fas-icon" aria-hidden="true"><i class="fas fa-restroom"></i></span>
+          <span class="ni-fas-count"></span>
+        </span>
+        <span class="ni-fas-body">
+          <span class="ni-fas-title">Toilet Bersih</span>
+          <span class="ni-fas-desc">Ramah anak</span>
+          <span class="ni-fas-cta">Lihat Galeri <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+        </span>
+      </button>
+      </div>
+    </div>
+  </section>
+  <!-- Guru Section -->
+  <section class="sigma-section">
+    <div class="container">
+      <div class="row justify-content-center mb-5">
+        <div class="col-md-8 text-center" data-aos="fade-down">
+          <span class="sigma-badge" style="background: linear-gradient(135deg, #D4940A, #E6A800); color: #fff;">Tim Kami</span>
+          <h2 class="section-title mt-4">Guru & Pengajar</h2>
+        </div>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-lg-8" data-aos="fade-up">
+          <div class="sigma-card">
+            <div class="sigma-icon">
+              <i class="fas fa-chalkboard-teacher"></i>
+            </div>
+            <h4 style="color: #D4940A; font-weight: 700; margin-bottom: 15px;">8 Guru Profesional</h4>
+            <p style="color: #666; line-height: 1.8; margin-bottom: 20px;">Diasuh oleh <strong>8 guru profesional, penyayang, dan bersertifikasi PAUD</strong>. Semua guru TK Sigma rutin mengikuti pelatihan Montessori dan parenting untuk memastikan kualitas pembelajaran terbaik bagi Ananda.</p>
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+              <span style="background: rgba(212,148,10,0.1); color: #D4940A; padding: 8px 18px; border-radius: 20px; font-size: 13px; font-weight: 600;">
+                <i class="fas fa-certificate mr-2"></i>Sertifikasi PAUD
+              </span>
+              <span style="background: rgba(212,148,10,0.2); color: #D4940A; padding: 8px 18px; border-radius: 20px; font-size: 13px; font-weight: 600;">
+                <i class="fas fa-heart mr-2"></i>Penuh Kasih Sayang
+              </span>
+              <span style="background: rgba(212,148,10,0.1); color: #D4940A; padding: 8px 18px; border-radius: 20px; font-size: 13px; font-weight: 600;">
+                <i class="fas fa-graduation-cap mr-2"></i>Pelatihan Montessori
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Biaya Section -->
+  <section id="biaya" style="background: #fff; padding: 80px 0;">
+    <div class="container">
+      <div class="row justify-content-center mb-5">
+        <div class="col-md-8 text-center" data-aos="fade-down">
+          <span class="sigma-badge" style="background: linear-gradient(135deg, #D4940A, #E6A800); color: #fff;">Biaya</span>
+          <h2 class="section-title mt-4">Biaya Pendidikan</h2>
+          <p style="color: #666; max-width: 600px; margin: 15px auto 0;">Rincian biaya pendidikan TK Sigma Tahun Ajaran 2027/2028.</p>
+        </div>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-lg-8" data-aos="fade-up">
+          <div class="price-card">
+            <div class="price-total">
+              <p style="margin: 0 0 5px; opacity: 0.9; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">Total Biaya Pendaftaran</p>
+              <h2 style="margin: 0; font-size: 2.5rem; font-weight: 800;">Rp 3.990.000</h2>
+              <p style="margin: 10px 0 0; opacity: 0.9; font-size: 13px;">*Harga sudah termasuk komponen di bawah</p>
+            </div>
+
+            <div class="text-left">
+              <div class="price-item">
+                <span style="color: #666;">Biaya Pendaftaran</span>
+                <span style="color: #D4940A; font-weight: 600;"></span>
+              </div>
+              <div class="price-item">
+                <span style="color: #666;">Uang Pangkal + Sarana</span>
+                <span style="color: #D4940A; font-weight: 600;"></span>
+              </div>
+              <div class="price-item">
+                <span style="color: #666;">SPP Juli</span>
+                <span style="color: #D4940A; font-weight: 600;"></span>
+              </div>
+              <div class="price-item">
+                <span style="color: #666;">Seragam Siswa + Tas Sekolah</span>
+                <span style="color: #D4940A; font-weight: 600;"></span>
+              </div>
+              <div class="price-item">
+                <span style="color: #666;">Buku dan Alat Tulis + Buku Paket</span>
+                <span style="color: #D4940A; font-weight: 600;"></span>
+              </div>
+              <div class="price-item">
+                <span style="color: #666;">Kegiatan Pendidikan</span>
+                <span style="color: #D4940A; font-weight: 600;">Menyusul</span>
+              </div>
+            </div>
+
+            <div class="mt-4">
+              <p style="color: #666; font-size: 14px; margin-bottom: 15px;">
+                <strong>SPP Bulanan:</strong> Rp 290.000/bulan
+              </p>
+              <p style="color: #666; font-size: 14px; margin-bottom: 20px;">
+                <strong>Ekstrakurikuler:</strong> Calistung, English Club, Tahfidz, Mewarnai, dan Menari
+              </p>
+              <div class="sigma-contact-options">
+                <a href="https://wa.me/6281282307424?text=Halo%20Bu%20Ida,%20saya%20ingin%20bertanya%20tentang%20pendaftaran%20TK%20Sigma" target="_blank" rel="noopener" class="sigma-btn">
+                  <i class="fab fa-whatsapp"></i> Tanya Bu Ida
+                </a>
+                <a href="https://wa.me/6281214095882?text=Halo%20Bu%20Ulfah,%20saya%20ingin%20bertanya%20tentang%20pendaftaran%20TK%20Sigma" target="_blank" rel="noopener" class="sigma-btn">
+                  <i class="fab fa-whatsapp"></i> Tanya Bu Ulfah
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pendaftaran Section -->
+  <section id="pendaftaran" class="sigma-section">
+    <div class="container">
+      <div class="row justify-content-center mb-5">
+        <div class="col-md-8 text-center" data-aos="fade-down">
+          <span class="sigma-badge" style="background: linear-gradient(135deg, #D4940A, #E6A800); color: #fff;">Pendaftaran</span>
+          <h2 class="section-title mt-4">Alur <span>Pendaftaran</span></h2>
+          <p style="color: #666; max-width: 600px; margin: 15px auto 0;">Langkah-langkah untuk mendaftarkan Ananda di TK Sigma.</p>
+        </div>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          <div class="row">
+            <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="100">
+              <div class="sigma-card">
+                <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #D4940A, #E6A800); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: #fff; font-size: 20px; font-weight: 700;">1</div>
+                <h5 style="color: #D4940A; font-weight: 700; margin-bottom: 15px;">Isi Formulir</h5>
+                <p style="color: #666; font-size: 14px; margin-bottom: 20px;">Mengisi formulir pendaftaran online atau offline.</p>
+                <div style="background: rgba(212,148,10,0.15); padding: 15px; border-radius: 12px; text-align: left;">
+                  <p style="margin: 0; font-size: 13px; color: #666;">
+                    <i class="fas fa-file-alt" style="color: #D4940A; margin-right: 8px;"></i>
+                    Formulir pendaftaran
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="200">
+              <div class="sigma-card">
+                <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #D4940A, #E6A800); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: #fff; font-size: 20px; font-weight: 700;">2</div>
+                <h5 style="color: #D4940A; font-weight: 700; margin-bottom: 15px;">Lengkapi Dokumen</h5>
+                <p style="color: #666; font-size: 14px; margin-bottom: 20px;">Menyertakan dokumen yang diperlukan.</p>
+                <div style="background: rgba(212,148,10,0.15); padding: 15px; border-radius: 12px; text-align: left;">
+                  <p style="margin: 0 0 8px; font-size: 13px; color: #666;">
+                    <i class="fas fa-copy" style="color: #D4940A; margin-right: 8px;"></i>
+                    Fotokopi Akta Kelahiran
+                  </p>
+                  <p style="margin: 0 0 8px; font-size: 13px; color: #666;">
+                    <i class="fas fa-copy" style="color: #D4940A; margin-right: 8px;"></i>
+                    Fotokopi Kartu Keluarga
+                  </p>
+                  <p style="margin: 0; font-size: 13px; color: #666;">
+                    <i class="fas fa-camera" style="color: #D4940A; margin-right: 8px;"></i>
+                    Pas Foto 3x4 (2 lembar)
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="300">
+              <div class="sigma-card">
+                <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #D4940A, #E6A800); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: #fff; font-size: 20px; font-weight: 700;">3</div>
+                <h5 style="color: #D4940A; font-weight: 700; margin-bottom: 15px;">Observasi</h5>
+                <p style="color: #666; font-size: 14px; margin-bottom: 20px;">Observasi dan wawancara orang tua.</p>
+                <div style="background: rgba(212,148,10,0.15); padding: 15px; border-radius: 12px; text-align: left;">
+                  <p style="margin: 0; font-size: 13px; color: #666;">
+                    <i class="fas fa-comments" style="color: #D4940A; margin-right: 8px;"></i>
+                    Wawancara orang tua
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-12" data-aos="fade-up">
+              <div class="sigma-card" style="background: linear-gradient(135deg, #D4940A, #E6A800); color: #fff;">
+                <div class="row align-items-center">
+                  <div class="col-lg-8 mb-4 mb-lg-0">
+                    <h5 style="font-weight: 700; margin-bottom: 10px;">
+                      <i class="fas fa-check-circle" style="margin-right: 10px;"></i>
+                      Ananda Resmi Menjadi Siswa TK Sigma
+                    </h5>
+                    <p style="margin: 0; opacity: 0.95;">Setelah melakukan pembayaran daftar ulang, Ananda resmi menjadi siswa TK Sigma.</p>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="sigma-contact-options">
+                      <a href="https://wa.me/6281282307424?text=Halo%20Bu%20Ida,%20saya%20ingin%20mendaftarkan%20anak%20di%20TK%20Sigma" target="_blank" rel="noopener" class="sigma-btn" style="background: #fff; color: #D4940A;">
+                        <i class="fab fa-whatsapp"></i> Daftar ke Bu Ida
+                      </a>
+                      <a href="https://wa.me/6281214095882?text=Halo%20Bu%20Ulfah,%20saya%20ingin%20mendaftarkan%20anak%20di%20TK%20Sigma" target="_blank" rel="noopener" class="sigma-btn" style="background: #fff; color: #D4940A;">
+                        <i class="fab fa-whatsapp"></i> Daftar ke Bu Ulfah
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+ 
+  <!-- Artikel Section -->
+  <section class="ni-art-section ni-theme-gold" style="background: linear-gradient(180deg, #ffffff 0%, #FFFDE7 100%); padding: 80px 0;">
+    <div class="container">
+      <div class="row justify-content-center mb-5">
+        <div class="col-md-8 text-center" data-aos="fade-down">
+          <span class="sigma-badge" style="background: linear-gradient(135deg, #D4940A, #E6A800); color: #fff;">Artikel</span>
+          <h2 class="section-title mt-4">Artikel &amp; Kegiatan <span>TK Sigma</span></h2>
+          <p style="color: #666; max-width: 640px; margin: 15px auto 0;">Dokumentasi kegiatan, program, dan prestasi TK Sigma. Daftar artikel akan dipublikasikan melalui tampilan ini.</p>
+        </div>
+      </div>
+      <div id="tkSigmaArtikel"></div>
+    </div>
+  </section>
+ <section style="background: linear-gradient(135deg, #D4940A, #E6A800); padding: 60px 0;">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-8 mb-4 mb-lg-0" data-aos="fade-right">
+          <h2 style="color: #fff; font-size: 2rem; font-weight: 700; margin-bottom: 15px;">Tertarik dengan TK Sigma?</h2>
+          <p style="color: rgba(255,255,255,0.95); font-size: 1.1rem; margin: 0;">Hubungi kami untuk informasi lebih lanjut atau jadwalkan kunjungan ke TK Sigma.</p>
+        </div>
+        <div class="col-lg-4" data-aos="fade-left">
+          <div class="sigma-cta-options">
+            <div class="sigma-contact-options">
+              <a href="https://wa.me/6281282307424?text=Halo%20Bu%20Ida,%20saya%20tertarik%20dengan%20TK%20Sigma" target="_blank" rel="noopener" class="sigma-btn" style="background: #fff; color: #D4940A;">
+                <i class="fab fa-whatsapp"></i> Hubungi Bu Ida
+              </a>
+              <a href="https://wa.me/6281214095882?text=Halo%20Bu%20Ulfah,%20saya%20tertarik%20dengan%20TK%20Sigma" target="_blank" rel="noopener" class="sigma-btn" style="background: #fff; color: #D4940A;">
+                <i class="fab fa-whatsapp"></i> Hubungi Bu Ulfah
+              </a>
+            </div>
+            <a href="{{ route('contact') }}" class="sigma-btn" style="background: rgba(255,255,255,0.2); color: #fff; border: 2px solid #fff;">
+              <i class="fas fa-map-marker-alt"></i> Lokasi
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+@endsection
+
+@section('scripts')
+  <script src="{{ asset('landingPage/js/fasilitas-gallery.js') }}"></script>
+  <script>
+    /* Data galeri fasilitas & artikel TK Sigma (frontend statis, tanpa backend).
+       Setiap facility card membuka galeri KHUSUS untuk fasilitas tersebut. */
+    (function () {
+      var FASILITAS = {
+        'kelas-ac': {
+          title: 'Ruang Kelas AC',
+          desc: 'Ruang kelas ber-AC yang nyaman dan ergonomis untuk mendukung fokus belajar Ananda.',
+          photos: [
+            { src: 'images/kelas.jpeg', alt: 'Ruang Kelas AC TK Sigma', caption: 'Ruang Kelas AC' }
+          ]
+        },
+        'playground': {
+          title: 'Playground Indoor',
+          desc: 'Area bermain yang aman untuk eksplorasi dan kegiatan motorik anak.',
+          photos: [
+            { src: 'images/main.jpeg', alt: 'Playground di area sekolah', caption: 'Playground' },
+            { src: 'images/WhatsApp%20Image%202026-10-19%20at%2016.21.49%20(5).jpeg', alt: 'Taman bermain anak', caption: 'Taman Bermain' }
+          ]
+        },
+        'perpustakaan-mini': {
+          title: 'Perpustakaan Mini',
+          desc: 'Pojok baca buku untuk memperkaya kelas dan minat baca Ananda.',
+          photos: []
+        },
+        'uks': {
+          title: 'UKS',
+          desc: 'Ruang konsultasi tumbuh kembang dan penanganan kesehatan awal.',
+          photos: []
+        },
+        'aula': {
+          title: 'Aula Serbaguna',
+          desc: 'Ruang serbaguna untuk berbagai kegiatan sekolah dan acara bersama.',
+          photos: []
+        },
+        'cctv': {
+          title: 'CCTV 24 Jam',
+          desc: 'Pemantauan area sekolah 24 jam agar akses keamanan terjaga.',
+          photos: []
+        },
+        'keamanan': {
+          title: 'Sistem Keamanan',
+          desc: 'Akses kontrol ketat menggunakan kartu identitas di pintu masuk area sekolah.',
+          photos: [
+            { src: 'images/idcard.jpeg', alt: 'Sistem akses kartu di sekolah', caption: 'Akses Kontrol Kartu' }
+          ]
+        },
+        'toilet': {
+          title: 'Toilet Bersih',
+          desc: 'Toilet bersih dan ramah anak dengan kebersihan terjaga.',
+          photos: []
+        }
+      };
+
+      /* Struktur data artikel TK Sigma (frontend statis).
+         Contoh isi array ARTIKEL:
+         { cover: 'images/foto.jpg', category: 'Kegiatan', title: 'Judul Artikel',
+           date: '12 Oktober 2026', excerpt: 'Ringkasan artikel...', url: 'blog-single.html' } */
+      var ARTIKEL = [];
+
+      function boot() {
+        if (!window.NIGaleri) return;
+
+        window.NIGaleri.initFasilitas({
+          cardsSelector: '.ni-fas-card',
+          data: FASILITAS,
+          theme: 'gold'
+        });
+
+        window.NIGaleri.initArtikel({
+          container: '#tkSigmaArtikel',
+          data: ARTIKEL,
+          emptyTitle: 'Belum ada artikel TK Sigma',
+          emptyText: 'Belum ada artikel yang dipublikasikan untuk TK Sigma. Informasi kegiatan dan program TK Sigma juga dapat Anda ikuti melalui halaman Artikel YPI Nurul Ilmi.',
+          emptyLinkHref: '{{ route('articles.index') }}',
+          emptyLinkText: 'Lihat Artikel YPI Nurul Ilmi'
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', boot);
+      } else {
+        boot();
+      }
+    })();
+  </script>
+@endsection

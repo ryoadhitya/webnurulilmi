@@ -1,0 +1,1121 @@
+@extends('landing_page.layout')
+
+@section('title', 'Daycare Sigma - Penitipan Anak YPI Nurul Ilmi')
+
+@section('head')
+  <meta name="description" content="Daycare Sigma by YPI Nurul Ilmi - Layanan penitipan anak usia 2-6 tahun dengan pengasuhan terbaik dan stimulasi optimal.">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ asset('landingPage/css/design-system.css') }}">
+  <link rel="stylesheet" href="{{ asset('landingPage/css/galeri-fasilitas.css') }}">
+  <style>
+    /* DAYCARE SIGMA SPECIFIC STYLES - Bright & Cheerful Theme */
+    .sigma-theme {
+      --sigma-primary: #FFD84D;
+      --sigma-primary-dark: #F5C518;
+      --sigma-primary-light: #FFD84D;
+      --sigma-secondary: #FFFDE7;
+      --sigma-orange: #F5C518;
+      --sigma-orange-light: #FFAB91;
+      --sigma-blue: #FFD84D;
+    }
+
+    .hero-section {
+      background: linear-gradient(135deg, #F5C518 0%, #FFD54F 100%);
+      padding: 120px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .hero-section::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      left: -10%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .sigma-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.25);
+      color: #fff;
+      padding: 10px 25px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+      backdrop-filter: blur(10px);
+    }
+
+    .sigma-section {
+      padding: 80px 0;
+      background: linear-gradient(180deg, #ffffff 0%, #FFFDE7 100%);
+    }
+
+    .sigma-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 35px 30px;
+      text-align: center;
+      box-shadow: 0 15px 50px rgba(0,0,0,0.08);
+      transition: all 0.4s ease;
+      height: 100%;
+      border-top: 5px solid #FFD84D;
+    }
+
+    .sigma-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 25px 60px rgba(245,197,24,0.15);
+    }
+
+    .sigma-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #F5C518, #FFAB91);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      box-shadow: 0 10px 30px rgba(245,197,24,0.3);
+    }
+
+    .sigma-icon i {
+      font-size: 32px;
+      color: #fff;
+    }
+
+    .sigma-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #F5C518, #F5C518);
+      color: #fff;
+      padding: 15px 35px;
+      border-radius: 30px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s;
+      box-shadow: 0 8px 25px rgba(245,197,24,0.3);
+    }
+
+    .sigma-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(245,197,24,0.4);
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .package-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 35px;
+      text-align: center;
+      box-shadow: 0 15px 50px rgba(0,0,0,0.08);
+      transition: all 0.4s ease;
+      height: 100%;
+      border-top: 5px solid #FFD84D;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .package-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 25px 60px rgba(245,197,24,0.15);
+    }
+
+    .package-card.featured {
+      border: 3px solid #FFD84D;
+      transform: scale(1.05);
+    }
+
+    .package-card.featured:hover {
+      transform: scale(1.05) translateY(-10px);
+    }
+
+    .package-badge {
+      position: absolute;
+      top: 15px;
+      right: -35px;
+      background: #F5C518;
+      color: #fff;
+      padding: 8px 40px;
+      font-size: 12px;
+      font-weight: 700;
+      transform: rotate(45deg);
+      text-transform: uppercase;
+    }
+
+    .package-price {
+      background: linear-gradient(135deg, #FFD84D, #F5C518);
+      color: #fff;
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 25px;
+    }
+
+    .package-price h3 {
+      margin: 0 0 5px;
+      font-size: 2.5rem;
+      font-weight: 800;
+    }
+
+    .package-price small {
+      opacity: 0.9;
+    }
+
+    .package-feature {
+      display: flex;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .package-feature:last-child {
+      border-bottom: none;
+    }
+
+    .package-feature i {
+      color: #F5C518;
+      margin-right: 12px;
+      font-size: 16px;
+    }
+
+    .schedule-timeline {
+      position: relative;
+      padding-left: 30px;
+    }
+
+    .schedule-timeline::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, #FFD84D, #FFD84D);
+      border-radius: 3px;
+    }
+
+    .schedule-item {
+      position: relative;
+      margin-bottom: 25px;
+      padding-left: 20px;
+    }
+
+    .schedule-item::before {
+      content: '';
+      position: absolute;
+      left: -26px;
+      top: 5px;
+      width: 14px;
+      height: 14px;
+      background: #FFD84D;
+      border: 3px solid #fff;
+      border-radius: 50%;
+      box-shadow: 0 2px 8px rgba(245,197,24,0.4);
+    }
+
+    .schedule-time {
+      font-weight: 700;
+      color: #F5C518;
+      margin-bottom: 5px;
+    }
+
+    .schedule-activity {
+      color: #666;
+      font-size: 14px;
+    }
+
+    .section-title {
+      font-family: 'Nunito', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #F5C518;
+    }
+
+    .section-title span {
+      color: #FFD84D;
+    }
+
+    .facility-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .facility-item {
+      background: #fff;
+      border-radius: 16px;
+      padding: 25px;
+      text-align: center;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+      transition: all 0.3s;
+    }
+
+    .facility-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(245,197,24,0.15);
+    }
+
+    .facility-item i {
+      font-size: 32px;
+      color: #F5C518;
+      margin-bottom: 15px;
+    }
+
+    /* Jadwal Kegiatan Enhanced Styles */
+    .jadwal-section {
+      padding: 80px 0;
+      background: linear-gradient(180deg, #ffffff 0%, #E1F5FE 100%);
+    }
+
+    .jadwal-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px 25px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+      transition: all 0.3s ease;
+      margin-bottom: 15px;
+      border-left: 4px solid transparent;
+    }
+
+    .jadwal-card:hover {
+      transform: translateX(5px);
+      box-shadow: 0 10px 30px rgba(245,197,24,0.15);
+      border-left-color: #F5C518;
+    }
+
+    .jadwal-time-badge {
+      background: linear-gradient(135deg, #F5C518, #F5C518);
+      color: #fff;
+      padding: 10px 15px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 13px;
+      text-align: center;
+      min-width: 110px;
+      flex-shrink: 0;
+    }
+
+    .jadwal-time-badge .time-label {
+      font-size: 10px;
+      opacity: 0.85;
+      font-weight: 500;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .jadwal-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, #FFD84D, #FFFDE7);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .jadwal-icon i {
+      font-size: 20px;
+      color: #F5C518;
+    }
+
+    .jadwal-content h5 {
+      color: #333;
+      font-weight: 600;
+      margin-bottom: 0;
+      font-size: 15px;
+    }
+
+    .jadwal-content p {
+      color: #888;
+      font-size: 13px;
+      margin: 0;
+    }
+
+    .jadwal-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .jadwal-header .sigma-badge {
+      margin-bottom: 15px;
+      background: linear-gradient(135deg, #F5C518, #F5C518);
+    }
+
+    .jadwal-header .section-title {
+      margin-bottom: 10px;
+    }
+
+    .jadwal-header p {
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .sigma-top-contacts,
+    .sigma-contact-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .sigma-top-contacts {
+      align-items: center;
+      gap: 4px 12px;
+    }
+
+    .sigma-top-contacts a {
+      color: #fff;
+      font-weight: 600;
+      font-size: 13px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .sigma-contact-options .sigma-btn {
+      flex: 1 1 0;
+      justify-content: center;
+      min-width: 0;
+      padding: 12px 10px;
+      gap: 7px;
+      text-align: center;
+    }
+
+    .sigma-cta-options {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .sigma-cta-options .sigma-contact-options {
+      flex: 1 1 100%;
+    }
+
+    @media (max-width: 768px) {
+      .hero-section {
+        padding: 100px 0 60px;
+      }
+      .section-title {
+        font-size: 2rem;
+      }
+      .package-card.featured {
+        transform: scale(1);
+        margin: 20px 0;
+      }
+      .package-card.featured:hover {
+        transform: translateY(-10px);
+      }
+      .jadwal-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+      }
+      .jadwal-time-badge {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .sigma-contact-options {
+        flex-direction: column;
+      }
+
+      .sigma-contact-options .sigma-btn {
+        width: 100%;
+      }
+    }
+  </style>
+@endsection
+
+@section('content')
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="row justify-content-center text-center">
+        <div class="col-lg-10" data-aos="fade-up">
+          <div class="sigma-badge">
+            <i class="fas fa-baby mr-2"></i> Penitipan Anak
+          </div>
+          <h1 class="mb-4" style="color: #fff; font-size: 3.5rem; font-weight: 800; font-family: 'Nunito', sans-serif; text-shadow: 0 4px 20px rgba(0,0,0,0.2);">Daycare <span style="color: #FFD84D;">Sigma</span></h1>
+          <p class="mb-0" style="color: rgba(255,255,255,0.95); font-size: 1.2rem; max-width: 650px; margin: 0 auto; line-height: 1.8;">Layanan penitipan anak usia 2-6 tahun yang hadir sebagai solusi untuk Ayah/Bunda yang bekerja, namun tetap ingin memastikan Ananda mendapatkan pengasuhan terbaik.</p>
+          <div class="mt-4">
+            <a href="#pendaftaran" class="sigma-btn">
+              <i class="fas fa-edit"></i> Daftar Sekarang
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Profil Section -->
+  <section class="sigma-section">
+    <div class="container">
+      <div class="row justify-content-center mb-5">
+        <div class="col-md-8 text-center" data-aos="fade-down">
+          <span class="sigma-badge" style="background: linear-gradient(135deg, var(--sigma-primary-dark), var(--sigma-primary)); margin-bottom: 20px;">Profil</span>
+          <h2 class="section-title mb-4">Mengenal <span>Daycare Sigma</span></h2>
+        </div>
+      </div>
+
+      <div class="row align-items-center">
+        <div class="col-lg-6 mb-5 mb-lg-0" data-aos="fade-right">
+          <div style="background: linear-gradient(135deg, #F5C518, #F5C518); border-radius: 20px; padding: 40px; color: #fff; box-shadow: 0 20px 50px rgba(245,197,24,0.3);">
+            <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 20px;">
+              <i class="fas fa-heart" style="margin-right: 10px;"></i>
+              Solusi Pengasuhan Terbaik
+            </h3>
+            <p style="line-height: 1.8; font-size: 1.05rem; opacity: 0.95; margin-bottom: 25px;">Daycare Sigma by YPI Nurul Ilmi adalah layanan penitipan anak usia 2-6 tahun yang hadir sebagai solusi untuk Ayah/Bunda yang bekerja, namun tetap ingin memastikan Ananda mendapatkan pengasuhan terbaik, aman, dan tetap terstimulasi seperti di rumah sendiri.</p>
+            <div class="d-flex flex-wrap gap-3">
+              <span style="background: rgba(255,255,255,0.25); padding: 10px 20px; border-radius: 20px; font-size: 14px; font-weight: 600;">
+                <i class="fas fa-clock mr-2"></i>07.00 - 17.00 WIB
+              </span>
+              <span style="background: rgba(255,255,255,0.25); padding: 10px 20px; border-radius: 20px; font-size: 14px; font-weight: 600;">
+                <i class="fas fa-child mr-2"></i>Usia 2-6 Tahun
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6" data-aos="fade-left">
+          <div style="background: #fff; border-radius: 20px; padding: 35px; box-shadow: 0 15px 50px rgba(0,0,0,0.08);">
+            <h4 style="color: #F5C518; font-weight: 700; margin-bottom: 20px;">
+              <i class="fas fa-star" style="color: #FFD84D; margin-right: 10px;"></i>
+              Keunggulan Daycare Sigma
+            </h4>
+            <div style="display: flex; align-items: flex-start; margin-bottom: 20px;">
+              <div style="width: 45px; height: 45px; background: rgba(245,197,24,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; flex-shrink: 0;">
+                <i class="fas fa-shield-alt" style="color: #F5C518;"></i>
+              </div>
+              <div>
+                <h6 style="color: #333; font-weight: 600; margin-bottom: 5px;">Keamanan Terjamin</h6>
+                <p style="color: #666; font-size: 14px; margin: 0;">CCTV 24 jam dan pengasuh yang siaga dengan rasio 1:3.</p>
+              </div>
+            </div>
+            <div style="display: flex; align-items: flex-start; margin-bottom: 20px;">
+              <div style="width: 45px; height: 45px; background: rgba(245,197,24,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; flex-shrink: 0;">
+                <i class="fas fa-utensils" style="color: #F5C518;"></i>
+              </div>
+              <div>
+                <h6 style="color: #333; font-weight: 600; margin-bottom: 5px;">Nutrisi Terjaga</h6>
+                <p style="color: #666; font-size: 14px; margin: 0;">Makan sehat 2 kali dan buah untuk pertumbuhan optimal.</p>
+              </div>
+            </div>
+            <div style="display: flex; align-items: flex-start; margin-bottom: 20px;">
+              <div style="width: 45px; height: 45px; background: rgba(245,197,24,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; flex-shrink: 0;">
+                <i class="fas fa-brain" style="color: #F5C518;"></i>
+              </div>
+              <div>
+                <h6 style="color: #333; font-weight: 600; margin-bottom: 5px;">Stimulasi Harian</h6>
+                <p style="color: #666; font-size: 14px; margin: 0;">Kegiatan stimulasi yang mendukung tumbuh kembang anak.</p>
+              </div>
+            </div>
+            <div style="display: flex; align-items: flex-start;">
+              <div style="width: 45px; height: 45px; background: rgba(245,197,24,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; flex-shrink: 0;">
+                <i class="fab fa-whatsapp" style="color: #F5C518;"></i>
+              </div>
+              <div>
+                <h6 style="color: #333; font-weight: 600; margin-bottom: 5px;">Laporan Harian</h6>
+                <p style="color: #666; font-size: 14px; margin: 0;">Laporan harian kepada orang tua melalui WhatsApp.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Paket Layanan Section -->
+  <section style="background: #fff; padding: 80px 0;">
+    <div class="container">
+      <div class="row justify-content-center mb-5">
+        <div class="col-md-8 text-center" data-aos="fade-down">
+          <span class="sigma-badge" style="background: linear-gradient(135deg, #F5C518, #F5C518);">Paket</span>
+          <h2 class="section-title mt-4">Paket <span>Layanan</span></h2>
+          <p style="color: #666; max-width: 600px; margin: 15px auto 0;">Pilih paket yang sesuai dengan kebutuhan Ayah/Bunda.</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="package-card">
+            <div class="sigma-icon" style="margin-bottom: 25px;">
+              <i class="fas fa-sun"></i>
+            </div>
+            <h4 style="color: #F5C518; font-weight: 700; margin-bottom: 15px;">Half Day</h4>
+            <p style="color: #666; font-size: 14px; margin-bottom: 20px;">Paket penitipan pagi untuk kebutuhan paruh waktu.</p>
+            <div class="package-price">
+              <h3>Rp 900.000</h3>
+              <small>/bulan</small>
+            </div>
+            <div style="text-align: left; margin-bottom: 25px;">
+              <div class="package-feature">
+                <i class="fas fa-clock"></i>
+                <span>07.00 - 12.00 WIB</span>
+              </div>
+              <div class="package-feature">
+                <i class="fas fa-utensils"></i>
+                <span>Makan 1x (siang)</span>
+              </div>
+              <!-- <div class="package-feature">
+                <i class="fas fa-moon"></i>
+                <span>Tidur siang</span>
+              </div> -->
+              <div class="package-feature">
+                <i class="fas fa-child"></i>
+                <span>Stimulasi harian</span>
+              </div>
+              <div class="package-feature">
+                <i class="fas fa-comments"></i>
+                <span>Laporan harian via WA</span>
+              </div>
+            </div>
+            <div class="sigma-contact-options">
+              <a href="https://wa.me/6281282307424?text=Halo%20Bu%20Ida,%20saya%20tertarik%20dengan%20paket%20Half%20Day%20Daycare%20Sigma" target="_blank" rel="noopener" class="sigma-btn">
+                <i class="fab fa-whatsapp"></i> Tanya Bu Ida
+              </a>
+              <a href="https://wa.me/6281214095882?text=Halo%20Bu%20Ulfah,%20saya%20tertarik%20dengan%20paket%20Half%20Day%20Daycare%20Sigma" target="_blank" rel="noopener" class="sigma-btn">
+                <i class="fab fa-whatsapp"></i> Tanya Bu Ulfah
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="package-card featured">
+            <div class="package-badge">Populer</div>
+            <div class="sigma-icon" style="margin-bottom: 25px;">
+              <i class="fas fa-sun"></i>
+            </div>
+            <h4 style="color: #F5C518; font-weight: 700; margin-bottom: 15px;">Full Day</h4>
+            <p style="color: #666; font-size: 14px; margin-bottom: 20px;">Paket penitipan penuh untuk kebutuhan sepanjang hari.</p>
+            <div class="package-price">
+              <h3>Rp 1.500.000</h3>
+              <small>/bulan</small>
+            </div>
+            <div style="text-align: left; margin-bottom: 25px;">
+              <div class="package-feature">
+                <i class="fas fa-clock"></i>
+                <span>07.00 - 17.00 WIB</span>
+              </div>
+              <div class="package-feature">
+                <i class="fas fa-utensils"></i>
+                <span>Makan 2x (siang & sore) + buah</span>
+              </div>
+              <div class="package-feature">
+                <i class="fas fa-moon"></i>
+                <span>Tidur siang terpantau</span>
+              </div>
+              <div class="package-feature">
+                <i class="fas fa-child"></i>
+                <span>Stimulasi harian penuh</span>
+              </div>
+              <div class="package-feature">
+                <i class="fas fa-comments"></i>
+                <span>Laporan harian via WA</span>
+              </div>
+              <div class="package-feature">
+                <i class="fas fa-gamepad"></i>
+                <span>Bermain bebas</span>
+              </div>
+            </div>
+            <div class="sigma-contact-options">
+              <a href="https://wa.me/6281282307424?text=Halo%20Bu%20Ida,%20saya%20tertarik%20dengan%20paket%20Full%20Day%20Daycare%20Sigma" target="_blank" rel="noopener" class="sigma-btn">
+                <i class="fab fa-whatsapp"></i> Tanya Bu Ida
+              </a>
+              <a href="https://wa.me/6281214095882?text=Halo%20Bu%20Ulfah,%20saya%20tertarik%20dengan%20paket%20Full%20Day%20Daycare%20Sigma" target="_blank" rel="noopener" class="sigma-btn">
+                <i class="fab fa-whatsapp"></i> Tanya Bu Ulfah
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="300">
+          <div class="package-card">
+            <div class="sigma-icon" style="margin-bottom: 25px;">
+              <i class="fas fa-calendar-day"></i>
+            </div>
+            <h4 style="color: #F5C518; font-weight: 700; margin-bottom: 15px;">Harian</h4>
+            <p style="color: #666; font-size: 14px; margin-bottom: 20px;">Paket insidentil untuk penitipan sewaktu-waktu.</p>
+            <div class="package-price">
+              <h3>Rp 100.000</h3>
+              <small>/hari</small>
+            </div>
+            <div style="text-align: left; margin-bottom: 25px;">
+              <div class="package-feature">
+                <i class="fas fa-clock"></i>
+                <span>07.00 - 17.00 WIB</span>
+              </div>
+              <div class="package-feature">
+                <i class="fas fa-utensils"></i>
+                <span>Makan 2x</span>
+              </div>
+              <div class="package-feature">
+                <i class="fas fa-moon"></i>
+                <span>Tidur siang</span>
+              </div>
+              <div class="package-feature">
+                <i class="fas fa-child"></i>
+                <span>Stimulasi harian</span>
+              </div>
+              <div class="package-feature">
+                <i class="fas fa-comments"></i>
+                <span>Laporan via WA</span>
+              </div>
+            </div>
+            <div class="sigma-contact-options">
+              <a href="https://wa.me/6281282307424?text=Halo%20Bu%20Ida,%20saya%20tertarik%20dengan%20paket%20Harian%20Daycare%20Sigma" target="_blank" rel="noopener" class="sigma-btn">
+                <i class="fab fa-whatsapp"></i>  Bu Ida
+              </a>
+              <a href="https://wa.me/6281214095882?text=Halo%20Bu%20Ulfah,%20saya%20tertarik%20dengan%20paket%20Harian%20Daycare%20Sigma" target="_blank" rel="noopener" class="sigma-btn">
+                <i class="fab fa-whatsapp"></i>  Bu Ulfah
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Jadwal Kegiatan Section -->
+ 
+<section class="jadwal-section">
+  <div class="container">
+    <div class="jadwal-header" data-aos="fade-down">
+      <span class="sigma-badge" style="background: linear-gradient(135deg, #F5C518, #F5C518);">Kegiatan</span>
+      <h2 class="section-title">Jadwal <span>Kegiatan</span></h2>
+      <p>Aktivitas harian Ananda di Daycare Sigma.</p>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-lg-10" data-aos="fade-up">
+        <div class="row">
+
+          <!-- Item 1 -->
+          <div class="col-md-6 mb-3">
+            <div class="jadwal-card">
+              <div class="jadwal-time-badge">01</div>
+              <div class="jadwal-icon">
+                <i class="fas fa-door-open"></i>
+              </div>
+              <div class="jadwal-content">
+                <h5>Kedatangan dan Morning Circle</h5>
+                <p>Penyambutan anak dan doa pagi bersama.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="col-md-6 mb-3">
+            <div class="jadwal-card">
+              <div class="jadwal-time-badge">02</div>
+              <div class="jadwal-icon">
+                <i class="fas fa-users"></i>
+              </div>
+              <div class="jadwal-content">
+                <h5>Baris-berbaris</h5>
+                <p>Melatih kedisiplinan dan koordinasi anak.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="col-md-6 mb-3">
+            <div class="jadwal-card">
+              <div class="jadwal-time-badge">03</div>
+              <div class="jadwal-icon">
+                <i class="fas fa-book-open"></i>
+              </div>
+              <div class="jadwal-content">
+                <h5>Kegiatan Stimulasi / KBM</h5>
+                <p>Belajar dan bermain dengan stimulasi yang tepat.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 4 -->
+          <div class="col-md-6 mb-3">
+            <div class="jadwal-card">
+              <div class="jadwal-time-badge">04</div>
+              <div class="jadwal-icon">
+                <i class="fas fa-utensils"></i>
+              </div>
+              <div class="jadwal-content">
+                <h5>Makan Siang dan Persiapan Tidur</h5>
+                <p>Memenuhi kebutuhan nutrisi dan mempersiapkan waktu istirahat.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 5 -->
+          <div class="col-md-6 mb-3">
+            <div class="jadwal-card">
+              <div class="jadwal-time-badge">05</div>
+              <div class="jadwal-icon">
+                <i class="fas fa-bed"></i>
+              </div>
+              <div class="jadwal-content">
+                <h5>Tidur Siang</h5>
+                <p>Waktu istirahat dengan pengasuh yang siaga.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 6 -->
+          <div class="col-md-6 mb-3">
+            <div class="jadwal-card">
+              <div class="jadwal-time-badge">06</div>
+              <div class="jadwal-icon">
+                <i class="fas fa-shower"></i>
+              </div>
+              <div class="jadwal-content">
+                <h5>Mandi dan Makan Sore</h5>
+                <p>Menjaga kebersihan dan memenuhi kebutuhan nutrisi sore hari.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 7 -->
+          <div class="col-12 mb-3">
+            <div class="jadwal-card">
+              <div class="jadwal-time-badge">07</div>
+              <div class="jadwal-icon">
+                <i class="fas fa-gamepad"></i>
+              </div>
+              <div class="jadwal-content">
+                <h5>Tahfidz, Bermain Bebas dan Menunggu Jemput</h5>
+                <p>Waktu bermain dan menghafal Al-Qur'an sebelum dijemput.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- Fasilitas Section -->
+  <section class="ni-theme-warm" style="background: #fff; padding: 80px 0;">
+    <div class="container">
+      <div class="row justify-content-center mb-5">
+        <div class="col-md-8 text-center" data-aos="fade-down">
+          <span class="sigma-badge" style="background: linear-gradient(135deg, #F5C518, #F5C518)">Fasilitas</span>
+          <h2 class="section-title mt-4">Fasilitas <span>Daycare</span></h2>
+          <p style="color: #666; max-width: 600px; margin: 15px auto 0;">Fasilitas lengkap untuk kenyamanan dan keamanan Ananda.</p>
+          <p style="color: #777; font-size: 14px; max-width: 600px; margin: 8px auto 0;">Klik salah satu fasilitas di bawah untuk melihat dokumentasi foto khusus fasilitas tersebut.</p>
+        </div>
+      </div>
+
+      <div class="ni-fas-grid">
+      <button type="button" class="ni-fas-card" data-ni-facility="tidur-laki">
+        <span class="ni-fas-media">
+          <!-- foto belum tersedia untuk fasilitas ini -->
+          <span class="ni-fas-icon" aria-hidden="true"><i class="fas fa-bed"></i></span>
+          <span class="ni-fas-count"></span>
+        </span>
+        <span class="ni-fas-body">
+          <span class="ni-fas-title">Ruang Tidur Anak Laki-laki</span>
+          <span class="ni-fas-desc">Terpisah, bersih, dan nyaman</span>
+          <span class="ni-fas-cta">Lihat Galeri <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+        </span>
+      </button>
+      <button type="button" class="ni-fas-card" data-ni-facility="tidur-perempuan">
+        <span class="ni-fas-media">
+          <!-- foto belum tersedia untuk fasilitas ini -->
+          <span class="ni-fas-icon" aria-hidden="true"><i class="fas fa-bed"></i></span>
+          <span class="ni-fas-count"></span>
+        </span>
+        <span class="ni-fas-body">
+          <span class="ni-fas-title">Ruang Tidur Anak Perempuan</span>
+          <span class="ni-fas-desc">Terpisah, bersih, dan nyaman</span>
+          <span class="ni-fas-cta">Lihat Galeri <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+        </span>
+      </button>
+      <button type="button" class="ni-fas-card" data-ni-facility="bermain">
+        <span class="ni-fas-media">
+          <img src="images/main.jpeg" alt="Ruang Bermain Indoor" loading="lazy">
+          <span class="ni-fas-icon" aria-hidden="true"><i class="fas fa-gamepad"></i></span>
+          <span class="ni-fas-count"></span>
+        </span>
+        <span class="ni-fas-body">
+          <span class="ni-fas-title">Ruang Bermain Indoor</span>
+          <span class="ni-fas-desc">Steril dan aman</span>
+          <span class="ni-fas-cta">Lihat Galeri <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+        </span>
+      </button>
+      <button type="button" class="ni-fas-card" data-ni-facility="dapur">
+        <span class="ni-fas-media">
+          <!-- foto belum tersedia untuk fasilitas ini -->
+          <span class="ni-fas-icon" aria-hidden="true"><i class="fas fa-utensils"></i></span>
+          <span class="ni-fas-count"></span>
+        </span>
+        <span class="ni-fas-body">
+          <span class="ni-fas-title">Dapur Sehat</span>
+          <span class="ni-fas-desc">Higienis & Bersih</span>
+          <span class="ni-fas-cta">Lihat Galeri <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+        </span>
+      </button>
+      <button type="button" class="ni-fas-card" data-ni-facility="kamar-mandi">
+        <span class="ni-fas-media">
+          <!-- foto belum tersedia untuk fasilitas ini -->
+          <span class="ni-fas-icon" aria-hidden="true"><i class="fas fa-restroom"></i></span>
+          <span class="ni-fas-count"></span>
+        </span>
+        <span class="ni-fas-body">
+          <span class="ni-fas-title">Kamar Mandi</span>
+          <span class="ni-fas-desc">Bersih dan layak</span>
+          <span class="ni-fas-cta">Lihat Galeri <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+        </span>
+      </button>
+      <button type="button" class="ni-fas-card" data-ni-facility="cctv">
+        <span class="ni-fas-media">
+          <!-- foto belum tersedia untuk fasilitas ini -->
+          <span class="ni-fas-icon" aria-hidden="true"><i class="fas fa-video"></i></span>
+          <span class="ni-fas-count"></span>
+        </span>
+        <span class="ni-fas-body">
+          <span class="ni-fas-title">CCTV</span>
+          <span class="ni-fas-desc">Pemantauan 24 jam</span>
+          <span class="ni-fas-cta">Lihat Galeri <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+        </span>
+      </button>
+      <button type="button" class="ni-fas-card" data-ni-facility="pendamping">
+        <span class="ni-fas-media">
+          <!-- foto belum tersedia untuk fasilitas ini -->
+          <span class="ni-fas-icon" aria-hidden="true"><i class="fas fa-user-friends"></i></span>
+          <span class="ni-fas-count"></span>
+        </span>
+        <span class="ni-fas-body">
+          <span class="ni-fas-title">Pendamping Ramah</span>
+          <span class="ni-fas-desc">Rasio 1:5</span>
+          <span class="ni-fas-cta">Lihat Galeri <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+        </span>
+      </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Biaya Section -->
+  <section class="sigma-section">
+    <div class="container">
+      <div class="row justify-content-center mb-5">
+        <div class="col-md-8 text-center" data-aos="fade-down">
+          <span class="sigma-badge" style="background: linear-gradient(135deg, #F5C518, #F5C518);">Biaya</span>
+          <h2 class="section-title mt-4">Biaya <span>Pendaftaran</span></h2>
+          <p style="color: #666; max-width: 600px; margin: 15px auto 0;">Rincian biaya Daycare Sigma Tahun Ajaran 2027/2028.</p>
+        </div>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-lg-8" data-aos="fade-up">
+          <div class="sigma-card" style="text-align: left;">
+            <div class="price-total" style="background: linear-gradient(135deg, #FFD84D, #F5C518); color: #fff; padding: 25px; border-radius: 15px; margin-bottom: 25px; text-align: center;">
+              <p style="margin: 0 0 5px; opacity: 0.9; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">Total Biaya Pendaftaran</p>
+              <h2 style="margin: 0; font-size: 2.5rem; font-weight: 800;">Rp 3.800.000</h2>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-4">
+                <div style="background: rgba(245,197,24,0.15); padding: 20px; border-radius: 12px;">
+                  <h6 style="color: #F5C518; font-weight: 700; margin-bottom: 15px;">Meliputi</h6>
+                  <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(0,0,0,0.1);">
+                    <span style="color: #666; font-size: 14px;">Uang Pangkal</span>
+                    <span style="color: #F5C518; font-weight: 600;"></span>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(0,0,0,0.1);">
+                    <span style="color: #666; font-size: 14px;">Sarana</span>
+                    <span style="color: #F5C518; font-weight: 600;"></span>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(0,0,0,0.1);">
+                    <span style="color: #666; font-size: 14px;">Seragam + Tas</span>
+                    <span style="color: #F5C518; font-weight: 600;"></span>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(0,0,0,0.1);">
+                    <span style="color: #666; font-size: 14px;">Buku + Alat Tulis</span>
+                    <span style="color: #F5C518; font-weight: 600;"></span>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding: 8px 0;">
+                    <span style="color: #666; font-size: 14px;">Biaya Pendaftaran</span>
+                    <span style="color: #F5C518; font-weight: 600;"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 mb-4">
+                <div style="background: rgba(245,197,24,0.15); padding: 20px; border-radius: 12px;">
+                  <h6 style="color: #F5C518; font-weight: 700; margin-bottom: 15px;">SPP Bulanan</h6>
+                  <div style="text-align: center; padding: 20px; background: #fff; border-radius: 12px; margin-bottom: 15px;">
+                    <p style="margin: 0 0 5px; color: #666; font-size: 14px;">Full Day</p>
+                    <h3 style="margin: 0; color: #F5C518; font-size: 1.8rem;">Rp 1.500.000<span style="font-size: 14px; font-weight: 400;">/bulan</span></h3>
+                  </div>
+                  <div style="text-align: center; padding: 20px; background: #fff; border-radius: 12px; margin-bottom: 15px;">
+                    <p style="margin: 0 0 5px; color: #666; font-size: 14px;">Half Day</p>
+                    <h3 style="margin: 0; color: #F5C518; font-size: 1.8rem;">Rp 900.000<span style="font-size: 14px; font-weight: 400;">/bulan</span></h3>
+                  </div>
+                  <div style="text-align: center; padding: 20px; background: #fff; border-radius: 12px;">
+                    <p style="margin: 0 0 5px; color: #666; font-size: 14px;">Harian</p>
+                    <h3 style="margin: 0; color: #F5C518; font-size: 1.8rem;">Rp 100.000<span style="font-size: 14px; font-weight: 400;">/hari</span></h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 20px;">
+              <div class="sigma-contact-options">
+                <a href="https://wa.me/6281282307424?text=Halo%20Bu%20Ida,%20saya%20ingin%20bertanya%20tentang%20pendaftaran%20Daycare%20Sigma" target="_blank" rel="noopener" class="sigma-btn">
+                  <i class="fab fa-whatsapp"></i> Tanya Bu Ida
+                </a>
+                <a href="https://wa.me/6281214095882?text=Halo%20Bu%20Ulfah,%20saya%20ingin%20bertanya%20tentang%20pendaftaran%20Daycare%20Sigma" target="_blank" rel="noopener" class="sigma-btn">
+                  <i class="fab fa-whatsapp"></i> Tanya Bu Ulfah
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+ 
+  <!-- Artikel Section -->
+  <section class="ni-art-section ni-theme-warm" style="background: linear-gradient(180deg, #ffffff 0%, #E1F5FE 100%); padding: 80px 0;">
+    <div class="container">
+      <div class="row justify-content-center mb-5">
+        <div class="col-md-8 text-center" data-aos="fade-down">
+          <span class="sigma-badge" style="background: linear-gradient(135deg, #F5C518, #F5C518)">Artikel</span>
+          <h2 class="section-title mt-4">Artikel &amp; Kegiatan <span>Daycare Sigma</span></h2>
+          <p style="color: #666; max-width: 640px; margin: 15px auto 0;">Dokumentasi kegiatan dan aktivitas harian Daycare Sigma.</p>
+        </div>
+      </div>
+      <div id="daycareSigmaArtikel"></div>
+    </div>
+  </section>
+ <section style="background: linear-gradient(135deg, #F5C518, #F5C518); padding: 60px 0;">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-8 mb-4 mb-lg-0" data-aos="fade-right">
+          <h2 style="color: #fff; font-size: 2rem; font-weight: 700; margin-bottom: 15px;">Siap Mendaftarkan Ananda?</h2>
+          <p style="color: rgba(255,255,255,0.95); font-size: 1.1rem; margin: 0;">Hubungi kami untuk informasi lebih lanjut atau jadwalkan kunjungan ke Daycare Sigma.</p>
+        </div>
+        <div class="col-lg-4" data-aos="fade-left">
+          <div class="sigma-cta-options">
+            <div class="sigma-contact-options">
+              <a href="https://wa.me/6281282307424?text=Halo%20Bu%20Ida,%20saya%20tertarik%20dengan%20Daycare%20Sigma" target="_blank" rel="noopener" class="sigma-btn" style="background: #FFD84D; color: #F5C518;">
+                <i class="fab fa-whatsapp"></i>  Bu Ida
+              </a>
+              <a href="https://wa.me/6281214095882?text=Halo%20Bu%20Ulfah,%20saya%20tertarik%20dengan%20Daycare%20Sigma" target="_blank" rel="noopener" class="sigma-btn" style="background: #FFD84D; color: #F5C518;">
+                <i class="fab fa-whatsapp"></i>  Bu Ulfah
+              </a>
+            </div>
+            <a href="{{ route('contact') }}" class="sigma-btn" style="background: rgba(255,255,255,0.2); color: #fff; border: 2px solid #fff;">
+              <i class="fas fa-map-marker-alt"></i> Lokasi
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+@endsection
+
+@section('scripts')
+  <script src="{{ asset('landingPage/js/fasilitas-gallery.js') }}"></script>
+  <script>
+    /* Data galeri fasilitas & artikel Daycare Sigma (frontend statis, tanpa backend).
+       Setiap facility card membuka galeri KHUSUS untuk fasilitas tersebut. */
+    (function () {
+      var FASILITAS = {
+        'tidur-laki': {
+          title: 'Ruang Tidur Anak Laki-laki',
+          desc: 'Ruang tidur terpisah, bersih, dan nyaman untuk anak laki-laki.',
+          photos: []
+        },
+        'tidur-perempuan': {
+          title: 'Ruang Tidur Anak Perempuan',
+          desc: 'Ruang tidur terpisah, bersih, dan nyaman untuk anak perempuan.',
+          photos: []
+        },
+        'bermain': {
+          title: 'Ruang Bermain Indoor',
+          desc: 'Ruang bermain steril dan aman dengan area bermain anak.',
+          photos: [
+            { src: 'images/main.jpeg', alt: 'Ruang bermain di area sekolah', caption: 'Ruang Bermain' },
+            { src: 'images/WhatsApp%20Image%202026-10-19%20at%2016.21.49%20(5).jpeg', alt: 'Taman bermain anak', caption: 'Taman Bermain' }
+          ]
+        },
+        'dapur': {
+          title: 'Dapur Sehat',
+          desc: 'Dapur dengan standar higienis dan bersih untuk menyiapkan makanan anak.',
+          photos: []
+        },
+        'kamar-mandi': {
+          title: 'Kamar Mandi',
+          desc: 'Kamar mandi bersih dan layak dengan sanitasi terjadwal.',
+          photos: []
+        },
+        'cctv': {
+          title: 'CCTV',
+          desc: 'Pemantauan 24 jam di area daycare demi keamanan dan kepercayaan orang tua.',
+          photos: []
+        },
+        'pendamping': {
+          title: 'Pendamping Ramah',
+          desc: 'Pendamping dengan rasio 1:5 sehingga setiap anak mendapat perhatian penuh.',
+          photos: []
+        }
+      };
+
+      /* Struktur data artikel Daycare Sigma (frontend statis).
+         Contoh isi array ARTIKEL:
+         { cover: 'images/foto.jpg', category: 'Kegiatan', title: 'Judul Artikel',
+           date: '12 Oktober 2026', excerpt: 'Ringkasan artikel...', url: 'blog-single.html' } */
+      var ARTIKEL = [];
+
+      function boot() {
+        if (!window.NIGaleri) return;
+
+        window.NIGaleri.initFasilitas({
+          cardsSelector: '.ni-fas-card',
+          data: FASILITAS,
+          theme: 'warm'
+        });
+
+        window.NIGaleri.initArtikel({
+          container: '#daycareSigmaArtikel',
+          data: ARTIKEL,
+          emptyTitle: 'Belum ada artikel Daycare Sigma',
+          emptyText: 'Belum ada artikel yang dipublikasikan untuk Daycare Sigma. Informasi kegiatan dan aktivitas harian Daycare Sigma juga dapat Anda ikuti melalui halaman Artikel YPI Nurul Ilmi.',
+          emptyLinkHref: '{{ route('articles.index') }}',
+          emptyLinkText: 'Lihat Artikel YPI Nurul Ilmi'
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', boot);
+      } else {
+        boot();
+      }
+    })();
+  </script>
+@endsection

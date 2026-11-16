@@ -22,6 +22,10 @@
      POST  { "title_id": "...", "content_id": "..." }
      200   { "title_en": "...", "content_en": "..." }
    ========================================================================== */
+/* Impor URL Deno tidak bisa diresolve oleh server TypeScript bawaan editor
+   (bukan Deno-aware), sehingga muncul galat "Cannot find module". Deno
+   sendiri tetap mengimpor modul std ini dengan benar. */
+// @ts-ignore
 import { serve } from 'https://deno.land/std@0.224.0/http/server.ts';
 
 import { handleTranslate } from './handler.ts';

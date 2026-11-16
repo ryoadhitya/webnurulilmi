@@ -11,6 +11,11 @@
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="js/site-config.js"></script>
+    <script src="js/navbar-admin.js"></script>
+    <script src="js/vendor/supabase.min.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/supabase.js"></script>
 
     <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
     <link rel="stylesheet" href="css/animate.css">
@@ -77,6 +82,7 @@
                 <a class="dropdown-item" href="daycare-sigma.html"><i class="fas fa-baby mr-2" style="color: #D4940A;"></i>Daycare Sigma</a>
               </div>
             </li>
+            <li class="nav-item navbar-admin-item"><a href="#" class="nav-link navbar-admin-link" data-site-admin-login aria-label="Dashboard Admin" title="Dashboard Admin"><i class="fas fa-user-circle"></i></a></li>
           </ul>
         </div>
         <!-- Smart School Logo -->
@@ -107,155 +113,34 @@
             <p>Berita dan informasi terbaru dari YPI Nurul Ilmi Bekasi.</p>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-6 col-lg-4 ftco-animate">
-            <div class="blog-entry">
-              <a href="blog-single.html" class="block-20 d-flex align-items-end" style="background-image: url('images/image_1.jpg');">
-                <div class="meta-date text-center p-2">
-                  <span class="day">15</span>
-                  <span class="mos">Januari</span>
-                  <span class="yr">2025</span>
-                </div>
-              </a>
-              <div class="text bg-white p-4">
-                <h3 class="heading"><a href="blog-single.html">Kegiatan Ekstrakurikuler di YPI Nurul Ilmi</a></h3>
-                <p>Berbagai kegiatan ekstrakurikuler yang diadakan untuk mengembangkan potensi dan bakat siswa.</p>
-                <div class="d-flex align-items-center mt-4">
-                  <p class="mb-0"><a href="blog-single.html" class="btn btn-secondary">Selengkapnya <span class="fas fa-arrow-right"></span></a></p>
-                  <p class="ml-auto mb-0">
-                    <a href="#" class="mr-2"><span class="fas fa-user"></span> Admin</a>
-                    <a href="#" class="meta-chat"><span class="fas fa-comment"></span> 5</a>
-                  </p>
-                </div>
+        <div class="row mb-4">
+          <div class="col-12">
+            <div class="row no-gutters align-items-center">
+              <div class="col-md-4 mb-2 mb-md-0">
+                <label class="sr-only" for="article-search">Cari artikel</label>
+                <input type="search" id="article-search" class="form-control" placeholder="Cari artikel...">
               </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4 ftco-animate">
-            <div class="blog-entry">
-              <a href="blog-single.html" class="block-20 d-flex align-items-end" style="background-image: url('images/image_2.jpg');">
-                <div class="meta-date text-center p-2">
-                  <span class="day">20</span>
-                  <span class="mos">Januari</span>
-                  <span class="yr">2025</span>
-                </div>
-              </a>
-              <div class="text bg-white p-4">
-                <h3 class="heading"><a href="blog-single.html">Prestasi Siswa dalam Kompetisi Sains</a></h3>
-                <p>Siswa YPI Nurul Ilmi meraih prestasi gemilang dalam kompetisi sains tingkat kabupaten.</p>
-                <div class="d-flex align-items-center mt-4">
-                  <p class="mb-0"><a href="blog-single.html" class="btn btn-secondary">Selengkapnya <span class="fas fa-arrow-right"></span></a></p>
-                  <p class="ml-auto mb-0">
-                    <a href="#" class="mr-2"><span class="fas fa-user"></span> Admin</a>
-                    <a href="#" class="meta-chat"><span class="fas fa-comment"></span> 8</a>
-                  </p>
-                </div>
+              <div class="col-md-3 mb-2 mb-md-0">
+                <label class="sr-only" for="article-category">Kategori</label>
+                <select id="article-category" class="form-control">
+                  <option value="">Semua kategori</option>
+                </select>
               </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4 ftco-animate">
-            <div class="blog-entry">
-              <a href="blog-single.html" class="block-20 d-flex align-items-end" style="background-image: url('images/image_3.jpg');">
-                <div class="meta-date text-center p-2">
-                  <span class="day">25</span>
-                  <span class="mos">Januari</span>
-                  <span class="yr">2025</span>
-                </div>
-              </a>
-              <div class="text bg-white p-4">
-                <h3 class="heading"><a href="blog-single.html">Program Tahfidz Al-Quran Semakin Berkembang</a></h3>
-                <p>Program tahfidz Al-Quran di YPI Nurul Ilmi semakin berkembang dengan berbagai inovasi.</p>
-                <div class="d-flex align-items-center mt-4">
-                  <p class="mb-0"><a href="blog-single.html" class="btn btn-secondary">Selengkapnya <span class="fas fa-arrow-right"></span></a></p>
-                  <p class="ml-auto mb-0">
-                    <a href="#" class="mr-2"><span class="fas fa-user"></span> Admin</a>
-                    <a href="#" class="meta-chat"><span class="fas fa-comment"></span> 12</a>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4 ftco-animate">
-            <div class="blog-entry">
-              <a href="blog-single.html" class="block-20 d-flex align-items-end" style="background-image: url('images/image_4.jpg');">
-                <div class="meta-date text-center p-2">
-                  <span class="day">01</span>
-                  <span class="mos">Februari</span>
-                  <span class="yr">2025</span>
-                </div>
-              </a>
-              <div class="text bg-white p-4">
-                <h3 class="heading"><a href="blog-single.html">Fasilitas Digital Semakin Dimaksimalkan</a></h3>
-                <p>YPI Nurul Ilmi terus memaksimalkan fasilitas digital untuk mendukung pembelajaran.</p>
-                <div class="d-flex align-items-center mt-4">
-                  <p class="mb-0"><a href="blog-single.html" class="btn btn-secondary">Selengkapnya <span class="fas fa-arrow-right"></span></a></p>
-                  <p class="ml-auto mb-0">
-                    <a href="#" class="mr-2"><span class="fas fa-user"></span> Admin</a>
-                    <a href="#" class="meta-chat"><span class="fas fa-comment"></span> 3</a>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4 ftco-animate">
-            <div class="blog-entry">
-              <a href="blog-single.html" class="block-20 d-flex align-items-end" style="background-image: url('images/image_5.jpg');">
-                <div class="meta-date text-center p-2">
-                  <span class="day">10</span>
-                  <span class="mos">Februari</span>
-                  <span class="yr">2025</span>
-                </div>
-              </a>
-              <div class="text bg-white p-4">
-                <h3 class="heading"><a href="blog-single.html">Kegiatan Shalat Dhuha Berjamaah</a></h3>
-                <p>Kegiatan shalat dhuha berjamaah setiap pagi dilaksanakan untuk membentuk karakter Islami.</p>
-                <div class="d-flex align-items-center mt-4">
-                  <p class="mb-0"><a href="blog-single.html" class="btn btn-secondary">Selengkapnya <span class="fas fa-arrow-right"></span></a></p>
-                  <p class="ml-auto mb-0">
-                    <a href="#" class="mr-2"><span class="fas fa-user"></span> Admin</a>
-                    <a href="#" class="meta-chat"><span class="fas fa-comment"></span> 7</a>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4 ftco-animate">
-            <div class="blog-entry">
-              <a href="blog-single.html" class="block-20 d-flex align-items-end" style="background-image: url('images/image_6.jpg');">
-                <div class="meta-date text-center p-2">
-                  <span class="day">15</span>
-                  <span class="mos">Februari</span>
-                  <span class="yr">2025</span>
-                </div>
-              </a>
-              <div class="text bg-white p-4">
-                <h3 class="heading"><a href="blog-single.html">Perayaan Hari Santri Nasional</a></h3>
-                <p>Perayaan Hari Santri Nasional menjadi momen penting bagi seluruh civitas akademika.</p>
-                <div class="d-flex align-items-center mt-4">
-                  <p class="mb-0"><a href="blog-single.html" class="btn btn-secondary">Selengkapnya <span class="fas fa-arrow-right"></span></a></p>
-                  <p class="ml-auto mb-0">
-                    <a href="#" class="mr-2"><span class="fas fa-user"></span> Admin</a>
-                    <a href="#" class="meta-chat"><span class="fas fa-comment"></span> 15</a>
-                  </p>
-                </div>
+              <div class="col-md-3 mb-2 mb-md-0">
+                <label class="sr-only" for="article-tag">Tag</label>
+                <select id="article-tag" class="form-control">
+                  <option value="">Semua tag</option>
+                </select>
               </div>
             </div>
           </div>
         </div>
-        <div class="row no-gutters my-5">
-          <div class="col text-center">
-            <div class="block-27">
-              <ul>
-                <li><a href="#"><i class="fas fa-chevron-left"></i></a></li>
-                <li class="active"><span>1</span></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#"><i class="fas fa-chevron-right"></i></a></li>
-              </ul>
-            </div>
+        <div class="row" id="article-list">
+          <div class="col-12 py-5 text-center">
+            <p>Memuat artikel...</p>
           </div>
         </div>
+        <div id="article-pagination"></div>
       </div>
     </section>
 
@@ -384,6 +269,7 @@
     <script src="js/jquery.animateNumber.min.js"></script>
     <script src="js/scrollax.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/blog-list.js"></script>
 
   </body>
 </html>

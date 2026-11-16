@@ -14,6 +14,8 @@
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="js/site-config.js"></script>
+    <script src="js/navbar-admin.js"></script>
 
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/aos.css">
@@ -409,6 +411,7 @@
               <a class="dropdown-item" href="daycare-sigma.html"><i class="fas fa-baby mr-2" style="color: #D4940A;"></i>Daycare Sigma</a>
             </div>
           </li>
+          <li class="nav-item navbar-admin-item"><a href="#" class="nav-link navbar-admin-link" data-site-admin-login aria-label="Dashboard Admin" title="Dashboard Admin"><i class="fas fa-user-circle"></i></a></li>
         </ul>
       </div>
       <div class="navbar-smartschool-logo">
@@ -743,9 +746,13 @@
   <script src="js/popper.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/aos.js"></script>
+    <script src="js/vendor/supabase.min.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/supabase.js"></script>
+  <script src="js/facilities.js"></script>
   <script>
     (function() {
-      var galleryItems = Array.prototype.slice.call(document.querySelectorAll('.gallery-card'));
+      var galleryItems = [];
       var lightbox = document.getElementById('lightbox');
       var lightboxImage = document.getElementById('lightbox-image');
       var lightboxCaption = document.getElementById('lightbox-caption');
@@ -754,6 +761,7 @@
       var previousBodyOverflow = '';
 
       function showImage(index) {
+        if (!galleryItems.length) return;
         currentIndex = (index + galleryItems.length) % galleryItems.length;
         var item = galleryItems[currentIndex];
         var image = item.querySelector('img');
@@ -779,19 +787,32 @@
         document.getElementById('lightbox-close').focus();
       }
 
-      galleryItems.forEach(function(item, index) {
-        item.setAttribute('tabindex', '0');
-        item.setAttribute('role', 'button');
-        item.addEventListener('click', function() {
-          openLightbox(item, index);
-        });
-        item.addEventListener('keydown', function(event) {
-          if (event.key === 'Enter' || event.key === ' ') {
-            event.preventDefault();
+      /* Kartu galeri bisa diganti oleh data dari backend, jadi penanganan
+         event klik dibuat ulang setiap kali daftar kartu berubah. */
+      function bindGalleryItems() {
+        galleryItems = Array.prototype.slice.call(document.querySelectorAll('.gallery-card'));
+
+        galleryItems.forEach(function(item, index) {
+          item.setAttribute('tabindex', '0');
+          item.setAttribute('role', 'button');
+          item.addEventListener('click', function() {
             openLightbox(item, index);
-          }
+          });
+          item.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter' || event.key === ' ') {
+              event.preventDefault();
+              openLightbox(item, index);
+            }
+          });
         });
+      }
+
+      document.addEventListener('ni:facilities-rendered', function() {
+        bindGalleryItems();
+        if (typeof AOS !== 'undefined') AOS.refresh();
       });
+
+      bindGalleryItems();
 
       document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
       document.getElementById('lightbox-prev').addEventListener('click', function() {
@@ -815,6 +836,11 @@
           showImage(currentIndex + 1);
         }
       });
+
+      /* Galeri diisi dari backend; data statis tetap dipakai sampai API merespons. */
+      if (window.NIFasilitas) {
+        window.NIFasilitas.renderGallery({ container: '.gallery-grid' });
+      }
 
       if (typeof AOS !== 'undefined') {
         AOS.init({ duration: 800, easing: 'ease-in-out', once: true });

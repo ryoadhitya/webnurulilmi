@@ -38,7 +38,7 @@
 	loader();
 
 	// Scrollax
-   $.Scrollax();
+   if ($.fn.Scrollax) $.Scrollax();
 
 	var carousel = function() {
 		$('.home-slider').owlCarousel({
@@ -247,12 +247,16 @@
   });
 
 
-  $('.appointment_date').datepicker({
-	  'format': 'm/d/yyyy',
-	  'autoclose': true
-	});
+	if ($.fn.datepicker) {
+		$('.appointment_date').datepicker({
+		  'format': 'm/d/yyyy',
+		  'autoclose': true
+		});
+	}
 
-	$('.appointment_time').timepicker();
+	if ($.fn.timepicker) {
+		$('.appointment_time').timepicker();
+	}
 
 
 

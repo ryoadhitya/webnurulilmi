@@ -13,3 +13,25 @@ npm-debug.log*
 yarn-error.log*
 *.tmp
 *.bak
+
+# Kredensial Supabase — JANGAN pernah di-commit
+.env
+.env.migration
+.env*.migration
+.env*.local
+
+# Kredensial sementara akun admin unit (dipakai untuk uji login manual)
+.akun-admin.txt
+
+# Kredensial MySQL/Laravel lama yang diarsipkan saat SOURCE Laravel dihapus
+backup/laravel-env/
+
+# Arsip lokal (dump database + media legacy). Berkas ini tetap ADA di disk,
+# hanya tidak ikut di-commit supaya dump dan media lama tidak terepublikasi.
+backup/
+
+# Pustaka PHP dari composer (dipakai skrip migrasi lama, bisa diunduh ulang)
+scripts/php-vendor/
+
+# Dependensi node
+node_modules/

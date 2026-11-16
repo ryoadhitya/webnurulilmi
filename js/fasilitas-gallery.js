@@ -4,7 +4,9 @@
      - index.html        (YPI Nurul Ilmi)
      - tk-sigma.html     (TK Sigma)
      - daycare-sigma.html(Daycare Sigma)
-   No backend, no upload system - all data is static front-end data.
+   Data default masih statis, namun initFasilitas() menerima opsi "source"
+   (fungsi yang mengembalikan Promise) supaya data bisa diambil dari API
+   backend tanpa mengubah file ini.
    ========================================================================== */
 (function (window, document) {
   'use strict';
@@ -228,6 +230,76 @@
   /* ------------------------------------------------------------------ *
    * Public API
    * ------------------------------------------------------------------ */
+
+  /* Prefix ikon Font Awesome yang didukung (paket gratis Font Awesome 6). */
+  var ICON_PREFIXES = ['fas', 'far', 'fab', 'fa-solid', 'fa-regular', 'fa-brands'];
+
+  /* Class ikon dari database hanya dipakai kalau formatnya benar, supaya
+     input yang salah tidak membuat elemen ikon kosong. Class yang tidak
+     valid mengembalikan null, sehingga ikon statis di kartu tetap dipakai. */
+  function sanitizeIcon(value) {
+    var icon = String(value || '').trim();
+
+    if (!icon) return null;
+
+    for (var i = 0; i < ICON_PREFIXES.length; i++) {
+      var prefix = ICON_PREFIXES[i];
+
+      if (icon.indexOf(prefix + ' fa-') === 0 && /^[\w-]+$/.test(icon.slice(prefix.length + 4))) {
+        return icon;
+      }
+    }
+
+    return null;
+  }
+
+  /* Jumlah foto dan gambar sampul kartu mengikuti data terbaru
+     (data statis bisa ditimpa oleh data dari API backend). */
+  function refreshCards(cards) {
+    Array.prototype.forEach.call(cards, function (card) {
+      var key = card.getAttribute('data-ni-facility');
+      var facility = state.data[key] || {};
+      var photos = facility.photos || [];
+      var badge = card.querySelector('.ni-fas-count');
+      var media = card.querySelector('.ni-fas-media');
+
+      card.classList.toggle('is-placeholder', photos.length === 0);
+
+      if (badge) {
+        badge.textContent = photos.length ? photos.length + ' foto' : '';
+        badge.style.display = photos.length ? '' : 'none';
+      }
+
+      var iconHolder = card.querySelector('.ni-fas-icon');
+      var newIcon = sanitizeIcon(facility.icon);
+
+      if (iconHolder && newIcon) {
+        var icon = iconHolder.querySelector('i');
+
+        if (!icon) {
+          icon = document.createElement('i');
+          iconHolder.appendChild(icon);
+        }
+
+        icon.className = newIcon;
+        icon.setAttribute('aria-hidden', 'true');
+      }
+
+      if (!facility.cover || !media) return;
+
+      var image = media.querySelector('img');
+
+      if (!image) {
+        image = document.createElement('img');
+        image.setAttribute('loading', 'lazy');
+        media.insertBefore(image, media.firstChild);
+      }
+
+      image.src = facility.cover;
+      image.alt = facility.title || '';
+    });
+  }
+
   function initFacilities(options) {
     options = options || {};
     var cards = document.querySelectorAll(options.cardsSelector || '.ni-fas-card');
@@ -240,16 +312,6 @@
 
     Array.prototype.forEach.call(cards, function (card) {
       var key = card.getAttribute('data-ni-facility');
-      var facility = state.data[key] || {};
-      var photos = facility.photos || [];
-      var badge = card.querySelector('.ni-fas-count');
-
-      if (photos.length) {
-        if (badge) badge.textContent = photos.length + ' foto';
-      } else {
-        card.classList.add('is-placeholder');
-        if (badge) badge.remove();
-      }
 
       card.addEventListener('click', function (event) {
         event.preventDefault();
@@ -264,6 +326,21 @@
         }
       });
     });
+
+    refreshCards(cards);
+
+    /* Sumber data opsional (mis. API backend) yang dipanggil setelah kartu
+       terpasang. Data dari sumber ini menggantikan data statis. */
+    if (typeof options.source === 'function') {
+      options.source().then(function (remote) {
+        Object.keys(remote || {}).forEach(function (key) {
+          state.data[key] = remote[key];
+        });
+        refreshCards(cards);
+      }).catch(function () {
+        /* Data statis tetap dipakai saat API tidak dapat dijangkau. */
+      });
+    }
   }
 
   function initArticles(options) {

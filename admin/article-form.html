@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Artikel · Panel Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="assets/admin.css">
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-800 antialiased" data-admin-page="article-form">
+    <div class="min-h-screen lg:flex">
+        <aside id="admin-sidebar" class="hidden w-64 shrink-0 border-r border-slate-200 bg-white lg:flex lg:flex-col"></aside>
+
+        <div class="min-w-0 flex-1">
+            <header id="admin-header" class="flex h-16 items-center justify-between border-b border-slate-200 bg-white px-5 sm:px-8"></header>
+
+            <main class="mx-auto max-w-7xl px-5 py-8 sm:px-8 lg:px-10">
+                <div id="admin-flash" class="hidden"></div>
+
+                <div class="mx-auto">
+                    <a href="articles.html" class="mb-6 inline-flex items-center gap-2 text-sm font-semibold text-slate-500 transition hover:text-emerald-800">
+                        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m15 18-6-6 6-6M9 12h11"/></svg>
+                        Kembali ke artikel
+                    </a>
+                    <div class="mb-6">
+                        <p id="form-eyebrow" class="mb-2 text-xs font-bold uppercase tracking-[.18em] text-emerald-700">Konten baru</p>
+                        <h1 id="form-title" class="font-display text-3xl font-extrabold tracking-tight text-slate-950">Tambah artikel</h1>
+                        <p id="form-subtitle" class="mt-2 text-sm text-slate-500">Isi artikel dalam bahasa Indonesia, lalu tambahkan terjemahan bahasa Inggris bila diperlukan.</p>
+                    </div>
+
+                    <form id="article-form" class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+                        <div class="border-b border-slate-100 px-6 py-5 sm:px-8">
+                            <h2 class="font-display text-base font-bold text-slate-900">Informasi artikel</h2>
+                            <p class="mt-1 text-sm text-slate-500">Kolom bertanda <span class="text-rose-600">*</span> wajib diisi.</p>
+                        </div>
+
+                        <div class="space-y-7 px-6 py-7 sm:px-8">
+                            <div id="form-error" class="hidden rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800" role="alert"></div>
+
+                            <div class="grid gap-5 sm:grid-cols-2">
+                                <div>
+                                    <label for="title_id" class="mb-2 block text-sm font-semibold text-slate-800">Judul bahasa Indonesia <span class="text-rose-600">*</span></label>
+                                    <input id="title_id" name="title_id" type="text" required maxlength="255" autofocus placeholder="Contoh: Menjaga Keikhlasan dalam Beribadah" class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10">
+                                </div>
+                                <div>
+                                    <label for="title_en" class="mb-2 block text-sm font-semibold text-slate-800">Judul bahasa Inggris</label>
+                                    <input id="title_en" name="title_en" type="text" maxlength="255" placeholder="English title (optional)" class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10">
+                                </div>
+                            </div>
+
+                            <div class="grid gap-5 sm:grid-cols-2">
+                                <div>
+                                    <label for="content_id" class="mb-2 block text-sm font-semibold text-slate-800">Isi artikel bahasa Indonesia <span class="text-rose-600">*</span></label>
+                                    <textarea id="content_id" name="content_id" rows="12" required placeholder="Tuliskan isi artikel..." class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm leading-6 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10"></textarea>
+                                </div>
+                                <div>
+                                    <div class="mb-2 flex flex-wrap items-center justify-between gap-2">
+                                        <label for="content_en" class="block text-sm font-semibold text-slate-800">Isi artikel bahasa Inggris</label>
+                                        <button id="translate-article" type="button" class="inline-flex items-center gap-1.5 rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-bold text-emerald-800 transition hover:bg-emerald-100 focus:outline-none focus:ring-4 focus:ring-emerald-500/10">
+                                            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4 5h10M9 3v2m4 0c-.7 4.1-3.6 7.2-7.5 9M6 9c1.2 1.8 2.7 3.1 4.5 4M13 20l4-9 4 9m-6.5-3h5"/></svg>
+                                            Terjemahkan otomatis
+                                        </button>
+                                    </div>
+                                    <textarea id="content_en" name="content_en" rows="12" placeholder="English article content (optional)" class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm leading-6 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10"></textarea>
+                                    <p id="translate-status" class="mt-2 min-h-5 text-xs text-slate-500" role="status" aria-live="polite">Terjemahan memakai layanan MyMemory dan memerlukan koneksi internet.</p>
+                                </div>
+                            </div>
+
+                            <div class="grid gap-5 sm:grid-cols-2">
+                                <div>
+                                    <label for="category_id" class="mb-2 block text-sm font-semibold text-slate-800">Kategori</label>
+                                    <select id="category_id" name="category_id" class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10"></select>
+                                </div>
+                                <div>
+                                    <label for="unit_id" class="mb-2 block text-sm font-semibold text-slate-800">Unit</label>
+                                    <select id="unit_id" name="unit_id" class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10"></select>
+                                    <p class="mt-2 text-xs leading-5 text-slate-500">Artikel hanya dapat dikelola oleh admin unit yang sama.</p>
+                                </div>
+                            </div>
+
+                            <div class="grid gap-5 sm:grid-cols-2">
+                                <div>
+                                    <label for="author_name" class="mb-2 block text-sm font-semibold text-slate-800">Nama penulis</label>
+                                    <input id="author_name" name="author_name" type="text" maxlength="255" placeholder="Admin" class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10">
+                                </div>
+                            </div>
+
+                            <div class="grid gap-5 sm:grid-cols-2">
+                                <div>
+                                    <label for="status" class="mb-2 block text-sm font-semibold text-slate-800">Status publikasi</label>
+                                    <select id="status" name="status" class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10">
+                                        <option value="published">Published — tayang di website</option>
+                                        <option value="draft">Draft — belum tayang</option>
+                                    </select>
+                                </div>
+                                <div class="flex items-end">
+                                    <p class="text-xs leading-5 text-slate-500">Artikel berstatus <span class="font-semibold text-slate-700">draft</span> tidak tampil di halaman Artikel maupun di Recent Blog homepage sampai dipublikasikan.</p>
+                                </div>
+                            </div>
+
+                            <div>
+                                <p class="mb-3 text-sm font-semibold text-slate-800">Tag artikel</p>
+                                <div id="tag-list"></div>
+                            </div>
+
+                            <div>
+                                <p class="mb-2 text-sm font-semibold text-slate-800">Media artikel (gambar &amp; video)</p>
+                                <p class="mb-3 text-xs leading-5 text-slate-500">
+                                    Unggah beberapa gambar atau video sekaligus. Media boleh dikosongkan bila artikel memang tidak memakai gambar atau video.
+                                    Gambar maksimal 5&nbsp;MB, video maksimal 25&nbsp;MB (MP4 atau WEBM).
+                                </p>
+
+                                <div id="legacy-image" class="mb-4 hidden items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
+                                    <img src="" alt="Gambar artikel saat ini" class="h-14 w-20 rounded-lg object-cover">
+                                    <div class="text-xs leading-5 text-slate-600">
+                                        <p class="font-semibold text-slate-700">Gambar lama artikel ini</p>
+                                        <p>Disimpan sebelum fitur media diperluas. Tetap tampil di halaman artikel dan ikut masuk ke daftar media saat artikel disimpan kembali.</p>
+                                    </div>
+                                </div>
+
+                                <ul id="media-list" class="mb-4 hidden space-y-3"></ul>
+
+                                <input id="media" name="media[]" type="file" multiple accept=".jpg,.jpeg,.png,.webp,.mp4,.webm,image/jpeg,image/png,image/webp,video/mp4,video/webm" class="block w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-700 file:mr-4 file:rounded-lg file:border-0 file:bg-emerald-50 file:px-3 file:py-2 file:text-xs file:font-bold file:text-emerald-800 hover:file:bg-emerald-100">
+                                <p class="mt-2 text-xs leading-5 text-slate-500">Pilih beberapa file sekaligus dengan menekan tombol Ctrl (Windows) atau Cmd (Mac) saat memilih file.</p>
+
+                                <div id="media-preview" class="mt-3 hidden">
+                                    <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-400">Pratinjau file yang akan diunggah</p>
+                                    <ul id="media-preview-list" class="grid grid-cols-2 gap-3 sm:grid-cols-4"></ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col-reverse gap-3 border-t border-slate-100 bg-slate-50/70 px-6 py-5 sm:flex-row sm:justify-end sm:px-8">
+                            <a href="articles.html" class="inline-flex justify-center rounded-xl border border-slate-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50">Batal</a>
+                            <button type="submit" id="submit-article" class="inline-flex justify-center rounded-xl bg-emerald-700 px-5 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-emerald-800 focus:outline-none focus:ring-4 focus:ring-emerald-200">
+                                <span id="submit-article-label">Simpan artikel</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </main>
+
+            <footer class="px-5 pb-7 text-center text-xs text-slate-400 sm:px-8">© <span id="admin-year"></span> YPI Nurul Ilmi · Panel pengelola</footer>
+        </div>
+    </div>
+
+    <script src="../js/vendor/supabase.min.js"></script>
+    <script src="../js/site-config.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/video-thumbnail.js"></script>
+    <script src="../js/supabase.js"></script>
+    <script src="../js/admin-auth.js"></script>
+    <script src="../js/admin-layout.js"></script>
+    <script src="../js/admin-articles.js"></script>
+    <script>
+        (function () {
+            var year = document.getElementById('admin-year');
+            if (year) year.textContent = new Date().getFullYear();
+
+            window.NIAdmin.mount(function () {
+                window.NIAdmin.readQueryMessage();
+                window.NIAdminArticles.initForm();
+            });
+        })();
+    </script>
+</body>
+</html>

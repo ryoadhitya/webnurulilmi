@@ -11,6 +11,8 @@
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="js/site-config.js"></script>
+    <script src="js/navbar-admin.js"></script>
 
     <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
     <link rel="stylesheet" href="css/animate.css">
@@ -51,11 +53,11 @@
       </div>
     </div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark ftco_navbar ftco-navbar-light" id="ftco-navbar">
-      <div class="container d-flex align-items-center">
+      <div class="container d-flex align-items-center justify-content-between">
         <a class="navbar-brand-container" href="index.html">
           <img src="images/logonurulilmi.png" alt="Logo YPI Nurul Ilmi" class="navbar-brand-logo">
           <span class="navbar-brand-text">
-      <span class="navbar-brand-title">Yayasan Pendidikan Islam</span>
+            <span class="navbar-brand-title">Yayasan Pendidikan Islam</span>
             <span class="navbar-brand-subtitle">NURUL ILMI BEKASI</span>
           </span>
         </a>
@@ -70,7 +72,19 @@
             <li class="nav-item"><a href="courses.html" class="nav-link">Program</a></li>
             <li class="nav-item"><a href="pricing.html" class="nav-link">Biaya</a></li>
             <li class="nav-item active"><a href="blog.html" class="nav-link">Artikel</a></li>
+            <li class="nav-item dropdown">
+              <a href="#" class="nav-link dropdown-toggle" id="unitDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Unit Sigma</a>
+              <div class="dropdown-menu" aria-labelledby="unitDropdown">
+                <a class="dropdown-item" href="tk-sigma.html"><i class="fas fa-star mr-2" style="color: #D4940A;"></i>TK Sigma</a>
+                <a class="dropdown-item" href="daycare-sigma.html"><i class="fas fa-baby mr-2" style="color: #D4940A;"></i>Daycare Sigma</a>
+              </div>
+            </li>
+            <li class="nav-item navbar-admin-item"><a href="#" class="nav-link navbar-admin-link" data-site-admin-login aria-label="Dashboard Admin" title="Dashboard Admin"><i class="fas fa-user-circle"></i></a></li>
           </ul>
+        </div>
+        <!-- Smart School Logo -->
+        <div class="navbar-smartschool-logo">
+          <img src="images/smartschool.png" alt="Smart School" title="Smart School">
         </div>
       </div>
     </nav>
@@ -90,203 +104,25 @@
 
     <section class="ftco-section">
       <div class="container">
-        <div class="row">
-          <div class="col-lg-8 ftco-animate">
-            <h2 class="mb-3">#1. Kegiatan Ekstrakurikuler di YPI Nurul Ilmi</h2>
-            <p>YPI Nurul Ilmi menyediakan berbagai kegiatan ekstrakurikuler untuk mengembangkan potensi dan bakat siswa-siswi kami. Dengan panduan ustadz dan ustadzah yang berpengalaman, setiap siswa dapat menemukan dan mengasah kemampuan mereka di luar kelas.</p>
-            <p>
-              <img src="images/image_2.jpg" alt="" class="img-fluid">
-            </p>
-            <p>Berbagai ekstrakurikuler yang tersedia meliputi Japan Club untuk mempelajari bahasa dan budaya Jepang, Volly dan Futsal untuk menyalurkan hobi olahraga, English Club untuk meningkatkan kemampuan berbahasa Inggris, Math Club untuk pecinta matematika, Taekwondo untuk pertahanan diri, Tahfidz Al-Quran untuk menghafal kitab suci, dan Badminton untuk penggemar bulu tangkis.</p>
-            <p>Setiap ekstrakurikuler diadakan setiap sore hari setelah jam belajar regular berakhir. Dengan demikian, siswa dapat mengoptimalkan waktu mereka untuk belajar sekaligus mengembangkan hobi dan bakat di luar akademis.</p>
-            <p>Prestasi juga menjadi fokus kami. Siswa-siswa YPI Nurul Ilmi secara rutin mengikuti berbagai kompetisi di tingkat kecamatan hingga kabupaten, membawa pulang penghargaan yang membanggakan.</p>
-            <div class="tag-widget post-tag-container mb-5 mt-5">
-              <div class="tagcloud">
-                <a href="#" class="tag-cloud-link">Ekstrakurikuler</a>
-                <a href="#" class="tag-cloud-link">Olahraga</a>
-                <a href="#" class="tag-cloud-link">Akademik</a>
-                <a href="#" class="tag-cloud-link">Prestasi</a>
-              </div>
-            </div>
-
-            <div class="about-author d-flex p-4 bg-light">
-              <div class="bio mr-5">
-                <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?w=100&h=100&fit=crop" alt="" class="img-fluid mb-4" style="border-radius: 50%;">
-              </div>
-              <div class="desc">
-                <h3>Ustadz Ahmad Fauzi</h3>
-                <p>Ustadz Ahmad Fauzi adalah Guru Matematika di YPI Nurul Ilmi dengan pengalaman mengajar lebih dari 10 tahun. Beliau aktif mengembangkan ekstrakurikuler Math Club untuk培养学生.</p>
-              </div>
-            </div>
-
-
-            <div class="pt-5 mt-5">
-              <h3 class="mb-5 h4 font-weight-bold">6 Komentar</h3>
-              <ul class="comment-list">
-                <li class="comment">
-                  <div class="vcard bio">
-                    <img src="https://images.unsplash.com/photo-1587614382346-4ec70e388b28?w=100&h=100&fit=crop" alt="" style="border-radius: 50%;">
-                  </div>
-                  <div class="comment-body">
-                    <h3>Siti Aminah</h3>
-                    <div class="meta mb-2">15 Januari 2025, 14:30</div>
-                    <p>Alhamdulillah, anak saya sangat senang mengikuti ekstrakurikuler di YPI Nurul Ilmi. Gurunya sabar dan selalu memotivasi.</p>
-                    <p><a href="#" class="reply"><span class="fas fa-reply"></span> Balas</a></p>
-                  </div>
-                </li>
-
-                <li class="comment">
-                  <div class="vcard bio">
-                    <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=100&h=100&fit=crop" alt="" style="border-radius: 50%;">
-                  </div>
-                  <div class="comment-body">
-                    <h3>Hendra Wijaya</h3>
-                    <div class="meta mb-2">16 Januari 2025, 09:15</div>
-                    <p>Math Club di sekolah ini sangat membantu anak saya dalam memahami matematika. Metodenya inovatif dan mudah dipahami.</p>
-                    <p><a href="#" class="reply"><span class="fas fa-reply"></span> Balas</a></p>
-                  </div>
-
-                  <ul class="children">
-                    <li class="comment">
-                      <div class="vcard bio">
-                        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=100&h=100&fit=crop" alt="" style="border-radius: 50%;">
-                      </div>
-                      <div class="comment-body">
-                        <h3>Dewi Lestari</h3>
-                        <div class="meta mb-2">16 Januari 2025, 10:45</div>
-                        <p>Setuju! Anak saya juga mengalami peningkatan signifikan dalam belajar matematika sejak bergabung di Math Club.</p>
-                        <p><a href="#" class="reply"><span class="fas fa-reply"></span> Balas</a></p>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
-
-                <li class="comment">
-                  <div class="vcard bio">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" alt="" style="border-radius: 50%;">
-                  </div>
-                  <div class="comment-body">
-                    <h3>Rudi Hermawan</h3>
-                    <div class="meta mb-2">17 Januari 2025, 16:00</div>
-                    <p>Program ekstrakurikuler di YPI Nurul Ilmi sangat lengkap. Anak saya mengikuti Taekwondo dan sudah meraih beberapa penghargaan.</p>
-                    <p><a href="#" class="reply"><span class="fas fa-reply"></span> Balas</a></p>
-                  </div>
-                </li>
-              </ul>
-
-              <div class="comment-form-wrap pt-5">
-                <h3 class="mb-5 h4 font-weight-bold">Tinggalkan Komentar</h3>
-                <form action="#" class="p-5 bg-light">
-                  <div class="form-group">
-                    <label for="name">Nama *</label>
-                    <input type="text" class="form-control" id="name">
-                  </div>
-                  <div class="form-group">
-                    <label for="email">Email *</label>
-                    <input type="email" class="form-control" id="email">
-                  </div>
-                  <div class="form-group">
-                    <label for="message">Pesan</label>
-                    <textarea name="" id="message" cols="30" rows="10" class="form-control"></textarea>
-                  </div>
-                  <div class="form-group">
-                    <input type="submit" value="Kirim Komentar" class="btn py-3 px-4 btn-primary">
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 sidebar ftco-animate">
-            <div class="sidebar-box">
-              <form action="#" class="search-form">
-                <div class="form-group">
-                  <span class="fas fa-search"></span>
-                  <input type="text" class="form-control" placeholder="Cari artikel...">
-                </div>
-              </form>
-            </div>
-            <div class="sidebar-box ftco-animate">
-              <h3>Kategori</h3>
-              <ul class="categories">
-                <li><a href="#">Ekstrakurikuler <span>(12)</span></a></li>
-                <li><a href="#">Prestasi <span>(8)</span></a></li>
-                <li><a href="#">Tahfidz <span>(5)</span></a></li>
-                <li><a href="#">Digital Learning <span>(3)</span></a></li>
-                <li><a href="#">Kegiatan Islami <span>(7)</span></a></li>
-              </ul>
-            </div>
-
-            <div class="sidebar-box ftco-animate">
-              <h3>Artikel Populer</h3>
-              <div class="block-21 mb-4 d-flex">
-                <a class="blog-img mr-4" style="background-image: url(images/image_1.jpg);"></a>
-                <div class="text">
-                  <h3 class="heading"><a href="#">Prestasi siswa dalam kompetisi sains</a></h3>
-                  <div class="meta">
-                    <div><a href="#"><span class="far fa-calendar"></span> 20 Jan 2025</a></div>
-                    <div><a href="#"><span class="fas fa-user"></span> Admin</a></div>
-                    <div><a href="#"><span class="fas fa-comment"></span> 5</a></div>
-                  </div>
-                </div>
-              </div>
-              <div class="block-21 mb-4 d-flex">
-                <a class="blog-img mr-4" style="background-image: url(images/image_2.jpg);"></a>
-                <div class="text">
-                  <h3 class="heading"><a href="#">Program tahfidz semakin berkembang</a></h3>
-                  <div class="meta">
-                    <div><a href="#"><span class="far fa-calendar"></span> 18 Jan 2025</a></div>
-                    <div><a href="#"><span class="fas fa-user"></span> Admin</a></div>
-                    <div><a href="#"><span class="fas fa-comment"></span> 8</a></div>
-                  </div>
-                </div>
-              </div>
-              <div class="block-21 mb-4 d-flex">
-                <a class="blog-img mr-4" style="background-image: url(images/image_3.jpg);"></a>
-                <div class="text">
-                  <h3 class="heading"><a href="#">Fasilitas digital semakin dimaksimalkan</a></h3>
-                  <div class="meta">
-                    <div><a href="#"><span class="far fa-calendar"></span> 15 Jan 2025</a></div>
-                    <div><a href="#"><span class="fas fa-user"></span> Admin</a></div>
-                    <div><a href="#"><span class="fas fa-comment"></span> 3</a></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="sidebar-box ftco-animate">
-              <h3>Tag Cloud</h3>
-              <ul class="tagcloud m-0 p-0">
-                <a href="#" class="tag-cloud-link">Sekolah</a>
-                <a href="#" class="tag-cloud-link">Islam</a>
-                <a href="#" class="tag-cloud-link">Akreditasi A</a>
-                <a href="#" class="tag-cloud-link">Ekstrakurikuler</a>
-                <a href="#" class="tag-cloud-link">Tahfidz</a>
-                <a href="#" class="tag-cloud-link">Digital</a>
-                <a href="#" class="tag-cloud-link">Guru</a>
-              </ul>
-            </div>
-
-            <div class="sidebar-box ftco-animate">
-              <h3>Arsip</h3>
-              <ul class="categories">
-                <li><a href="#">Januari 2025 <span>(15)</span></a></li>
-                <li><a href="#">Desember 2024 <span>(10)</span></a></li>
-                <li><a href="#">November 2024 <span>(8)</span></a></li>
-                <li><a href="#">Oktober 2024 <span>(6)</span></a></li>
-              </ul>
-            </div>
-
-
-            <div class="sidebar-box ftco-animate">
-              <h3>Tentang YPI Nurul Ilmi</h3>
-              <p>YPI Nurul Ilmi Bekasi meliputi TKIT, SDIT, dan SMPIT Nurul Ilmi yang terletak di Perumahan Bumi Waringin Indah 2, Waringinjaya, Kedungwaringin, Bekasi. Dengan 534 siswa dan 36 guru profesional.</p>
-            </div>
+        <div class="row justify-content-center">
+          <div class="col-md-8 text-center ftco-animate">
+            <h2 class="mb-4">Artikel dipindahkan</h2>
+            <p>Detail artikel kini berada di halaman <strong>article.html</strong>. Anda sedang diarahkan secara otomatis.</p>
+            <p class="mt-4"><a href="blog.html" class="btn btn-secondary">Lihat semua artikel</a></p>
           </div>
         </div>
       </div>
     </section>
 
+    <script>
+      (function () {
+        var params = new window.URLSearchParams(window.location.search);
+        var id = params.get('id');
+        var target = id ? 'article.html?id=' + encodeURIComponent(id) : 'blog.html';
+
+        window.location.replace(target);
+      })();
+    </script>
 
     <footer class="ftco-footer ftco-bg-dark ftco-section">
       <div class="container">
@@ -334,7 +170,7 @@
               <div class="block-21 mb-4 d-flex">
                 <a class="blog-img mr-4" style="background-image: url(images/image_1.jpg);"></a>
                 <div class="text">
-                  <h3 class="heading"><a href="#">Prestasi siswa dalam kompetisi sains</a></h3>
+                  <h3 class="heading"><a href="blog-single.html">Prestasi siswa dalam kompetisi sains</a></h3>
                   <div class="meta">
                     <div><a href="#"><span class="far fa-calendar"></span> 20 Jan 2025</a></div>
                     <div><a href="#"><span class="fas fa-user"></span> Admin</a></div>
@@ -345,7 +181,7 @@
               <div class="block-21 mb-5 d-flex">
                 <a class="blog-img mr-4" style="background-image: url(images/image_2.jpg);"></a>
                 <div class="text">
-                  <h3 class="heading"><a href="#">Program tahfidz semakin berkembang</a></h3>
+                  <h3 class="heading"><a href="blog-single.html">Program tahfidz semakin berkembang</a></h3>
                   <div class="meta">
                     <div><a href="#"><span class="far fa-calendar"></span> 18 Jan 2025</a></div>
                     <div><a href="#"><span class="fas fa-user"></span> Admin</a></div>

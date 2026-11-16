@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Moderasi Komentar · Panel Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="assets/admin.css">
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-800 antialiased" data-admin-page="comments">
+    <div class="min-h-screen lg:flex">
+        <aside id="admin-sidebar" class="hidden w-64 shrink-0 border-r border-slate-200 bg-white lg:flex lg:flex-col"></aside>
+
+        <div class="min-w-0 flex-1">
+            <header id="admin-header" class="flex h-16 items-center justify-between border-b border-slate-200 bg-white px-5 sm:px-8"></header>
+
+            <main class="mx-auto max-w-7xl px-5 py-8 sm:px-8 lg:px-10">
+                <div id="admin-flash" class="hidden"></div>
+
+                <div class="mb-8 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+                    <div>
+                        <p class="mb-2 text-xs font-bold uppercase tracking-[.18em] text-emerald-700">Interaksi pembaca</p>
+                        <h1 class="font-display text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">Moderasi komentar</h1>
+                        <p class="mt-2 max-w-xl text-sm leading-6 text-slate-500">Komentar pembaca masuk ke daftar ini sebelum tayang di halaman artikel.</p>
+                    </div>
+                    <label class="block w-full sm:w-56">
+                        <span class="sr-only">Filter status</span>
+                        <select id="comment-status" class="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-700 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10">
+                            <option value="">Semua status</option>
+                            <option value="pending">Menunggu</option>
+                            <option value="published">Tayang</option>
+                            <option value="spam">Spam</option>
+                        </select>
+                    </label>
+                </div>
+
+                <div class="mb-6 grid gap-4 sm:grid-cols-3">
+                    <section class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-slate-500">Menunggu</p>
+                                <p id="stat-pending" class="mt-2 font-display text-3xl font-extrabold tracking-tight text-slate-950">0</p>
+                            </div>
+                            <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-50 text-amber-700">
+                                <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l2.5 2.5"/></svg>
+                            </span>
+                        </div>
+                    </section>
+                    <section class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-slate-500">Tayang</p>
+                                <p id="stat-published" class="mt-2 font-display text-3xl font-extrabold tracking-tight text-slate-950">0</p>
+                            </div>
+                            <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700">
+                                <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m5 12 4 4L19 6"/></svg>
+                            </span>
+                        </div>
+                    </section>
+                    <section class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-slate-500">Spam</p>
+                                <p id="stat-spam" class="mt-2 font-display text-3xl font-extrabold tracking-tight text-slate-950">0</p>
+                            </div>
+                            <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-50 text-rose-700">
+                                <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v4m0 4h.01M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+                            </span>
+                        </div>
+                    </section>
+                </div>
+
+                <section class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+                    <div class="flex flex-col gap-4 border-b border-slate-100 px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+                        <div>
+                            <h2 class="font-display text-base font-bold text-slate-900">Daftar komentar</h2>
+                            <p id="comment-count" class="mt-1 text-xs text-slate-500">0 komentar</p>
+                        </div>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full min-w-[900px] text-left text-sm">
+                            <thead class="bg-slate-50/80 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3.5">Pengirim</th>
+                                    <th scope="col" class="px-6 py-3.5">Komentar</th>
+                                    <th scope="col" class="px-6 py-3.5">Masuk</th>
+                                    <th scope="col" class="px-6 py-3.5">Status</th>
+                                    <th scope="col" class="px-6 py-3.5 text-right">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="comment-rows" class="divide-y divide-slate-100">
+                                <tr id="comment-empty" class="hidden">
+                                    <td colspan="5" class="px-6 py-16 text-center">
+                                        <span class="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700">
+                                            <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10.5h8M8 14h5m-9 6 1-3H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-3l1 3Z"/></svg>
+                                        </span>
+                                        <h3 class="mt-4 font-display text-base font-bold text-slate-900">Belum ada komentar</h3>
+                                        <p class="mt-1 text-sm text-slate-500">Komentar yang dikirim pembaca akan muncul di sini untuk dimoderasi.</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </main>
+
+            <footer class="px-5 pb-7 text-center text-xs text-slate-400 sm:px-8">© <span id="admin-year"></span> YPI Nurul Ilmi · Panel pengelola</footer>
+        </div>
+    </div>
+
+    <script src="../js/vendor/supabase.min.js"></script>
+    <script src="../js/site-config.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/supabase.js"></script>
+    <script src="../js/admin-auth.js"></script>
+    <script src="../js/admin-layout.js"></script>
+    <script src="../js/admin-comments.js"></script>
+    <script>
+        (function () {
+            var year = document.getElementById('admin-year');
+            if (year) year.textContent = new Date().getFullYear();
+
+            window.NIAdmin.mount(function () {
+                window.NIAdmin.readQueryMessage();
+                window.NIAdminComments.initList();
+            });
+        })();
+    </script>
+</body>
+</html>

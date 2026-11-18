@@ -327,28 +327,55 @@ async function run() {
   console.log('6. MODERASI KOMENTAR');
   const anon = { apikey: process.env.SUPABASE_ANON_KEY, Authorization: 'Bearer ' + process.env.SUPABASE_ANON_KEY };
 
-  const submitted = await fetch(process.env.SUPABASE_URL + '/rest/v1/rpc/submit_comment', {
-    method: 'POST',
-    headers: { ...anon, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ p_article_id: 1, p_name: 'Probe Bot', p_email: null, p_comment: 'komentar uji moderasi', p_hp: null })
-  });
-  const commentId = await submitted.json();
-  check('komentar publik masuk sebagai pending', Number(commentId) > 0, 'id=' + commentId);
+  /* Komentar hanya bisa masuk untuk artikel yang published. Ambil id artikel
+     yang benar-benar published supaya uji tidak bergantung pada id tetap. */
+  const publishedArticle = await db.from('articles')
+    .select('id')
+    .eq('status', 'published')
+    .order('id', { ascending: true })
+    .limit(1)
+    .maybeSingle();
 
-  if (Number(commentId) > 0) {
-    const pending = await db.from('comments').select('id, status').eq('id', commentId).maybeSingle();
-    check('admin melihat komentar pending', Boolean(pending.data), pending.error ? pending.error.message : '');
-    check('status awal pending', pending.data && pending.data.status === 'pending', pending.data ? pending.data.status : '-');
+  if (!publishedArticle.data) {
+    check('ada artikel published untuk uji komentar', false, 'tidak ada artikel published');
+  } else {
+    const submitted = await fetch(process.env.SUPABASE_URL + '/rest/v1/rpc/submit_comment', {
+      method: 'POST',
+      headers: { ...anon, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        p_article_id: publishedArticle.data.id,
+        p_name: 'Probe Bot',
+        p_email: null,
+        p_comment: 'komentar uji moderasi',
+        p_hp: null
+      })
+    });
+    const commentId = await submitted.json();
+    check('komentar publik tersimpan', Number(commentId) > 0, 'id=' + JSON.stringify(commentId));
 
-    const published = await db.from('comments').update({ status: 'published' }).eq('id', commentId).select().maybeSingle();
-    check('admin bisa memoderasi ke published', Boolean(published.data) && published.data.status === 'published');
+    if (Number(commentId) > 0) {
+      const row = await db.from('comments').select('id, status').eq('id', commentId).maybeSingle();
+      check('admin melihat komentar baru', Boolean(row.data), row.error ? row.error.message : '');
+      check('komentar tayang langsung (published)', row.data && row.data.status === 'published', row.data ? row.data.status : '-');
 
-    const pubAnon = await fetch(process.env.SUPABASE_URL + '/rest/v1/comments?id=eq.' + commentId, { headers: anon });
-    const pubRows = await pubAnon.json();
-    check('komentar published terlihat publik', Array.isArray(pubRows) && pubRows.length === 1, pubRows.length + ' baris');
+      const pubAnon = await fetch(process.env.SUPABASE_URL + '/rest/v1/comments?id=eq.' + commentId, { headers: anon });
+      const pubRows = await pubAnon.json();
+      check('komentar published terlihat publik', Array.isArray(pubRows) && pubRows.length === 1, pubRows.length + ' baris');
 
-    const del = await db.from('comments').delete().eq('id', commentId).select();
-    check('hapus komentar uji', Array.isArray(del.data) && del.data.length === 1);
+      /* Moderasi tetap bisa dipakai: admin bisa menahan atau menandai spam. */
+      const held = await db.from('comments').update({ status: 'pending' }).eq('id', commentId).select().maybeSingle();
+      check('admin bisa menahan komentar ke pending', Boolean(held.data) && held.data.status === 'pending');
+
+      const heldAnon = await fetch(process.env.SUPABASE_URL + '/rest/v1/comments?id=eq.' + commentId, { headers: anon });
+      const heldRows = await heldAnon.json();
+      check('komentar pending tidak terlihat publik', Array.isArray(heldRows) && heldRows.length === 0, heldRows.length + ' baris');
+
+      const back = await db.from('comments').update({ status: 'published' }).eq('id', commentId).select().maybeSingle();
+      check('admin bisa kembalikan ke published', Boolean(back.data) && back.data.status === 'published');
+
+      const del = await db.from('comments').delete().eq('id', commentId).select();
+      check('hapus komentar uji', Array.isArray(del.data) && del.data.length === 1);
+    }
   }
   console.log('');
 

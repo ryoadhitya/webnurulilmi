@@ -6,8 +6,13 @@
    Memuat artikel dari Supabase: isi, media/gambar, tag, kategori, jumlah
    pembaca, komentar yang sudah tayang, dan artikel terkait.
 
-   Komentar baru dikirim lewat RPC submit_comment() dan masuk dengan status
-   'pending', jadi hanya tayang setelah dimoderasi di dashboard admin.
+   Pengunjung juga bisa menerjemahkan artikel ke bahasa Inggris lewat
+   Edge Function publik "translate-public"; naskah asli disimpan supaya
+   kembali ke bahasa Indonesia tidak mengubah isi artikel.
+
+   Komentar baru dikirim lewat RPC submit_comment() dan langsung tayang
+   (status 'published'), jadi pengunjung melihat komentarnya sendiri tanpa
+   perlu refresh halaman. Admin tetap bisa menandai spam lewat dashboard.
 
    Sumber data: js/supabase.js (window.NISupabase).
    ========================================================================== */
@@ -19,7 +24,10 @@
 
   var state = {
     article: null,
-    comments: []
+    comments: [],
+    lang: 'id',
+    translation: null,
+    busy: false
   };
 
   function byId(id) {
@@ -336,6 +344,12 @@
       setTextContent(byId('article-english-content'), article.content_en || '');
       english.hidden = false;
     }
+
+    /* Kontrol terjemahan baru muncul setelah artikel benar-benar dimuat,
+       supaya tombolnya tidak pernah tanpa isi. */
+    var translateBar = byId('article-translate-bar');
+
+    if (translateBar) translateBar.hidden = false;
   }
 
   function renderNotFound() {
@@ -343,6 +357,150 @@
     byId('article-content').innerHTML =
       '<p>Artikel yang Anda cari tidak tersedia atau belum dipublikasikan.</p>' +
       '<p><a href="blog.html" class="btn btn-secondary">Kembali ke daftar artikel</a></p>';
+  }
+
+  /* ------------------------------------------------------------------ */
+  /*  Terjemahan                                                         */
+  /* ------------------------------------------------------------------ */
+
+  var LANG_LABEL = { id: 'Indonesia', en: 'English' };
+
+  function translateStatus(message, type) {
+    var box = byId('article-translate-status');
+    if (!box) return;
+
+    box.textContent = message || '';
+    box.className = 'article-translate-status' + (type ? ' is-' + type : '');
+  }
+
+  /** Terapkan judul + isi artikel sesuai bahasa yang sedang aktif. */
+  function applyArticleText(title, content) {
+    byId('article-title').textContent = title;
+    byId('article-breadcrumb').textContent = title;
+    setTextContent(byId('article-content'), content);
+    document.title = title + ' - YPI Nurul Ilmi Bekasi';
+  }
+
+  /**
+   * Blok "English version" yang sudah tersimpan di database disembunyikan
+   * saat bahasa aktif sudah Inggris, karena isinya akan kembar dengan
+   * terjemahan yang ditampilkan.
+   */
+  function syncEnglishSection(lang) {
+    var english = byId('article-english');
+    if (!english || !state.article) return;
+
+    if (lang === 'en') {
+      english.hidden = true;
+      return;
+    }
+
+    english.hidden = !(state.article.title_en || state.article.content_en);
+  }
+
+  /** Naskah asli artikel dalam bahasa Indonesia. */
+  function originalText() {
+    var article = state.article || {};
+
+    return {
+      title: article.title_id || article.title_en || '',
+      content: article.content_id || article.content_en || ''
+    };
+  }
+
+  function markLanguage(lang) {
+    var label = byId('article-language-label');
+    if (label) label.textContent = LANG_LABEL[lang] || LANG_LABEL.id;
+
+    var options = document.querySelectorAll('.article-language-option');
+
+    for (var i = 0; i < options.length; i++) {
+      options[i].classList.toggle('is-active', options[i].getAttribute('data-article-lang') === lang);
+    }
+  }
+
+  function showIndonesian() {
+    var original = originalText();
+
+    state.lang = 'id';
+
+    applyArticleText(original.title, original.content);
+    syncEnglishSection('id');
+    markLanguage('id');
+    translateStatus('');
+  }
+
+  function showEnglish(title, content) {
+    state.lang = 'en';
+
+    applyArticleText(title, content);
+    syncEnglishSection('en');
+    markLanguage('en');
+    translateStatus('Menampilkan versi bahasa Inggris.', 'ok');
+  }
+
+  function requestTranslation() {
+    if (state.busy) return;
+
+    /* Hasil terjemahan disimpan supaya pindah ke Indonesia lalu kembali
+       ke Inggris tidak memakai kuota MyMemory dua kali. */
+    if (state.translation) {
+      showEnglish(state.translation.title, state.translation.content);
+      return;
+    }
+
+    var original = originalText();
+
+    /* Artikel yang sudah punya versi Inggris tersimpan tidak perlu
+       memanggil layanan terjemahan sama sekali. */
+    if (!state.article || !state.article.content_id) {
+      showEnglish(state.article.title_en || original.title, state.article.content_en || original.content);
+      return;
+    }
+
+    if (!api || !api.translatePublic) {
+      translateStatus('Layanan terjemahan sedang tidak tersedia.', 'error');
+      return;
+    }
+
+    state.busy = true;
+    translateStatus('Menerjemahkan ke bahasa Inggris...', 'loading');
+
+    api.translatePublic({ title: original.title, content: original.content })
+      .then(function (payload) {
+        state.busy = false;
+
+        var title = payload.title || original.title;
+        var content = payload.content || original.content;
+
+        state.translation = { title: title, content: content };
+
+        showEnglish(title, content);
+      })
+      .catch(function (error) {
+        state.busy = false;
+
+        var reason = error && error.message ? error.message : 'Terjemahan gagal.';
+
+        translateStatus(reason + ' Silakan coba lagi.', 'error');
+      });
+  }
+
+  function bindTranslate() {
+    var options = document.querySelectorAll('.article-language-option');
+    if (!options.length) return;
+
+    for (var i = 0; i < options.length; i++) {
+      options[i].addEventListener('click', function (event) {
+        event.preventDefault();
+
+        if (this.getAttribute('data-article-lang') === 'en') {
+          requestTranslation();
+        } else {
+          showIndonesian();
+        }
+      });
+    }
   }
 
   /* ------------------------------------------------------------------ */
@@ -404,12 +562,11 @@
       event.preventDefault();
 
       var name = byId('comment-name').value.trim();
-      var email = byId('comment-email').value.trim();
       var message = byId('comment-message').value.trim();
       var honeypot = byId('comment-hp').value;
 
-      if (!name || !email || !message) {
-        showCommentAlert('Nama, email, dan pesan wajib diisi.', 'error');
+      if (!name || !message) {
+        showCommentAlert('Nama dan komentar wajib diisi.', 'error');
         return;
       }
 
@@ -422,11 +579,6 @@
 
       if (name.length > 100) {
         showCommentAlert('Nama maksimal 100 karakter.', 'error');
-        return;
-      }
-
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        showCommentAlert('Format email belum benar.', 'error');
         return;
       }
 
@@ -443,7 +595,10 @@
       if (submit) submit.disabled = true;
       showCommentAlert('Mengirim komentar...');
 
-      api.submitComment(id, { name: name, email: email, comment: message, hp: honeypot })
+      /* Email tidak lagi diminta. Kolom email di database tetap ada dan
+         tetap dibaca bila suatu saat diisi, jadi komentar lama tetap utuh
+         dan tidak ada data yang dibuang. */
+      api.submitComment(id, { name: name, comment: message, hp: honeypot })
         .then(function (result) {
           if (submit) submit.disabled = false;
 
@@ -460,7 +615,7 @@
           loadComments(id);
 
           showCommentAlert(
-            'Terima kasih! Komentar Anda sudah masuk dan sedang dimoderasi. Komentar akan tampil di sini setelah disetujui admin.',
+            'Terima kasih! Komentar Anda sudah tayang di bawah.',
             'success'
           );
         })
@@ -630,6 +785,7 @@
         renderArticle(article);
         loadComments(id);
         bindCommentForm(id);
+        bindTranslate();
         loadSidebar(article);
         loadRelated(article);
 

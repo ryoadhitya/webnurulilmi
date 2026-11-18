@@ -109,12 +109,13 @@ create table if not exists public.comments (
   name       text not null,
   comment    text not null,
   email      text,
-  -- Kolom baru: moderasi. Semua komentar publik masuk dengan status 'pending'.
+  -- Moderasi. Komentar dari publik langsung tayang sebagai 'published';
+  -- admin bisa memindahkannya ke 'pending' atau 'spam' dari dashboard.
   status     text not null default 'published' check (status in ('published', 'pending', 'spam')),
   -- Kolom baru: hash IP untuk rate limit anti-spam.
   ip_hash    text,
-  created_at timestamptz,
-  updated_at timestamptz
+  created_at timestamptz default now(),
+  updated_at timestamptz default now()
 );
 
 create index if not exists comments_article_id_idx on public.comments(article_id);
@@ -400,8 +401,10 @@ $$;
 revoke all on function public.increment_article_views(bigint) from public;
 grant execute on function public.increment_article_views(bigint) to anon, authenticated;
 
--- Submit komentar publik: validasi + honeypot + rate limit, SELALU status
--- 'pending' supaya wajib dimoderasi admin sebelum tayang.
+-- Submit komentar publik: validasi + honeypot + rate limit. Komentar disimpan
+-- sebagai 'published' supaya langsung tayang di halaman artikel; admin tetap
+-- bisa menandainya sebagai 'spam' atau memindahkannya ke 'pending' dari
+-- dashboard. Email tidak wajib (kolomnya tetap ada untuk data lama).
 create or replace function public.submit_comment(
   p_article_id bigint,
   p_name      text,
@@ -420,6 +423,7 @@ declare
     extensions.digest(coalesce(v_ip, 'unknown') || 'ypi-nurul-ilmi', 'sha256'), 'hex'
   );
   v_id   bigint;
+  v_now  timestamptz := now();
 begin
   -- Honeypot: field tersembunyi harus kosong. Kembalikan -1 tanpa pesan
   -- supaya bot tidak belajar proteksinya.
@@ -435,10 +439,15 @@ begin
     raise exception 'validasi gagal: komentar minimal 3 karakter';
   end if;
 
-  if length(coalesce(p_name, '')) > 255 or length(coalesce(p_comment, '')) > 5000 then
-    raise exception 'validasi gagal: isian terlalu panjang';
+  if length(coalesce(p_name, '')) > 100 then
+    raise exception 'validasi gagal: nama maksimal 100 karakter';
   end if;
 
+  if length(coalesce(p_comment, '')) > 2000 then
+    raise exception 'validasi gagal: komentar maksimal 2000 karakter';
+  end if;
+
+  -- Email tidak wajib; kalau diisi, formatnya tetap diperiksa.
   if p_email is not null and p_email <> '' and p_email !~* '^[^@\s]+@[^@\s]+\.[^@\s]+$' then
     raise exception 'validasi gagal: format email tidak valid';
   end if;
@@ -456,9 +465,9 @@ begin
     raise exception 'artikel tidak ditemukan';
   end if;
 
-  insert into public.comments (article_id, name, email, comment, status, ip_hash)
+  insert into public.comments (article_id, name, email, comment, status, ip_hash, created_at, updated_at)
   values (p_article_id, trim(p_name), nullif(trim(coalesce(p_email, '')), ''),
-          trim(p_comment), 'pending', v_hash)
+          trim(p_comment), 'published', v_hash, v_now, v_now)
   returning id into v_id;
 
   insert into public.comment_rate_limits (ip_hash, created_at) values (v_hash, now());
@@ -933,7 +942,7 @@ comment on column public.articles.author_id is
 comment on column public.articles.unit_id is
   'Unit pemilik artikel. NULL = artikel umum (khusus super_admin).';
 comment on column public.comments.status is
-  'Moderasi komentar. Komentar dari publik selalu masuk sebagai pending.';
+  'Moderasi komentar. Komentar dari publik langsung tayang sebagai published; admin bisa memindahkannya ke pending atau spam dari dashboard.';
 
 -- ---------------------------------------------------------------------------
 --  8. RESET SEQUENCE (dipakai script migrasi data)

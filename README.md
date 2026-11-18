@@ -109,6 +109,8 @@ Skrip menolak mengisi `site-config.js` bila kuncinya terdeteksi sebagai
 - Data: `supabase/data.sql`
 - Media: bucket `media` (public, 25 MB, jpeg/png/webp/mp4/webm)
 - Edge Function `translate`: deploy lewat `scripts/deploy-edge-function.mjs`
+- Edge Function `translate-public` (untuk pengunjung): deploy dengan
+  `EDGE_FUNCTION_NAME=translate-public EDGE_FUNCTION_VERIFY_JWT=false`
 
 ### 4.3 Aset artikel
 
@@ -133,6 +135,8 @@ node scripts/test-browser.mjs          # halaman nyata di Chromium
 node scripts/test-password-change.mjs  # ganti password lewat UI (akun uji sementara)
 node scripts/test-slug-parity.mjs      # slugify() JS == Str::slug() (butuh PHP CLI)
 node scripts/verify-migration.mjs      # jumlah baris, RLS, URL media
+node scripts/test-header-artikel.mjs    # QC UI artikel: terjemahan, komentar, header, mobile
+node scripts/test-login-admin.mjs       # alur login/logout admin di situs production
 ```
 
 Data uji yang dibuat selalu dihapus kembali di akhir. Tidak ada skrip yang
@@ -188,7 +192,23 @@ secara manual. Secret opsional `MYMEMORY_EMAIL` di
 **Supabase Dashboard > Edge Functions > Secrets** dipakai untuk menaikkan kuota
 harian (alamat email tidak pernah masuk ke frontend).
 
-### 6.3 Peran (RBAC)
+### 6.3 Edge Function `translate-public`
+
+Terjemahan untuk pengunjung di halaman artikel publik
+(`supabase/functions/translate-public/`). Berbeda dengan `translate` yang
+khusus admin, fungsi ini **tanpa login** (`verify_jwt=false`) tetapi dibatasi
+rate limit per IP (20 permintaan/jam) dan batas panjang teks. Deploy:
+
+```bash
+EDGE_FUNCTION_NAME=translate-public EDGE_FUNCTION_VERIFY_JWT=false \
+  node scripts/deploy-edge-function.mjs
+```
+
+Kode sumber dan cara kerjanya sama-sama memakai MyMemory tanpa kunci API.
+Kalau kuota harian habis, halaman artikel menampilkan pesan dan naskah
+asli Indonesia tetap utuh.
+
+### 6.4 Peran (RBAC)
 
 Lima peran disimpan di `public.user_roles`:
 
@@ -206,7 +226,7 @@ baris di tabel itu, yang artinya ia menguasai seluruh unit.
 Kategori dan tag dipakai bersama antar unit, jadi **hanya `super_admin`** yang
 boleh menambah, mengubah, atau menghapusnya.
 
-### 6.4 Model keamanan
+### 6.5 Model keamanan
 
 - Peran disimpan di `public.user_roles`. Tabel itu **tidak punya** policy
   INSERT/UPDATE/DELETE untuk `anon`/`authenticated` — role hanya bisa diubah
@@ -222,7 +242,9 @@ boleh menambah, mengubah, atau menghapusnya.
 - Peran **tidak pernah** dipercaya dari `localStorage`; `js/admin-auth.js`
   membacanya ulang dari `user_roles` pada setiap sesi.
 - Komentar publik wajib lewat RPC `submit_comment()` (validasi + honeypot +
-  rate limit), bukan INSERT langsung.
+  rate limit), bukan INSERT langsung. Komentar baru langsung berstatus
+  `published` supaya tayang tanpa moderasi, dan admin tetap bisa memindahkannya
+  ke `pending`/`spam` dari dashboard.
 - `articles.views` hanya bisa naik lewat RPC `increment_article_views()`.
 - Guard JavaScript di `admin/` hanya untuk UX; RLS penjaga sebenarnya.
 - `service_role` dan `access_token` tidak pernah masuk HTML/JS mana pun.
@@ -235,12 +257,15 @@ boleh menambah, mengubah, atau menghapusnya.
 
 ## 7. Catatan pemeliharaan
 
-- **CSS statis** diedit lewat `scss/`, lalu dikompilasi ke `css/` dengan Prepros
-  (konfigurasi: `prepros-6.config`). Jangan edit hasil kompilasi secara manual.
+- **CSS statis**: `scss/` hanya berisi partial Bootstrap. Sumber gaya situs
+  adalah `css/style.css` (hasil kompilasi Bootstrap + gaya kustom) dan gaya itu
+  diedit langsung di sana — tidak ada `scss/style.scss` yang bisa dikompilasi
+  ulang, jadi jangan membuat file itu tanpa alasan.
 - **Halaman login admin** tidak lagi punya tombol di navbar publik. Admin masuk
   lewat alamat `admin/login.html` (dijalur di `js/site-config.js` sebagai
   `adminLoginPath`); proteksi route dashboard tetap berjalan seperti semula.
-  Alamat production untuk bookmark: **https://www.ypinurulmi.or.id/admin/login.html**
+  Alamat production untuk bookmark: **https://www.ypinurulilmi.or.id/admin/login.html**
+  (folder `/admin/` tidak pernah ditautkan dari header publik).
 - **Unit artikel** ditentukan dari peran admin yang sedang login, bukan dari
   pilihan bebas di form. `articles.unit_id` NULL berarti artikel umum yayasan
   dan hanya bisa dikelola `super_admin`.

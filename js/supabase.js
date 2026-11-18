@@ -262,6 +262,44 @@
       });
   }
 
+  /**
+   * Terjemahkan teks untuk pengunjung lewat Edge Function publik
+   * "translate-public". Payload: { title, content } atau { text }.
+   * Balasan: { title, content } atau { text }.
+   */
+  function translatePublic(payload) {
+    var db = getClient();
+    if (!db) return Promise.reject(new Error(configError));
+
+    return db
+      .functions
+      .invoke('translate-public', { body: payload || {} })
+      .then(function (result) {
+        /* supabase-js tidak mengurai body error: result.error.context adalah
+           objek Response (status non-2xx), sedangkan result.data berisi JSON
+           hanya kalau status 2xx. Body error dibaca ulang supaya pesan
+           server (mis. kuota habis) sampai ke pengunjung. */
+        if (result.error) {
+          var detail = result.error.context;
+
+          if (detail && typeof detail.json === 'function') {
+            return detail.json().then(
+              function (body) {
+                throw new Error(body && body.message ? body.message : 'Terjemahan gagal.');
+              },
+              function () {
+                throw new Error(result.error.message || 'Terjemahan gagal.');
+              }
+            );
+          }
+
+          throw new Error(result.error.message || 'Terjemahan gagal.');
+        }
+
+        return result.data || {};
+      });
+  }
+
   /** Daftar kategori yang dipublikasikan (untuk filter di halaman artikel). */
   function fetchCategories() {
     var db = getClient();
@@ -497,6 +535,7 @@
     incrementViews: incrementViews,
     submitComment: submitComment,
     fetchPublishedComments: fetchPublishedComments,
+    translatePublic: translatePublic,
     articleMedia: articleMedia,
     articleCover: articleCover,
     articleTags: articleTags,

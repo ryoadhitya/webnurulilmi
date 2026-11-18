@@ -9,6 +9,8 @@
      SUPABASE_ACCESS_TOKEN -> Personal Access Token Supabase
      SUPABASE_PROJECT_REF  -> ref project
      EDGE_FUNCTION_NAME    -> nama fungsi (default "translate")
+     EDGE_FUNCTION_VERIFY_JWT -> "false" untuk fungsi yang dipanggil
+                          pengunjung umum (default "true")
 
    Catatan: fungsi memakai verify_jwt bawaan Supabase. Fungsi terjemahan
    memakai MyMemory dan tidak memerlukan kunci API. Secret opsional
@@ -62,6 +64,10 @@ async function main() {
   const ref = projectRef();
   const name = (process.env.EDGE_FUNCTION_NAME || 'translate').trim();
 
+  /* Fungsi yang dipanggil pengunjung umum perlu verify_jwt = false;
+     fungsi yang dipakai admin (translate) tetap memakai verify_jwt = true. */
+  const verifyJwt = String(process.env.EDGE_FUNCTION_VERIFY_JWT || 'true').toLowerCase() !== 'false';
+
   if (!token) {
     console.error('SUPABASE_ACCESS_TOKEN belum diisi.');
     console.error('Buat PAT di https://supabase.com/dashboard/account/tokens');
@@ -84,6 +90,7 @@ async function main() {
 
   console.log('Project ref : ' + ref);
   console.log('Fungsi      : ' + name);
+  console.log('verify_jwt  : ' + verifyJwt);
   sources.forEach((file) => console.log('  - ' + file.path + ' (' + file.bytes.length + ' byte)'));
   console.log('');
 
@@ -95,7 +102,7 @@ async function main() {
       entrypoint_path: 'index.ts',
       import_map_path: '',
       name: name,
-      verify_jwt: true
+      verify_jwt: verifyJwt
     })
   );
 

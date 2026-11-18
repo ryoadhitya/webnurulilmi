@@ -647,9 +647,10 @@ where u.email = 'admin@ypinurulilmi.or.id'
 `courses.html`, `pricing.html`, `teacher.html`, `galeri-fasilitas.html`,
 `tk-sigma.html`, `daycare-sigma.html`
 
-Semua 11 memuat `js/site-config.js` + `js/navbar-admin.js`. Empat halaman sudah
+Semua 11 memuat `js/site-config.js`. Empat halaman sudah
 terhubung ke API (`index.html` → home-blog.js; `index/tk-sigma/daycare-sigma/
-galeri-fasilitas` → facilities.js).
+galeri-fasilitas` → facilities.js). Navbar publik tidak lagi menampilkan ikon
+login admin; halaman login tetap di `admin/login.html`.
 
 **Catatan:** `blog.html` dan `blog-single.html` saat ini **konten hardcoded**
 (6 artikel contoh, 4 komentar contoh, form komentar `action="#"`). Keduanya **wajib**
@@ -895,7 +896,7 @@ pagination klien.
    agar membaca Supabase langsung (hapus ketergantungan ke `backendUrl`).
 8.5 Hapus `js/site-config.js`' `backendUrl`/`localBackendUrl`/`articlesApiPath`/
    `facilitiesApiPath` → ganti dengan konfigurasi Supabase (`SUPABASE_URL` + anon key).
-   `js/navbar-admin.js` diarahkan ke `admin/login.html`.
+   Halaman login admin tetap di `admin/login.html` (tanpa tombol di navbar publik).
 8.6 `blog-single.html` lama → tampilkan pengalihan ke `article.html?id=` agar URL lama hidup.
 **Exit**: 11 halaman statis berfungsi penuh dengan data Supabase.
 **Rollback**: kembalikan `site-config.js` versi lama (path lama masih ada).
@@ -1179,7 +1180,7 @@ menhaltakan implementasi sampai tuntas.
 - [ ] `article.html?id=` dibuat; `blog-single.html` lama → pengalih
 - [ ] `js/home-blog.js` → sumber Supabase
 - [ ] `js/facilities.js` → sumber Supabase (hapus fetch ke `/api/facilities`)
-- [ ] `js/navbar-admin.js` diarahkan ke `admin/login.html`
+- [x] Halaman login admin tetap di `admin/login.html` (tanpa tombol di navbar publik)
 - [ ] Verifikasi: **tidak ada request ke backend Laravel** dari 11 halaman (cek Network tab)
 
 ### J. Cutover

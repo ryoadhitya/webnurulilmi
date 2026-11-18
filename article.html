@@ -110,6 +110,21 @@
               <p class="mb-3 article-back"><a href="blog.html"><i class="fas fa-arrow-left" aria-hidden="true"></i> Kembali ke daftar artikel</a></p>
               <h2 class="mb-3" id="article-title">Memuat artikel...</h2>
               <div class="meta mb-4" id="article-meta"></div>
+              <div class="article-translate-bar" id="article-translate-bar" hidden>
+                <div class="article-translate">
+                  <span class="article-translate-label"><i class="fas fa-language" aria-hidden="true"></i> Bahasa</span>
+                  <div class="dropdown">
+                    <button class="btn article-translate-toggle dropdown-toggle" type="button" id="article-language-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <span id="article-language-label">Indonesia</span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="article-language-toggle">
+                      <button type="button" class="dropdown-item article-language-option is-active" data-article-lang="id">Indonesia</button>
+                      <button type="button" class="dropdown-item article-language-option" data-article-lang="en">English</button>
+                    </div>
+                  </div>
+                </div>
+                <span class="article-translate-status" id="article-translate-status" role="status" aria-live="polite"></span>
+              </div>
               <div class="mb-4" id="article-media"></div>
               <div id="article-content"></div>
 
@@ -143,16 +158,12 @@
                 <h3 class="mb-5 h4 font-weight-bold">Tinggalkan Komentar</h3>
                 <form id="comment-form" class="p-5 bg-light">
                   <div class="form-group">
-                    <label for="comment-name">Nama *</label>
-                    <input type="text" class="form-control" id="comment-name" maxlength="100" required>
+                    <label for="comment-name">Nama Anda *</label>
+                    <input type="text" class="form-control" id="comment-name" name="name" maxlength="100" placeholder="Nama Anda" required>
                   </div>
                   <div class="form-group">
-                    <label for="comment-email">Email *</label>
-                    <input type="email" class="form-control" id="comment-email" maxlength="255" required>
-                  </div>
-                  <div class="form-group">
-                    <label for="comment-message">Pesan *</label>
-                    <textarea name="message" id="comment-message" cols="30" rows="10" class="form-control" maxlength="2000" required></textarea>
+                    <label for="comment-message">Komentar Anda *</label>
+                    <textarea name="message" id="comment-message" cols="30" rows="10" class="form-control" maxlength="2000" placeholder="Tulis komentar Anda..." required></textarea>
                   </div>
                   <div class="form-group d-none" aria-hidden="true">
                     <label for="comment-hp">Website</label>

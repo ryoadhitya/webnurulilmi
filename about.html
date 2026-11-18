@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="js/site-config.js"></script>
 
     <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
@@ -746,28 +746,28 @@
 					<div class="col-md-3 ftco-animate">
 						<a href="images/image_1.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/course-1.jpg);">
 							<div class="icon mb-4 d-flex align-items-center justify-content-center">
-    						<span class="fab fa-instagram"></span>
+    						<span class="fas fa-expand"></span>
     					</div>
 						</a>
 					</div>
 					<div class="col-md-3 ftco-animate">
 						<a href="images/image_2.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/image_2.jpg);">
 							<div class="icon mb-4 d-flex align-items-center justify-content-center">
-    						<span class="fab fa-instagram"></span>
+    						<span class="fas fa-expand"></span>
     					</div>
 						</a>
 					</div>
 					<div class="col-md-3 ftco-animate">
 						<a href="images/image_3.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/image_3.jpg);">
 							<div class="icon mb-4 d-flex align-items-center justify-content-center">
-    						<span class="fab fa-instagram"></span>
+    						<span class="fas fa-expand"></span>
     					</div>
 						</a>
 					</div>
 					<div class="col-md-3 ftco-animate">
 						<a href="images/image_4.jpg" class="gallery image-popup img d-flex align-items-center" style="background-image: url(images/image_4.jpg);">
 							<div class="icon mb-4 d-flex align-items-center justify-content-center">
-    						<span class="fab fa-instagram"></span>
+    						<span class="fas fa-expand"></span>
     					</div>
 						</a>
 					</div>
@@ -819,28 +819,7 @@
           <div class="col-md-6 col-lg-3">
             <div class="ftco-footer-widget mb-5">
               <h2 class="ftco-heading-2">Artikel Terbaru</h2>
-              <div class="block-21 mb-4 d-flex">
-                <a class="blog-img mr-4" style="background-image: url(images/image_1.jpg);"></a>
-                <div class="text">
-                  <h3 class="heading"><a href="#">Prestasi siswa dalam kompetisi sains</a></h3>
-                  <div class="meta">
-                    <div><a href="#"><span class="far fa-calendar"></span> 20 Jan 2025</a></div>
-                    <div><a href="#"><span class="fas fa-user"></span> Admin</a></div>
-                    <div><a href="#"><span class="fas fa-comment"></span> 5</a></div>
-                  </div>
-                </div>
-              </div>
-              <div class="block-21 mb-5 d-flex">
-                <a class="blog-img mr-4" style="background-image: url(images/image_2.jpg);"></a>
-                <div class="text">
-                  <h3 class="heading"><a href="#">Program tahfidz semakin berkembang</a></h3>
-                  <div class="meta">
-                    <div><a href="#"><span class="far fa-calendar"></span> 18 Jan 2025</a></div>
-                    <div><a href="#"><span class="fas fa-user"></span> Admin</a></div>
-                    <div><a href="#"><span class="fas fa-comment"></span> 8</a></div>
-                  </div>
-                </div>
-              </div>
+              <div data-footer-latest></div>
             </div>
           </div>
           <div class="col-md-6 col-lg-3">
@@ -857,21 +836,8 @@
           </div>
           <div class="col-md-6 col-lg-3">
             <div class="ftco-footer-widget mb-5">
-              <h2 class="ftco-heading-2">Berlangganan</h2>
-              <form action="#" class="subscribe-form">
-                <div class="form-group">
-                  <input type="text" class="form-control mb-2 text-center" placeholder="Masukkan email Anda">
-                  <input type="submit" value="Berlangganan" class="form-control submit px-3">
-                </div>
-              </form>
-            </div>
-            <div class="ftco-footer-widget mb-5">
-              <h2 class="ftco-heading-2 mb-0">Sosial Media</h2>
-              <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-3">
-                <li class="ftco-animate"><a href="#"><span class="fab fa-twitter"></span></a></li>
-                <li class="ftco-animate"><a href="#"><span class="fab fa-facebook-f"></span></a></li>
-                <li class="ftco-animate"><a href="#"><span class="fab fa-instagram"></span></a></li>
-              </ul>
+              <h2 class="ftco-heading-2 mb-0">Sosial Media Kami</h2>
+              <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-3" data-footer-social></ul>
             </div>
           </div>
         </div>
@@ -899,6 +865,11 @@
     <script src="js/aos.js"></script>
     <script src="js/jquery.animateNumber.min.js"></script>
     <script src="js/scrollax.min.js"></script>
+    <script src="js/vendor/supabase.min.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/footer-social.js"></script>
+    <script src="js/footer-latest.js"></script>
     <script src="js/main.js"></script>
 
   </body>

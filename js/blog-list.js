@@ -31,14 +31,22 @@
     return utils ? utils.escapeHtml(value) : String(value == null ? '' : value);
   }
 
-  /** Tanggal SPLIT menjadi hari / bulan / tahun ala meta-date. */
+  /**
+   * Tanggal SPLIT menjadi hari / bulan / tahun ala meta-date.
+   *
+   * memakai zona WIB (sama seperti utils.formatDateParts) supaya tanggal
+   * yang tampil sama persis dengan tanggal publikasi yang dipilih admin
+   * dan tidak bergeser satu hari.
+   */
   function dateParts(value) {
     if (!value) return { day: '', month: '', year: '' };
+
+    if (utils && utils.formatDateParts) return utils.formatDateParts(value);
 
     var date = new Date(value);
     if (isNaN(date.getTime())) return { day: '', month: '', year: '' };
 
-    var options = { timeZone: 'UTC' };
+    var options = { timeZone: 'Asia/Jakarta' };
 
     return {
       day: new Intl.DateTimeFormat('id-ID', Object.assign({ day: '2-digit' }, options)).format(date),

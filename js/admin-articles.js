@@ -27,6 +27,7 @@
   var state = {
     articles: [],
     filtered: [],
+    search: '',
     page: 1,
     pages: 1,
     categories: [],
@@ -185,7 +186,10 @@
         '<p class="mt-1 text-xs text-slate-400">' + utils.escapeHtml(unitText) + '</p>' +
       '</td>',
       '  <td class="px-6 py-4">' + statusBadge(article.status) + '</td>',
-      '  <td class="px-6 py-4 text-slate-500">' + utils.formatDate(article.created_at) + '</td>',
+      '  <td class="px-6 py-4 text-slate-500">',
+      '    <p class="font-medium text-slate-700">' + utils.escapeHtml(utils.formatDate(article.published_at)) + '</p>',
+      '    <p class="mt-1 text-xs text-slate-400">Dibuat ' + utils.escapeHtml(utils.formatDate(article.created_at)) + '</p>',
+      '  </td>',
       '  <td class="px-6 py-4">',
       '    <div class="flex justify-end gap-2">',
       '      <a href="article-form.html?id=' + article.id + '" class="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 px-3 py-2 text-xs font-semibold text-slate-700 transition hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-800" aria-label="Edit artikel ' + utils.escapeHtml(article.title_id) + '">',
@@ -276,6 +280,11 @@
 
   function applySearch(query) {
     var term = String(query || '').trim().toLowerCase();
+
+    /* Kata kunci disimpan supaya bisa dipakai ulang ketika data baru selesai
+       dimuat. Tanpa ini, pencarian yang diketik sebelum data tiba akan hilang
+       begitu daftar selesai dimuat. */
+    state.search = term;
 
     state.filtered = !term
       ? state.articles.slice()
@@ -371,7 +380,7 @@
     db.from('articles')
       .select(
         'id, title_id, title_en, content_id, image, author_name, author_id, status, views, ' +
-          'created_at, updated_at, category_id, unit_id, ' +
+          'created_at, updated_at, published_at, category_id, unit_id, ' +
           'categories(id, name, slug), ' +
           'units(id, name, slug), ' +
           'article_tags(id, tag_id, tags(id, name, slug)), ' +
@@ -398,10 +407,12 @@
         }
 
         state.articles = rows;
-        state.filtered = state.articles.slice();
+
+        /* Pencarian yang sudah diketik ikut diterapkan lagi, supaya kata
+           kuncinya tidak hilang saat daftar selesai dimuat. */
+        applySearch(state.search);
 
         renderStats(state.articles);
-        renderList();
       });
   }
 
@@ -1060,12 +1071,18 @@
     var status = document.getElementById('status').value;
     var categoryId = document.getElementById('category_id').value;
 
-    /* Tanggal tayang sudah ada Once artikel pernah tayang: nilainya
-       dipertahankan, sama seperti update() di ArticleAdminController. */
-    var publishedAt = state.article ? state.article.published_at : null;
+    /* Tanggal publikasi dipilih admin dan boleh lebih dulu dari hari ini.
+       Nilainya disimpan sebagai tengah malam WIB (+07:00) supaya tanggal
+       yang sama tampil di seluruh halaman tanpa bergeser satu hari. */
+    var dateInput = document.getElementById('published_at');
+    var dateValue = dateInput ? dateInput.value : '';
+    var publishedAt = utils.publicationTimestamp(dateValue);
 
-    if (status === 'published' && !publishedAt) {
-      publishedAt = new Date().toISOString();
+    if (!publishedAt) {
+      /* Tanpa tanggal yang valid, pakai tanggal yang sudah ada (artikel lama)
+         atau hari ini untuk artikel baru. */
+      publishedAt = (state.article && state.article.published_at) ||
+        utils.publicationTimestamp(utils.todayInputValue());
     }
 
     /* Nama penulis yang dikosongkan tidak menimpa nama yang sudah ada. */
@@ -1396,6 +1413,36 @@
       });
   }
 
+  /* Isi field tanggal publikasi dan tampilkan pratinjau tanggal yang akan
+     muncul di website. */
+  function setPublicationDate(value) {
+    var input = document.getElementById('published_at');
+
+    if (input) input.value = value || '';
+
+    updatePublicationHint();
+  }
+
+  function updatePublicationHint() {
+    var input = document.getElementById('published_at');
+    var hint = document.getElementById('published_at-hint');
+
+    if (!input || !hint) return;
+
+    var stamp = utils.publicationTimestamp(input.value);
+
+    if (!stamp) {
+      hint.textContent = 'Tanggal ini yang tampil di seluruh website (WIB). Boleh diisi dengan tanggal yang sudah lewat.';
+      return;
+    }
+
+    var label = utils.formatDate(stamp);
+    var sudahLewat = new Date(stamp).getTime() < Date.now();
+
+    hint.textContent = 'Tampil sebagai ' + label +
+      (sudahLewat ? ' (tanggal yang sudah lewat)' : '') + '.';
+  }
+
   function initForm() {
     var form = document.getElementById('article-form');
     if (!form) return;
@@ -1408,6 +1455,10 @@
 
     bindTranslate();
     bindMediaControls();
+
+    var dateInput = document.getElementById('published_at');
+
+    if (dateInput) dateInput.addEventListener('change', updatePublicationHint);
 
     form.addEventListener('submit', saveArticle);
 
@@ -1430,6 +1481,7 @@
         fillUnits(null);
         document.getElementById('author_name').value = 'Admin';
         document.getElementById('status').value = 'published';
+        setPublicationDate(utils.todayInputValue());
         return null;
       }
 
@@ -1464,6 +1516,14 @@
           document.getElementById('content_en').value = state.article.content_en || '';
           document.getElementById('author_name').value = state.article.author_name || 'Admin';
           document.getElementById('status').value = state.article.status || 'published';
+
+          /* Tanggal publikasi yang sudah tersimpan jadi nilai awal supaya
+             mengedit isi artikel tidak mengubah tanggalnya. */
+          setPublicationDate(
+            utils.dateInputValue(state.article.published_at) ||
+            utils.dateInputValue(state.article.created_at) ||
+            utils.todayInputValue()
+          );
 
           fillCategories(state.article.category_id);
           fillUnits(state.article.unit_id);

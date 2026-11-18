@@ -74,7 +74,10 @@ export async function request(pathname, options) {
 
   if (!response.ok) {
     const message = payload && payload.message ? payload.message : text || response.statusText;
-    throw new Error(opts.label || pathname + ' gagal: HTTP ' + response.status + ' - ' + message);
+    throw new Error(
+      (opts.label ? opts.label + ': ' : pathname + ' gagal: ') +
+      'HTTP ' + response.status + ' - ' + message
+    );
   }
 
   return payload;

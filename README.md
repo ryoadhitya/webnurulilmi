@@ -137,6 +137,7 @@ node scripts/test-slug-parity.mjs      # slugify() JS == Str::slug() (butuh PHP 
 node scripts/verify-migration.mjs      # jumlah baris, RLS, URL media
 node scripts/test-header-artikel.mjs    # QC UI artikel: terjemahan, komentar, header, mobile
 node scripts/test-login-admin.mjs       # alur login/logout admin di situs production
+node scripts/test-footer-latest.mjs     # QC footer: artikel terbaru dari database, tanpa langganan
 ```
 
 Data uji yang dibuat selalu dihapus kembali di akhir. Tidak ada skrip yang
@@ -269,6 +270,11 @@ boleh menambah, mengubah, atau menghapusnya.
 - **Unit artikel** ditentukan dari peran admin yang sedang login, bukan dari
   pilihan bebas di form. `articles.unit_id` NULL berarti artikel umum yayasan
   dan hanya bisa dikelola `super_admin`.
+- **Widget "Artikel Terbaru" di footer** diisi `js/footer-latest.js` dari
+  `window.NISupabase.fetchPublishedArticles({ limit: 3 })` — sumber data yang
+  sama dengan halaman Artikel, jadi artikel yang tayang di dashboard admin
+  otomatis tampil tanpa menyentuh HTML. Elemen tujuannya
+  `<div data-footer-latest></div>`.
 - **Arsip Laravel** ada di `backup/`. Isinya tidak dipakai runtime; jangan
   dihapus. Kredensial MySQL lama ada di `backup/laravel-env/` yang **tidak**
   di-commit.

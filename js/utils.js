@@ -111,36 +111,122 @@
     return text.slice(0, max).replace(/\s+\S*$/, '') + '…';
   }
 
-  /** Format tanggal 'd M Y' (contoh: 5 Nov 2026). */
+  /* ------------------------------------------------------------------ */
+  /*  Tanggal & waktu (zona waktu Asia/Jakarta / WIB)                   */
+  /* ------------------------------------------------------------------ */
+
+  /* Semua tanggal di website memakai zona waktu Asia/Jakarta (WIB, UTC+7)
+     supaya tanggal yang dipilih admin tampil persis sama di seluruh
+     halaman, tanpa bergeser satu hari karena konversi timezone. */
+  var SITE_TIMEZONE = 'Asia/Jakarta';
+
+  var dateFormatter = null;
+  var dateTimeFormatter = null;
+
+  function dateFormat() {
+    if (!dateFormatter) {
+      dateFormatter = new Intl.DateTimeFormat('id-ID', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+        timeZone: SITE_TIMEZONE
+      });
+    }
+
+    return dateFormatter;
+  }
+
+  function dateTimeFormat() {
+    if (!dateTimeFormatter) {
+      dateTimeFormatter = new Intl.DateTimeFormat('id-ID', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZone: SITE_TIMEZONE
+      });
+    }
+
+    return dateTimeFormatter;
+  }
+
+  /** Format tanggal 'd M Y' (contoh: 5 Nov 2026) dalam zona WIB. */
   function formatDate(value) {
     if (!value) return '—';
 
     var date = new Date(value);
     if (isNaN(date.getTime())) return '—';
 
-    return new Intl.DateTimeFormat('id-ID', {
-      day: '2-digit',
-      month: 'short',
-      year: 'numeric',
-      timeZone: 'UTC'
-    }).format(date);
+    return dateFormat().format(date);
   }
 
-  /** Format tanggal + waktu 'd M Y, H:i'. */
+  /** Tanggal sebagai bagian terpisah (hari/bulan/tahun), untuk kartu artikel. */
+  function formatDateParts(value) {
+    if (!value) return { day: '', month: '', year: '' };
+
+    var date = new Date(value);
+    if (isNaN(date.getTime())) return { day: '', month: '', year: '' };
+
+    var parts = dateFormat().format(date).split(' ');
+
+    if (parts.length < 3) return { day: '', month: '', year: '' };
+
+    return { day: parts[0], month: parts[1], year: parts[2] };
+  }
+
+  /** Format tanggal + waktu 'd M Y, H.i' dalam zona WIB. */
   function formatDateTime(value) {
     if (!value) return '—';
 
     var date = new Date(value);
     if (isNaN(date.getTime())) return '—';
 
-    return new Intl.DateTimeFormat('id-ID', {
-      day: '2-digit',
-      month: 'short',
+    return dateTimeFormat().format(date);
+  }
+
+  /** Nilai untuk <input type="date">: 'YYYY-MM-DD' menurut kalender WIB. */
+  function dateInputValue(value) {
+    if (!value) return '';
+
+    var date = new Date(value);
+    if (isNaN(date.getTime())) return '';
+
+    var text = new Intl.DateTimeFormat('en-CA', {
       year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      timeZone: 'UTC'
+      month: '2-digit',
+      day: '2-digit',
+      timeZone: SITE_TIMEZONE
     }).format(date);
+
+    return text === 'Invalid Date' ? '' : text;
+  }
+
+  /** Tanggal hari ini menurut kalender WIB, format 'YYYY-MM-DD'. */
+  function todayInputValue() {
+    return dateInputValue(new Date());
+  }
+
+  /**
+   * Ubah 'YYYY-MM-DD' (tanggal kalender WIB) menjadi waktu tayang yang
+   * disimpan di database. Tanggal yang dipilih disimpan sebagai tengah
+   * malam WIB (+07:00) supaya tanggal yang sama tampil di seluruh halaman.
+   */
+  function publicationTimestamp(value) {
+    var text = String(value == null ? '' : value).trim();
+
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(text)) return null;
+
+    return text + 'T00:00:00+07:00';
+  }
+
+  /** Jumlah komentar artikel dari relasi comments(count). */
+  function commentCount(article) {
+    var rows = (article && article.comments) || [];
+
+    if (!rows.length) return 0;
+
+    return Number(rows[0].count || 0);
   }
 
   /** Format angka dengan pemisah ribuan. */
@@ -204,7 +290,12 @@
     stripTags: stripTags,
     limit: limit,
     formatDate: formatDate,
+    formatDateParts: formatDateParts,
+    commentCount: commentCount,
     formatDateTime: formatDateTime,
+    dateInputValue: dateInputValue,
+    todayInputValue: todayInputValue,
+    publicationTimestamp: publicationTimestamp,
     formatNumber: formatNumber,
     debounce: debounce,
     isValidIcon: isValidIcon,

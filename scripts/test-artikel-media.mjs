@@ -513,9 +513,13 @@ async function main() {
       await page.goto(base + '/article.html?id=' + id1, { waitUntil: 'domcontentloaded' });
       await page.waitForTimeout(1500);
 
-      const layout = await page.locator('#article-media .article-gallery').getAttribute('data-count');
+      /* Satu foto langsung dipakai sebagai gambar utama, jadi galeri sisa
+         kosong dan tidak ada kotak kosong di halaman. */
+      const featured = await page.locator('#article-featured .article-featured-image').count();
       const items = await page.locator('#article-media .article-gallery-item').count();
-      check('A1 galeri menampilkan satu foto', items === 1 && layout === '1', 'count=' + layout);
+
+      check('A1 satu foto tampil sebagai gambar utama', featured === 1 && items === 0,
+        'gambar utama=' + featured + ', galeri=' + items);
     }
 
     /* --- A2: beberapa foto --- */
@@ -538,11 +542,15 @@ async function main() {
       await page.goto(base + '/article.html?id=' + id2, { waitUntil: 'domcontentloaded' });
       await page.waitForTimeout(1500);
 
+      /* Foto pertama jadi gambar utama; dua sisanya masuk galeri. */
+      const featured = await page.locator('#article-featured .article-featured-image').count();
       const items = await page.locator('#article-media .article-gallery-item').count();
       const layout = await page.locator('#article-media .article-gallery').getAttribute('data-count');
       const images = await page.locator('#article-media .article-gallery-item img').count();
-      check('A2 galeri menampilkan tiga foto', items === 3 && layout === '3' && images === 3,
-        items + ' sel, layout=' + layout + ', gambar=' + images);
+
+      check('A2 gambar utama + galeri menampilkan tiga foto',
+        featured === 1 && items === 2 && layout === '2' && images === 2,
+        'gambar utama=' + featured + ', sel=' + items + ', layout=' + layout + ', gambar=' + images);
     }
 
     /* --- A3: video saja --- */
@@ -621,10 +629,17 @@ async function main() {
       await page.waitForTimeout(2000);
 
       const order = await page.evaluate(() => {
-        return Array.from(document.querySelectorAll('#article-media .article-gallery-item'))
+        const featured = document.querySelector('#article-featured video, #article-featured img');
+        const featuredType = featured && featured.tagName === 'VIDEO' ? 'video' : 'image';
+
+        const rest = Array.from(document.querySelectorAll('#article-media .article-gallery-item'))
           .map((node) => (node.querySelector('video') ? 'video' : 'image'));
+
+        return [featuredType].concat(rest);
       });
 
+      /* Foto pertama jadi gambar utama, jadi urutan tampilnya tetap
+         image, video, image seperti urutan unggahan. */
       check('A4 urutan media di halaman detail terjaga',
         JSON.stringify(order) === JSON.stringify(['image', 'video', 'image']),
         order.join(','));
@@ -978,7 +993,8 @@ async function main() {
         title: (document.getElementById('article-title').textContent || '').trim(),
         content: (document.getElementById('article-content').textContent || '').trim(),
         meta: (meta ? meta.textContent : '').replace(/\s+/g, ' ').trim(),
-        media: document.querySelectorAll('#article-media .article-gallery-item').length,
+        media: document.querySelectorAll('#article-media .article-gallery-item').length +
+          document.querySelectorAll('#article-featured .article-featured-image, #article-featured video').length,
         back: back ? back.getAttribute('href') : ''
       };
     });
@@ -998,11 +1014,14 @@ async function main() {
     check('B15 lightbox terbuka saat foto diklik', lightboxOpen === 1, lightboxOpen + ' lightbox');
 
     if (lightboxOpen) {
+      /* Foto pertama sudah jadi gambar utama, jadi galeri dimulai dari
+         media kedua. Membuka galeri lalu maju satu langkah berarti sampai
+         media ketiga dari tiga. */
       await page.click('.ni-lightbox-next');
       await page.waitForTimeout(500);
 
       const caption = (await page.locator('.ni-lightbox-caption').innerText()).trim();
-      check('B16 navigasi lightbox bergerak ke media berikutnya', /2 dari 3/.test(caption), caption);
+      check('B16 navigasi lightbox bergerak ke media berikutnya', /3 dari 3/.test(caption), caption);
 
       await page.click('.ni-lightbox-close');
       await page.waitForTimeout(500);

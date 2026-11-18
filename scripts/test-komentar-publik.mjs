@@ -16,6 +16,10 @@
 
    Semua komentar uji dihapus di akhir.
 
+   Catatan: sejak migrasi 000400 komentar publik langsung berstatus
+   'published' (moderasi tetap bisa dipakai dari dashboard). Jadi email
+   tidak lagi menjadi field wajib di form.
+
    Jalankan:
      node scripts/test-komentar-publik.mjs
    ========================================================================== */
@@ -161,6 +165,12 @@ async function rpcAsAnon(payload) {
 /* Row rate limit yang sudah ada sebelum tes (dibandingkan saat pembersihan). */
 let rateLimitAwal = [];
 
+/* Komentar yang sudah ada sebelum tes. Situs ini boleh sudah punya komentar
+   asli dari pengunjung, jadi pemeriksaan jumlah memakai selisih dari kondisi
+   awal, bukan menganggap tabel komentar kosong. */
+let komentarAwal = [];
+let komentarAwalPerArtikel = {};
+
 async function main() {
   const server = await startServer();
   const base = 'http://127.0.0.1:' + server.address().port;
@@ -174,6 +184,16 @@ async function main() {
 
   const existing = await serviceGet('comment_rate_limits?select=id');
   rateLimitAwal = Array.isArray(existing) ? existing.map((row) => row.id) : [];
+
+  /* Rekam kondisi awal komentar supaya jumlah yang diuji bisa dihitung
+     sebagai selisih (komentar asli pengunjung tidak boleh dianggap sisa uji). */
+  const awal = await serviceGet('comments?select=id,article_id&order=id');
+  komentarAwal = Array.isArray(awal) ? awal.map((row) => row.id) : [];
+
+  komentarAwalPerArtikel = (Array.isArray(awal) ? awal : []).reduce(function (acc, row) {
+    acc[row.article_id] = (acc[row.article_id] || 0) + 1;
+    return acc;
+  }, {});
 
   /* Bersihkan sisa probe sebelumnya. */
   const sisa = await serviceGet('comments?select=id&name=eq.' + encodeURIComponent('Pengunjung Uji'));
@@ -222,7 +242,6 @@ async function main() {
   const isiKomentar = MARKER + ' ' + Date.now();
 
   await page.fill('#comment-name', 'Uji Pengunjung Komentar');
-  await page.fill('#comment-email', 'pengunjung@example.com');
   await page.fill('#comment-message', isiKomentar);
   await page.click('#comment-submit');
   await page.waitForTimeout(2500);
@@ -230,7 +249,7 @@ async function main() {
   const alert = await page.locator('#comment-alert').innerText().catch(() => '');
 
   check('2. pengunjung dapat mengirim komentar tanpa login',
-    /berhasil|moderasi/i.test(alert),
+    /tayang|berhasil|moderasi/i.test(alert),
     alert.replace(/\s+/g, ' ').trim().slice(0, 80));
 
   /* ---------------------------------------------------------------- */
@@ -242,8 +261,8 @@ async function main() {
     tersimpan.length === 1,
     tersimpan.length ? 'id=' + tersimpan[0].id + ', status=' + tersimpan[0].status : 'tidak ditemukan');
 
-  check('3b. komentar baru masuk dengan status pending (moderasi)',
-    tersimpan.length === 1 && tersimpan[0].status === 'pending',
+  check('3b. komentar baru langsung tayang (published)',
+    tersimpan.length === 1 && tersimpan[0].status === 'published',
     tersimpan.length ? 'status=' + tersimpan[0].status : '-');
 
   check('3c. komentar punya tanggal kirim',
@@ -271,9 +290,11 @@ async function main() {
   const tampilUtama = await page.locator('#comment-list li').count();
   const teksTampil = await page.locator('#comment-list').innerText().catch(() => '');
 
+  const harapan = (komentarAwalPerArtikel[ART_UTAMA] || 0) + 1;
+
   check('4. komentar yang disetujui tampil di artikel yang benar',
-    tampilUtama === 1 && teksTampil.includes(isiKomentar),
-    'jumlah=' + tampilUtama);
+    tampilUtama === harapan && teksTampil.includes(isiKomentar),
+    'jumlah=' + tampilUtama + ' (harapan=' + harapan + ')');
 
   /* ---------------------------------------------------------------- */
   /*  5. Komentar tidak muncul pada artikel lain                     */
@@ -285,7 +306,7 @@ async function main() {
   const teksLain = await page.locator('#comment-list').innerText().catch(() => '');
 
   check('5. komentar tidak muncul pada artikel lain',
-    tampilLain === 0 && !teksLain.includes(isiKomentar),
+    tampilLain === (komentarAwalPerArtikel[ART_LAIN] || 0) && !teksLain.includes(isiKomentar),
     'jumlah=' + tampilLain);
 
   /* ---------------------------------------------------------------- */
@@ -296,7 +317,8 @@ async function main() {
     p_name: 'Uji Pengunjung Komentar',
     p_email: 'pengunjung@example.com',
     p_comment: 'Percobaan mengomentari artikel draft.',
-    p_hp: ''
+    p_hp: '',
+    p_parent_id: null
   });
 
   check('6. pengunjung tidak bisa mengomentari artikel draft',
@@ -363,7 +385,6 @@ async function main() {
   await page.waitForTimeout(2000);
 
   await page.fill('#comment-name', 'A');
-  await page.fill('#comment-email', 'pengunjung@example.com');
   await page.fill('#comment-message', 'ok');
   await page.click('#comment-submit');
   await page.waitForTimeout(800);
@@ -379,7 +400,8 @@ async function main() {
     p_name: 'A',
     p_email: 'pengunjung@example.com',
     p_comment: 'Komentar yang cukup panjang.',
-    p_hp: ''
+    p_hp: '',
+    p_parent_id: null
   });
 
   check('8b. server menolak nama terlalu pendek', !namaPendek.ok, 'HTTP ' + namaPendek.status);
@@ -397,7 +419,6 @@ async function main() {
   const xssPayload = '<script>window.__xss=1</script><img src=x onerror="window.__xss=2">';
 
   await page.fill('#comment-name', 'Uji XSS');
-  await page.fill('#comment-email', 'xss@example.com');
   await page.fill('#comment-message', xssPayload);
   await page.click('#comment-submit');
   await page.waitForTimeout(2500);
@@ -416,11 +437,28 @@ async function main() {
   await page.goto(base + '/article.html?id=' + ART_UTAMA, { waitUntil: 'domcontentloaded' });
   await page.waitForTimeout(2000);
 
-  const htmlKomentar = await page.locator('#comment-list').innerHTML().catch(() => '');
+  /* Diperiksa lewat DOM, bukan kemunculan teks mentah. Payload yang sudah
+     di-escape tetap memuat tulisan "onerror=" sebagai teks biasa, jadi
+     pencarian substring tidak bisa membedakan aman atau tidak. */
+  const cekses = await page.evaluate(() => {
+    const list = document.getElementById('comment-list');
+
+    if (!list) return { adaScript: true, adaHandler: true, teks: '' };
+
+    const adaScript = Boolean(list.querySelector('script'));
+
+    const adaHandler = Array.prototype.some.call(list.querySelectorAll('*'), function (node) {
+      return Array.prototype.some.call(node.attributes || [], function (attr) {
+        return attr.name.toLowerCase().indexOf('on') === 0;
+      });
+    });
+
+    return { adaScript: adaScript, adaHandler: adaHandler, teks: list.innerText };
+  });
 
   check('9c. payload ditampilkan sebagai teks, bukan HTML',
-    !htmlKomentar.includes('<script>') && !htmlKomentar.includes('onerror='),
-    'html aman');
+    !cekses.adaScript && !cekses.adaHandler && cekses.teks.indexOf('<script>') !== -1,
+    'script=' + cekses.adaScript + ', handler=' + cekses.adaHandler);
 
   /* Honeypot: field Website terisi -> bot tidak boleh membuat baris. */
   const sebelumHoney = (await commentRows(ART_UTAMA)).length;
@@ -431,7 +469,6 @@ async function main() {
   });
 
   await page.fill('#comment-name', 'Bot Spam');
-  await page.fill('#comment-email', 'spam@example.com');
   await page.fill('#comment-message', 'Komentar dari bot yang mengisi honeypot.');
   await page.click('#comment-submit');
   await page.waitForTimeout(2000);
@@ -496,9 +533,14 @@ async function main() {
 
   const sisaKomentar = await serviceGet('comments?select=id&order=id');
 
+  /* Komentar asli pengunjung boleh tetap ada; yang dicek adalah tidak ada
+     komentar baru yang dibuat tes ini yang tertinggal. */
+  const sisaBaru = (Array.isArray(sisaKomentar) ? sisaKomentar : [])
+    .filter((row) => komentarAwal.indexOf(row.id) === -1);
+
   check('C1. tidak ada komentar uji yang tertinggal',
-    Array.isArray(sisaKomentar) ? sisaKomentar.length === 0 : true,
-    'sisa=' + (Array.isArray(sisaKomentar) ? sisaKomentar.length : '?'));
+    sisaBaru.length === 0,
+    'sisa=' + sisaBaru.length + (sisaBaru.length ? ' id=' + sisaBaru.map((r) => r.id).join(',') : ''));
 
   await browser.close();
   server.close();

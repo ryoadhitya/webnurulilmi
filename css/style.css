@@ -8335,6 +8335,12 @@ h1, h2, h3, h4, h5,
       .hero-wrap.hero-wrap-2 .slider-text .bread {
         font-weight: 700;
         color: #fff; }
+      /* Judul hero yang bukan h1 (halaman artikel memakai h1 untuk judul
+         artikel) tetap memakai ukuran huruf yang sama. */
+      .hero-wrap.hero-wrap-2 .slider-text p.bread {
+        font-size: 2.5rem;
+        line-height: 1.2;
+        margin-bottom: .5rem; }
       .hero-wrap.hero-wrap-2 .slider-text .breadcrumbs {
         text-transform: uppercase;
         font-size: 13px;
@@ -9125,60 +9131,6 @@ textarea.form-control {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
     .ftco-footer .categories li a span {
       color: rgba(255, 255, 255, 0.5) !important; }
-  .ftco-footer .subscribe-form .form-group {
-    position: relative;
-    margin-bottom: 0;
-    -webkit-border-radius: 0;
-    -moz-border-radius: 0;
-    -ms-border-radius: 0;
-    border-radius: 0; }
-    .ftco-footer .subscribe-form .form-group input {
-      -webkit-border-radius: 2px;
-      -moz-border-radius: 2px;
-      -ms-border-radius: 2px;
-      border-radius: 2px;
-      width: 100%;
-      background: rgba(255, 255, 255, 0.1) !important;
-      border: none;
-      color: rgba(255, 255, 255, 0.7) !important;
-      font-size: 16px; }
-      .ftco-footer .subscribe-form .form-group input::-webkit-input-placeholder {
-        /* Chrome/Opera/Safari */
-        color: rgba(255, 255, 255, 0.7) !important; }
-      .ftco-footer .subscribe-form .form-group input::-moz-placeholder {
-        /* Firefox 19+ */
-        color: rgba(255, 255, 255, 0.7) !important; }
-      .ftco-footer .subscribe-form .form-group input:-ms-input-placeholder {
-        /* IE 0+ */
-        color: rgba(255, 255, 255, 0.7) !important; }
-      .ftco-footer .subscribe-form .form-group input:-moz-placeholder {
-        /* Firefox 18- */
-        color: rgba(255, 255, 255, 0.7) !important; }
-    .ftco-footer .subscribe-form .form-group .submit {
-      color: #fff !important;
-      font-size: 16px;
-      background: #0F6A57 !important;
-      border: none !important;
-      -webkit-border-radius: 2px;
-      -moz-border-radius: 2px;
-      -ms-border-radius: 2px;
-      border-radius: 2px;
-      -moz-transition: all 0.3s ease;
-      -o-transition: all 0.3s ease;
-      -webkit-transition: all 0.3s ease;
-      -ms-transition: all 0.3s ease;
-      transition: all 0.3s ease; }
-      .ftco-footer .subscribe-form .form-group .submit:hover {
-        cursor: pointer;
-        background: #0F6A57 !important; }
-  .ftco-footer .subscribe-form .icon {
-    position: absolute;
-    top: 50%;
-    right: 20px;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-    color: rgba(255, 255, 255, 0.8); }
   .ftco-footer .block-21 .text .heading {
     font-weight: 400;
     font-size: 16px; }
@@ -9689,68 +9641,6 @@ textarea.form-control {
     -webkit-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
     transform: translateY(-50%); }
-
-.subs-wrap {
-  background: #0F6A57 !important;
-  display: block;
-  width: 100%;
-  color: rgba(255, 255, 255, 0.7); }
-  .subs-wrap h3 {
-    color: #fff;
-    font-size: 30px !important; }
-
-.subscribe-form .form-group {
-  position: relative;
-  margin-bottom: 0;
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  -ms-border-radius: 0;
-  border-radius: 0; }
-  .subscribe-form .form-group input {
-    background: transparent !important;
-    border: 1px solid transparent;
-    color: rgba(255, 255, 255, 0.7) !important;
-    font-size: 16px;
-    -webkit-border-radius: 0;
-    -moz-border-radius: 0;
-    -ms-border-radius: 0;
-    border-radius: 0; }
-    .subscribe-form .form-group input::-webkit-input-placeholder {
-      /* Chrome/Opera/Safari */
-      color: rgba(255, 255, 255, 0.7) !important; }
-    .subscribe-form .form-group input::-moz-placeholder {
-      /* Firefox 19+ */
-      color: rgba(255, 255, 255, 0.7) !important; }
-    .subscribe-form .form-group input:-ms-input-placeholder {
-      /* IE 10+ */
-      color: rgba(255, 255, 255, 0.7) !important; }
-    .subscribe-form .form-group input:-moz-placeholder {
-      /* Firefox 18- */
-      color: rgba(255, 255, 255, 0.7) !important; }
-  .subscribe-form .form-group .form-control {
-    border: 1px solid rgba(255, 255, 255, 0.4); }
-  .subscribe-form .form-group .submit {
-    color: #000000 !important;
-    display: block;
-    width: 100%;
-    height: 52px;
-    font-size: 16px;
-    background: #fff !important;
-    -webkit-border-radius: 0;
-    -moz-border-radius: 0;
-    -ms-border-radius: 0;
-    border-radius: 0; }
-    .subscribe-form .form-group .submit:hover {
-      cursor: pointer; }
-
-.subscribe-form .icon {
-  position: absolute;
-  top: 50%;
-  right: 20px;
-  -webkit-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-  color: rgba(255, 255, 255, 0.8); }
 
 @media (max-width: 991.98px) {
   .sidebar {
@@ -11048,3 +10938,848 @@ body.ni-lightbox-open {
   font-size: 12px;
   font-weight: 600;
   letter-spacing: .3px; }
+
+/* --------------------------------------------------------------------------
+   HEADER HALAMAN ARTIKEL
+   Breadcrumb, kategori, judul, meta, dan baris aksi (like/share/komentar).
+   -------------------------------------------------------------------------- */
+
+.article-header {
+  margin-bottom: 28px; }
+
+.article-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  color: #6b7d78;
+  font-size: 13px;
+  font-weight: 500; }
+
+.article-breadcrumb a {
+  color: #0F6A57;
+  transition: color .18s ease; }
+
+.article-breadcrumb a:hover {
+  color: #0A4F42; }
+
+.article-breadcrumb-sep {
+  color: #b7c4c0;
+  font-size: 12px; }
+
+.article-breadcrumb-current {
+  color: #47564f;
+  font-weight: 600; }
+
+.article-back {
+  margin-bottom: 18px; }
+
+.article-back a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #0F6A57;
+  font-size: 13px;
+  font-weight: 600; }
+
+.article-back a:hover {
+  color: #0A4F42; }
+
+#article-category-wrap {
+  margin-bottom: 14px; }
+
+.article-category {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(10, 79, 66, .09);
+  color: #0A4F42;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .4px;
+  text-transform: uppercase; }
+
+.article-category:hover {
+  background: rgba(10, 79, 66, .16);
+  color: #0A4F42; }
+
+/* Judul artikel: panjangnya bebas, tidak dipotong, tidak ada tinggi tetap. */
+.article-title {
+  margin: 0 0 16px;
+  color: #0f2320;
+  font-family: "Source Serif Pro", Georgia, "Times New Roman", serif;
+  font-size: clamp(1.85rem, 3.4vw, 2.85rem);
+  font-weight: 700;
+  line-height: 1.24;
+  letter-spacing: -.4px;
+  overflow-wrap: break-word;
+  word-break: normal;
+  hyphens: auto; }
+
+.article-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 22px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #e4ebe8;
+  color: #66756f;
+  font-size: 13px; }
+
+.article-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px; }
+
+.article-meta-item span {
+  color: #0F6A57;
+  font-size: 13px; }
+
+.article-meta-item a {
+  color: #47564f; }
+
+.article-meta-item a:hover {
+  color: #0A4F42; }
+
+/* Baris aksi: suka, bagikan, komentar. */
+.article-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px; }
+
+.article-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border: 1px solid #dfe8e4;
+  border-radius: 999px;
+  background: #fff;
+  color: #35473f;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color .18s ease, color .18s ease, background .18s ease, transform .18s ease; }
+
+.article-action:hover {
+  border-color: #0F6A57;
+  color: #0A4F42;
+  text-decoration: none; }
+
+.article-action:focus {
+  outline: 2px solid #0F6A57;
+  outline-offset: 2px; }
+
+.article-action-icon {
+  color: #0F6A57;
+  font-size: 14px; }
+
+.article-action-count {
+  padding-left: 8px;
+  border-left: 1px solid #e4ebe8;
+  color: #6b7d78;
+  font-size: 12px;
+  font-weight: 700; }
+
+.article-action-like.is-liked {
+  border-color: rgba(176, 68, 90, .35);
+  background: rgba(176, 68, 90, .07);
+  color: #b0445a; }
+
+.article-action-like.is-liked .article-action-icon {
+  color: #b0445a; }
+
+.article-action-like.is-liked .article-action-count {
+  border-left-color: rgba(176, 68, 90, .25);
+  color: #b0445a; }
+
+.article-action-like.is-pulsing .article-action-icon {
+  animation: ni-like-pop .42s ease; }
+
+@keyframes ni-like-pop {
+  0%   { transform: scale(1); }
+  38%  { transform: scale(1.32); }
+  70%  { transform: scale(.92); }
+  100% { transform: scale(1); } }
+
+.article-action:disabled {
+  opacity: .6;
+  cursor: default; }
+
+/* --------------------------------------------------------------------------
+   GAMBAR UTAMA (FEATURED)
+   -------------------------------------------------------------------------- */
+
+.article-featured {
+  margin: 0 0 26px; }
+
+.article-featured-media {
+  display: block;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #eef3f1; }
+
+.article-featured-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: center;
+  transition: transform .35s ease; }
+
+.article-featured-media:hover .article-featured-image {
+  transform: scale(1.015); }
+
+.article-featured-caption {
+  margin-top: 10px;
+  color: #6b7d78;
+  font-size: 12.5px;
+  text-align: center; }
+
+/* Plakat pengganti ketika artikel tidak punya gambar utama. */
+.article-featured-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  aspect-ratio: 16 / 9;
+  border-radius: 14px;
+  padding: 32px 24px;
+  text-align: center;
+  background:
+    radial-gradient(120% 120% at 50% 0%, rgba(212,175,55,.16) 0%, rgba(212,175,55,0) 55%),
+    linear-gradient(140deg, #0A4F42 0%, #0d6b5a 100%);
+  border: 1px solid rgba(255,255,255,.12); }
+
+.article-featured-placeholder-logo {
+  width: 74px;
+  height: 74px;
+  object-fit: contain;
+  margin-bottom: 6px;
+  filter: drop-shadow(0 6px 16px rgba(0,0,0,.28)); }
+
+.article-featured-placeholder-title {
+  margin: 0;
+  color: #fff;
+  font-family: "Source Serif Pro", Georgia, "Times New Roman", serif;
+  font-size: 20px;
+  letter-spacing: .04em; }
+
+.article-featured-placeholder-text {
+  margin: 0;
+  color: rgba(255,255,255,.72);
+  font-size: 13.5px;
+  line-height: 1.6; }
+
+/* --------------------------------------------------------------------------
+   ISI ARTIKEL
+   -------------------------------------------------------------------------- */
+
+.article-content {
+  max-width: 720px;
+  color: #2c3b35;
+  font-size: 17px;
+  line-height: 1.85;
+  overflow-wrap: break-word; }
+
+.article-content p {
+  margin-bottom: 1.15em; }
+
+.article-content h2,
+.article-content h3,
+.article-content h4 {
+  margin: 1.6em 0 .6em;
+  color: #0f2320;
+  font-family: "Source Serif Pro", Georgia, "Times New Roman", serif;
+  font-weight: 700;
+  line-height: 1.35; }
+
+.article-content h2 { font-size: 1.55rem; }
+.article-content h3 { font-size: 1.3rem; }
+
+.article-content ul,
+.article-content ol {
+  margin-bottom: 1.15em;
+  padding-left: 1.35em; }
+
+.article-content li {
+  margin-bottom: .45em; }
+
+.article-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px; }
+
+.article-content blockquote {
+  margin: 1.6em 0;
+  padding: 14px 20px;
+  border-left: 3px solid #0F6A57;
+  border-radius: 0 10px 10px 0;
+  background: #f5f9f7;
+  color: #35473f;
+  font-style: italic; }
+
+.article-content a {
+  color: #0F6A57;
+  border-bottom: 1px solid rgba(15, 106, 87, .3); }
+
+.article-content a:hover {
+  color: #0A4F42;
+  border-bottom-color: #0A4F42; }
+
+.article-english {
+  max-width: 720px;
+  padding-top: 26px;
+  border-top: 1px dashed #d7e3df; }
+
+.article-english-label {
+  color: #0F6A57;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .5px;
+  text-transform: uppercase; }
+
+.article-english-title {
+  color: #0f2320;
+  font-family: "Source Serif Pro", Georgia, serif;
+  font-size: 1.4rem;
+  font-weight: 700; }
+
+#article-english-content {
+  color: #2c3b35;
+  font-size: 16px;
+  line-height: 1.8; }
+
+/* --------------------------------------------------------------------------
+   KOMENTAR
+   -------------------------------------------------------------------------- */
+
+.comments-section {
+  margin-top: 54px;
+  padding-top: 40px;
+  border-top: 1px solid #e4ebe8; }
+
+.comments-header {
+  margin-bottom: 26px; }
+
+.comments-eyebrow {
+  margin: 0 0 6px;
+  color: #0F6A57;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .6px;
+  text-transform: uppercase; }
+
+.comments-title {
+  margin: 0 0 8px;
+  color: #0f2320;
+  font-family: "Source Serif Pro", Georgia, serif;
+  font-size: 1.6rem;
+  font-weight: 700; }
+
+.comments-intro {
+  margin: 0;
+  max-width: 560px;
+  color: #6b7d78;
+  font-size: 14.5px;
+  line-height: 1.65; }
+
+.comment-list {
+  margin: 0 0 30px;
+  padding: 0;
+  list-style: none; }
+
+.comment-list .children {
+  margin: 18px 0 0 0;
+  padding: 0 0 0 26px;
+  list-style: none; }
+
+.comment {
+  display: flex;
+  gap: 16px;
+  padding: 20px 0;
+  border-bottom: 1px solid #edf2f0; }
+
+.comment:last-child {
+  border-bottom: 0; }
+
+.comment-avatar {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .5px; }
+
+.comment-body {
+  flex: 1 1 auto;
+  min-width: 0; }
+
+.comment-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+  margin-bottom: 6px; }
+
+.comment-name {
+  margin: 0;
+  color: #0f2320;
+  font-size: 15px;
+  font-weight: 700; }
+
+.comment-date {
+  color: #93a29d;
+  font-size: 12.5px; }
+
+.comment-text {
+  margin: 0 0 10px;
+  color: #35473f;
+  font-size: 15px;
+  line-height: 1.7;
+  overflow-wrap: break-word;
+  white-space: pre-line; }
+
+.comment-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px; }
+
+.comment-like {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #8a9a95;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color .18s ease; }
+
+.comment-like:hover {
+  color: #b0445a; }
+
+.comment-like:focus {
+  outline: 2px solid #0F6A57;
+  outline-offset: 3px;
+  border-radius: 4px; }
+
+.comment-like i {
+  font-size: 13px; }
+
+.comment-like-count {
+  color: inherit; }
+
+.comment-like-label {
+  color: inherit; }
+
+.comment-like.is-liked {
+  color: #b0445a; }
+
+.comment-like.is-liked i {
+  animation: ni-like-pop .42s ease; }
+
+.comment-like:disabled {
+  opacity: .6;
+  cursor: default; }
+
+/* Tombol balas pada komentar utama. */
+.comment-reply {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #8a9a95;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color .18s ease; }
+
+.comment-reply:hover {
+  color: #0A4F42; }
+
+.comment-reply:focus {
+  outline: 2px solid #0F6A57;
+  outline-offset: 3px;
+  border-radius: 4px; }
+
+.comment-reply i {
+  font-size: 13px; }
+
+/* Balasan: satu tingkat, dikaitkan ke induknya dengan garis tepi. */
+.comment--reply {
+  margin-left: 26px;
+  padding: 16px 0 16px 18px;
+  border-left: 2px solid #e2ece9;
+  border-bottom: 0; }
+
+.comment--reply .comment-avatar {
+  width: 36px;
+  height: 36px;
+  font-size: 13px; }
+
+.comment--reply .comment-text {
+  font-size: 14.5px; }
+
+/* Info mode balas pada form komentar. */
+.comment-reply-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+  margin-bottom: 18px;
+  padding: 12px 16px;
+  border: 1px solid #d7e3df;
+  border-left: 3px solid #0A4F42;
+  border-radius: 10px;
+  background: #f8fbfa; }
+
+.comment-reply-bar[hidden] {
+  display: none; }
+
+.comment-reply-text {
+  margin: 0;
+  color: #35473f;
+  font-size: 13.5px; }
+
+.comment-reply-text strong {
+  color: #0f2320; }
+
+.comment-reply-cancel {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #0A4F42;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer; }
+
+.comment-reply-cancel:hover {
+  color: #0d6b5a; }
+
+.comment-reply-cancel:focus {
+  outline: 2px solid #0F6A57;
+  outline-offset: 3px;
+  border-radius: 4px; }
+
+.comments-empty {
+  padding: 34px 20px;
+  margin-bottom: 30px;
+  border: 1px dashed #d7e3df;
+  border-radius: 14px;
+  background: #f8fbfa;
+  text-align: center; }
+
+.comments-empty-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 12px;
+  border-radius: 50%;
+  background: rgba(10, 79, 66, .08);
+  color: #0F6A57;
+  font-size: 20px; }
+
+.comments-empty-title {
+  margin: 0 0 4px;
+  color: #0f2320;
+  font-size: 16px;
+  font-weight: 700; }
+
+.comments-empty-text {
+  margin: 0;
+  color: #6b7d78;
+  font-size: 14px; }
+
+/* Form komentar. */
+.comment-form-wrap {
+  padding: 26px;
+  border: 1px solid #e4ebe8;
+  border-radius: 16px;
+  background: #f8fbfa; }
+
+.comment-form-title {
+  margin: 0 0 18px;
+  color: #0f2320;
+  font-size: 17px;
+  font-weight: 700; }
+
+.comment-form {
+  display: flex;
+  gap: 18px; }
+
+.comment-form-avatar {
+  flex: 0 0 auto;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #0A4F42;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: .5px; }
+
+.comment-form-body {
+  flex: 1 1 auto;
+  min-width: 0; }
+
+.comment-form .form-group {
+  margin-bottom: 16px; }
+
+.comment-form label {
+  display: block;
+  margin-bottom: 6px;
+  color: #35473f;
+  font-size: 13px;
+  font-weight: 700; }
+
+.comment-required {
+  color: #b0445a; }
+
+.comment-form .form-control {
+  border: 1px solid #dbe5e1;
+  border-radius: 10px;
+  background: #fff;
+  color: #2c3b35;
+  font-size: 14.5px;
+  padding: 11px 14px;
+  box-shadow: none;
+  transition: border-color .18s ease, box-shadow .18s ease; }
+
+.comment-form .form-control:focus {
+  border-color: #0F6A57;
+  box-shadow: 0 0 0 3px rgba(15, 106, 87, .12);
+  outline: none; }
+
+.comment-editor {
+  position: relative; }
+
+.comment-editor .form-control {
+  padding-bottom: 44px;
+  line-height: 1.6;
+  resize: vertical; }
+
+.comment-editor-toolbar {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px; }
+
+.comment-emoji-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  border: 1px solid #dbe5e1;
+  border-radius: 999px;
+  background: #fff;
+  color: #6b7d78;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color .18s ease, border-color .18s ease; }
+
+.comment-emoji-toggle:hover,
+.comment-emoji-toggle[aria-expanded="true"] {
+  border-color: #0F6A57;
+  color: #0A4F42; }
+
+.comment-emoji-toggle:focus {
+  outline: 2px solid #0F6A57;
+  outline-offset: 2px; }
+
+.comment-counter {
+  color: #93a29d;
+  font-size: 12px; }
+
+.comment-emoji-picker {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 8px);
+  z-index: 30;
+  width: min(300px, 100%);
+  max-height: 260px;
+  overflow-y: auto;
+  padding: 14px;
+  border: 1px solid #e0eae6;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 14px 34px rgba(10, 40, 34, .14); }
+
+.comment-emoji-group {
+  margin: 0 0 6px;
+  color: #93a29d;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .5px;
+  text-transform: uppercase; }
+
+.comment-emoji-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 4px;
+  margin-bottom: 12px; }
+
+.comment-emoji-grid:last-child {
+  margin-bottom: 0; }
+
+.comment-emoji {
+  width: 100%;
+  padding: 6px 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  font-size: 19px;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: background .15s ease, transform .15s ease; }
+
+.comment-emoji:hover {
+  background: rgba(10, 79, 66, .08);
+  transform: scale(1.12); }
+
+.comment-emoji:focus {
+  outline: 2px solid #0F6A57;
+  outline-offset: -2px; }
+
+.comment-submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 24px;
+  border: 0;
+  border-radius: 999px;
+  background: #0A4F42;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .18s ease, transform .18s ease; }
+
+.comment-submit:hover {
+  background: #0d6b5a;
+  transform: translateY(-1px); }
+
+.comment-submit:focus {
+  outline: 2px solid #0A4F42;
+  outline-offset: 3px; }
+
+.comment-submit:disabled {
+  opacity: .65;
+  cursor: default;
+  transform: none; }
+
+.comment-submit.is-loading .comment-submit-label {
+  opacity: .75; }
+
+/* --------------------------------------------------------------------------
+   TOAST (umpan balik singkat: tautan disalin, Like gagal, dll.)
+   -------------------------------------------------------------------------- */
+
+.ni-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  z-index: 10000;
+  max-width: min(420px, calc(100vw - 32px));
+  padding: 12px 20px;
+  border-radius: 999px;
+  background: #0f2320;
+  color: #fff;
+  font-size: 13.5px;
+  font-weight: 600;
+  box-shadow: 0 14px 34px rgba(10, 40, 34, .26);
+  transform: translate(-50%, 0);
+  animation: ni-toast-in .25s ease; }
+
+.ni-toast.is-error {
+  background: #b0445a; }
+
+.ni-toast.is-hiding {
+  opacity: 0;
+  transform: translate(-50%, 10px);
+  transition: opacity .3s ease, transform .3s ease; }
+
+@keyframes ni-toast-in {
+  from { opacity: 0; transform: translate(-50%, 12px); }
+  to   { opacity: 1; transform: translate(-50%, 0); } }
+
+/* --------------------------------------------------------------------------
+   RESPONSIF
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 991.98px) {
+  .article-content {
+    font-size: 16.5px; }
+
+  .article-featured-image {
+    aspect-ratio: 4 / 3; }
+
+  .comment-form {
+    gap: 14px; }
+}
+
+@media (max-width: 767.98px) {
+  .comment-form {
+    flex-direction: column; }
+
+  .comment-form-avatar {
+    width: 42px;
+    height: 42px;
+    font-size: 15px; }
+
+  .comment-form-wrap {
+    padding: 20px 16px; }
+
+  .comment {
+    gap: 12px; }
+
+  .comment-avatar {
+    width: 38px;
+    height: 38px;
+    font-size: 14px; }
+}
+
+@media (max-width: 575.98px) {
+  .article-title {
+    font-size: 1.6rem; }
+
+  .article-meta {
+    gap: 6px 16px;
+    font-size: 12.5px; }
+
+  .article-action {
+    padding: 8px 13px;
+    font-size: 12.5px; }
+
+  .article-featured-image {
+    aspect-ratio: 16 / 11; }
+
+  .comment-emoji-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr)); }
+}

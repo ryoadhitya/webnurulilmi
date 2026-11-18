@@ -17,6 +17,10 @@ window.SITE_CONFIG = {
   adminLoginPath: 'admin/login.html',
   articlesPath: 'article.html',
 
+  /* Domain produksi. Dipakai untuk tautan share supaya yang dibagikan
+     bukan alamat localhost saat website dibuka dari komputer lokal. */
+  siteUrl: 'https://www.ypinurulilmi.or.id',
+
   /* Bucket Storage untuk media artikel & fasilitas. */
   storageBucket: 'media'
 };

@@ -415,6 +415,17 @@ function handleRpc(name, body, auth) {
     const article = (TABLES.articles || []).find((row) => row.id === articleId);
     if (!article) return { error: 'artikel tidak ditemukan' };
 
+    /* Balasan: induknya harus ada, satu artikel, dan sudah tayang. */
+    const parentId = payload.p_parent_id ? Number(payload.p_parent_id) : null;
+
+    if (parentId) {
+      const parent = (TABLES.comments || []).find((row) => row.id === parentId);
+
+      if (!parent || parent.article_id !== articleId || parent.status !== 'published') {
+        return { error: 'validasi gagal: komentar yang dibalas tidak tersedia' };
+      }
+    }
+
     const comment = {
       id: (TABLES.comments || []).length + 1,
       article_id: articleId,
@@ -423,6 +434,7 @@ function handleRpc(name, body, auth) {
       email: payload.p_email || null,
       status: 'published',
       ip_hash: null,
+      parent_id: parentId,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString()
     };

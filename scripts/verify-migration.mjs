@@ -16,22 +16,25 @@ import path from 'node:path';
 
 import { ROOT, config, request } from './lib/supabase-rest.mjs';
 
-/* Jumlah baris yang diharapkan dari supabase/data.sql.
-   Artikel, article_media, dan article_tags bertambah dari data awal:
-   satu artikel published beserta medianya dan satu tag (ditambahkan
-   2026-11-15), serta satu artikel draft lama yang sengaja disimpan
-   sebagai draft supaya tidak tampil di halaman publik. */
+/* Jumlah baris hasil migrasi yang tidak berubah dari data awal
+   (supabase/data.sql). Isi tabel ini sudah final, jadi persis harus sama. */
 const EXPECTED = {
   categories: 5,
   units: 5,
   tags: 3,
-  articles: 3,
-  article_media: 3,
-  article_tags: 1,
-  comments: 0,
   facilities: 29,
   facility_photos: 19,
   facility_unit: 60
+};
+
+/* Tabel yang isinya bertambah atau berkurang sesuai aktivitas website, jadi
+   tidak bisa dikunci ke satu angka. Yang diperiksa adalah jumlah minimal
+   agar data migrasi yang wajib ada tidak hilang. */
+const MINIMUM = {
+  articles: 1,
+  article_media: 1,
+  article_tags: 1,
+  comments: 0
 };
 
 /* Path media yang harus bisa diakses publik. */
@@ -50,7 +53,7 @@ const MEDIA_PATHS = [
   'facilities/musik-tari.jpg',
   'facilities/olahraga-2.jpg',
   'facilities/parkir.jpg',
-  'articles/2HnGtGommHpKsiHYgiGw8aUTeE7sLp53KPf90Lfs.png'
+  'sd-nurul-ilmi/artikel/e1c91183-de6e-4d57-9ab7-e569e6ccc038.png'
 ];
 
 /** Kunci publik dibaca dari js/site-config.js bila tersedia. */
@@ -90,6 +93,22 @@ async function checkCounts() {
 
     console.log('  ' + (ok ? 'OK  ' : 'SELISIH ') + table.padEnd(18) +
       String(actual).padStart(4) + ' / ' + String(expected).padStart(4));
+  }
+
+  for (const table of Object.keys(MINIMUM)) {
+    const rows = await request('/rest/v1/' + table + '?select=id', {
+      method: 'GET',
+      label: 'count ' + table
+    });
+
+    const actual = (rows || []).length;
+    const minimum = MINIMUM[table];
+    const ok = actual >= minimum;
+
+    if (!ok) failed += 1;
+
+    console.log('  ' + (ok ? 'OK  ' : 'KURANG ') + table.padEnd(18) +
+      String(actual).padStart(4) + ' (min ' + minimum + ')');
   }
 
   console.log('');

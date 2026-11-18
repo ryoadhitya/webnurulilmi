@@ -24,10 +24,22 @@ import path from 'node:path';
 import vm from 'node:vm';
 
 import { ROOT, loadEnv } from './lib/env.mjs';
+import { request } from './lib/supabase-rest.mjs';
 
 loadEnv();
 
 const failures = [];
+
+/* Angka сейati diambil langsung dari database memakai service_role, jadi
+   pemeriksaan ini membandingkan lapisan frontend dengan isi database.
+   Kalau jumlah data berubah, yang diuji tetap benar; tidak ada lagi angka
+   beku yang harus diperbarui manual setiap kali isi situs berubah. */
+async function dbRows(table, query) {
+  const suffix = query ? '?' + query : '';
+  const rows = await request('/rest/v1/' + table + suffix);
+
+  return Array.isArray(rows) ? rows : [];
+}
 
 function check(label, condition, detail) {
   const ok = Boolean(condition);
@@ -97,12 +109,25 @@ async function main() {
   console.log('');
 
   console.log('2. ARTIKEL PUBLIK');
-  const list = await NI.fetchPublishedArticles({ limit: 9 });
-  check('daftar artikel published', list.rows.length === 2, list.rows.length + ' baris, total ' + list.count);
-  check('total dari hitungan exact', list.count === 2, 'count=' + list.count);
 
-  const one = await NI.fetchArticle(1);
-  check('detail artikel id=1 ada', Boolean(one), one ? one.title_id : 'null');
+  /* Artikel yang benar-benar tampil publik: status published dan tanggal
+     tayang sudah lewat (artikel lama tanpa tanggal tetap ikut). */
+  const nowIso = new Date().toISOString();
+  const dbPublished = await dbRows(
+    'articles',
+    'select=id,category_id&status=eq.published&or=(published_at.is.null,published_at.lte."' + nowIso + '")'
+  );
+
+  const totalPublished = dbPublished.length;
+  const contohId = dbPublished.length ? dbPublished[0].id : null;
+
+  const list = await NI.fetchPublishedArticles({ limit: 9 });
+  check('daftar artikel published', list.rows.length === totalPublished,
+    list.rows.length + ' baris, total ' + list.count + ' (database ' + totalPublished + ')');
+  check('total dari hitungan exact', list.count === totalPublished, 'count=' + list.count);
+
+  const one = await NI.fetchArticle(contohId);
+  check('detail artikel published ada', Boolean(one), one ? one.title_id : 'null');
   check('artikel punya kategori', Boolean(one && one.categories), one && one.categories ? one.categories.name : '-');
 
   const media = NI.articleMedia(one);
@@ -112,56 +137,69 @@ async function main() {
   const cover = NI.articleCover(one);
   check('gambar sampul terambil', Boolean(cover), cover);
 
-  const comments = await NI.fetchPublishedComments(1);
+  const comments = await NI.fetchPublishedComments(contohId);
   check('komentar published (tidak ada, status pending tersembunyi)', Array.isArray(comments), comments.length + ' komentar');
 
   const cats = await NI.fetchCategories();
-  check('kategori terbaca', cats.length === 5, cats.length + ' kategori');
+  const dbCats = await dbRows('categories', 'select=id');
+  check('kategori terbaca', cats.length === dbCats.length, cats.length + ' kategori (database ' + dbCats.length + ')');
 
   const tags = await NI.fetchTags();
-  check('tag terbaca', tags.length === 3, tags.length + ' tag');
+  const dbTags = await dbRows('tags', 'select=id');
+  check('tag terbaca', tags.length === dbTags.length, tags.length + ' tag (database ' + dbTags.length + ')');
 
   const counted = await NI.countPublishedArticles({});
-  check('countPublishedArticles cocok', counted === 2, 'count=' + counted);
+  check('countPublishedArticles cocok', counted === totalPublished, 'count=' + counted);
 
   /* Filter kategori harus mengembalikan tepat artikel-artikel kategori itu.
      Jumlahnya dihitung dari data, bukan angka tetap, supaya tetap benar
      saat artikel published bertambah. */
-  const byCat = await NI.fetchPublishedArticles({ categoryId: 2 });
-  const expectedInCat = list.rows.filter((a) => a.category_id === 2).length;
+  const kategoriUji = one && one.category_id ? one.category_id : null;
+  const byCat = await NI.fetchPublishedArticles({ categoryId: kategoriUji });
+  const expectedInCat = dbPublished.filter((a) => a.category_id === kategoriUji).length;
 
   check('filter kategori bekerja',
-    byCat.rows.length === expectedInCat && byCat.rows.every((a) => a.category_id === 2),
-    byCat.rows.length + ' artikel pada kategori 2, diharapkan ' + expectedInCat);
+    byCat.rows.length === expectedInCat && byCat.rows.every((a) => a.category_id === kategoriUji),
+    byCat.rows.length + ' artikel pada kategori ' + kategoriUji + ', diharapkan ' + expectedInCat);
 
   const paged = await NI.fetchPublishedArticles({ limit: 1, offset: 0 });
-  check('pagination bekerja', paged.rows.length === 1 && paged.count === 2, 'baris=' + paged.rows.length + ' count=' + paged.count);
+  check('pagination bekerja', paged.rows.length === 1 && paged.count === totalPublished,
+    'baris=' + paged.rows.length + ' count=' + paged.count);
   console.log('');
 
   console.log('3. FASILITAS & UNIT');
   const units = await NI.fetchUnits();
-  check('unit pendidikan terbaca', units.length === 5, units.length + ' unit');
+  const dbUnits = await dbRows('units', 'select=id');
+  check('unit pendidikan terbaca', units.length === dbUnits.length, units.length + ' unit (database ' + dbUnits.length + ')');
 
   const allFacilities = await NI.fetchFacilities();
-  check('fasilitas published terbaca', allFacilities.length === 29, allFacilities.length + ' fasilitas');
+  const dbFacilities = await dbRows('facilities', 'select=id&is_published=eq.true');
+  check('fasilitas published terbaca', allFacilities.length === dbFacilities.length,
+    allFacilities.length + ' fasilitas (database ' + dbFacilities.length + ')');
 
   const items = NI.facilityItems(allFacilities);
   const withPhotos = items.filter((f) => f.photos.length > 0);
-  // Data sumber (MySQL) hanya menautkan 14 dari 29 fasilitas ke foto:
-  // 19 baris facility_photos menunjuk 14 path unik, jadi 15 fasilitas memang
-  // tanpa foto. Angka ini harus sama persis dengan database asal.
-  check('fasilitas berfoto sesuai data sumber', withPhotos.length === 14, withPhotos.length + ' dari ' + items.length + ' fasilitas (sumber: 14 dari 29)');
+
+  /* Jumlah fasilitas yang punya foto ikut dihitung dari database, supaya
+     tetap benar kalau data fasilitas berubah. */
+  const dbPhotos = await dbRows('facility_photos', 'select=id,facility_id');
+  const dbWithPhotos = new Set(dbPhotos.map((row) => row.facility_id)).size;
+
+  check('fasilitas berfoto sesuai data sumber', withPhotos.length === dbWithPhotos,
+    withPhotos.length + ' dari ' + items.length + ' fasilitas (database ' + dbWithPhotos + ')');
   check('semua fasilitas berfoto punya cover', withPhotos.every((f) => f.cover_url), withPhotos.filter((f) => !f.cover_url).length + ' tanpa cover');
   check('fasilitas tanpa foto tetap punya nama & unit', items.every((f) => f.name && f.units.length > 0));
 
   const sigma = await NI.fetchFacilities({ group: 'sigma' });
-  check('filter group sigma bekerja', sigma.length === 12, sigma.length + ' fasilitas');
+  const dbSigma = await dbRows('facilities', 'select=id&is_published=eq.true&group_type=eq.sigma');
+  check('filter group sigma bekerja', sigma.length === dbSigma.length,
+    sigma.length + ' fasilitas (database ' + dbSigma.length + ')');
 
   const tkSigma = await NI.fetchFacilities({ unit: 'tk-sigma' });
-  check('filter unit tk-sigma bekerja', tkSigma.length > 0 && tkSigma.length < 29, tkSigma.length + ' fasilitas untuk unit tk-sigma');
+  check('filter unit tk-sigma bekerja', tkSigma.length > 0 && tkSigma.length < allFacilities.length, tkSigma.length + ' fasilitas untuk unit tk-sigma');
 
   const daycare = await NI.fetchFacilities({ unit: 'daycare-sigma' });
-  check('filter unit daycare-sigma bekerja', daycare.length > 0 && daycare.length < 29, daycare.length + ' fasilitas untuk unit daycare-sigma');
+  check('filter unit daycare-sigma bekerja', daycare.length > 0 && daycare.length < allFacilities.length, daycare.length + ' fasilitas untuk unit daycare-sigma');
 
   const tkSigmaItems = NI.facilityItems(tkSigma);
   check('semua fasilitas tk-sigma punya unit sigma', tkSigmaItems.every((f) => f.units.length > 0));

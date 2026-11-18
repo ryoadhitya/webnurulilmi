@@ -10,9 +10,14 @@
    Edge Function publik "translate-public"; naskah asli disimpan supaya
    kembali ke bahasa Indonesia tidak mengubah isi artikel.
 
-   Komentar baru dikirim lewat RPC submit_comment() dan langsung tayang
-   (status 'published'), jadi pengunjung melihat komentarnya sendiri tanpa
-   perlu refresh halaman. Admin tetap bisa menandai spam lewat dashboard.
+   Interaksi pengunjung:
+     - Like artikel (RPC toggle_article_like), status_like bertahan saat
+       halaman dimuat ulang karena identitas anonim disimpan di localStorage.
+     - Bagikan artikel (Web Share API, atau salin tautan sebagai cadangan).
+     - Komentar baru dikirim lewat RPC submit_comment() dan langsung tayang
+       (status 'published'), jadi pengunjung melihat komentarnya sendiri
+       tanpa perlu refresh halaman. Admin tetap bisa menandai spam lewat
+       dashboard.
 
    Sumber data: js/supabase.js (window.NISupabase).
    ========================================================================== */
@@ -25,6 +30,9 @@
   var state = {
     article: null,
     comments: [],
+    commentLikes: {},
+    replyTo: null,
+    like: { liked: false, count: 0 },
     lang: 'id',
     translation: null,
     busy: false
@@ -49,10 +57,6 @@
     var rows = article.comments || [];
     return rows.length ? Number(rows[0].count || 0) : 0;
   }
-
-  /* ------------------------------------------------------------------ */
-  /*  Isi artikel                                                       */
-  /* ------------------------------------------------------------------ */
 
   /* ------------------------------------------------------------------ */
   /*  Galeri media                                                        */
@@ -89,30 +93,103 @@
   }
 
   /**
+   * Gambar utama artikel (media gambar pertama). Gambar ini ditampilkan
+   * besar di atas isi artikel, proporsional dan tidak gepeng.
+   *
+   * Kalau artikel tidak punya gambar sama sekali, gambarnya tidak
+   * dihilangkan begitu saja: dipakai sampul lain (misalnya thumbnail
+   * video), dan kalau benar-benar tidak ada, tampil plakat YPI Nurul Ilmi
+   * supaya halaman tidak terlihat kosong.
+   */
+  function renderFeatured(article, media) {
+    var figure = byId('article-featured');
+    if (!figure) return;
+
+    var featured = null;
+    var featuredIndex = -1;
+
+    for (var i = 0; i < media.length; i++) {
+      if (media[i].type === 'image') {
+        featured = media[i];
+        featuredIndex = i;
+        break;
+      }
+    }
+
+    if (!featured) {
+      var cover = api.articleCover(article);
+
+      if (cover) {
+        figure.innerHTML = [
+          '<div class="article-featured-media">',
+          '  <img src="' + escapeHtml(cover) + '" alt="' +
+            escapeHtml(article.title_id || 'Gambar utama artikel') +
+            '" class="article-featured-image">',
+          '</div>'
+        ].join('\n');
+
+        figure.hidden = false;
+        return;
+      }
+
+      figure.innerHTML = [
+        '<div class="article-featured-placeholder">',
+        '  <img src="images/logonurulilmi.png" alt="" class="article-featured-placeholder-logo" aria-hidden="true">',
+        '  <p class="article-featured-placeholder-title">YPI Nurul Ilmi</p>',
+        '  <p class="article-featured-placeholder-text">Artikel ini belum memiliki gambar utama.</p>',
+        '</div>'
+      ].join('\n');
+
+      figure.hidden = false;
+      return;
+    }
+
+    var caption = featured.caption
+      ? '<figcaption class="article-featured-caption">' + escapeHtml(featured.caption) + '</figcaption>'
+      : '';
+
+    figure.innerHTML = [
+      '<a class="article-featured-media" data-index="' + featuredIndex + '" href="#">',
+      '  <img src="' + escapeHtml(featured.url) + '" alt="' +
+        escapeHtml(featured.caption || article.title_id || 'Gambar utama artikel') +
+        '" class="article-featured-image">',
+      '</a>',
+      caption
+    ].join('\n');
+
+    figure.hidden = false;
+  }
+
+  /**
    * Galeri menyesuaikan diri dengan jumlah media:
    * 1 foto  -> satu kolom, tidak mendominasi
    * 2 foto  -> dua kolom
    * 3 foto  -> tiga kolom seimbang
    * 4+      -> grid tiga kolom (dua kolom di tablet, satu di ponsel)
+   *
+   * Gambar utama sudah ditampilkan terpisah di atas, jadi galeri hanya
+   * menampilkan sisa media.
    */
-  function renderMedia(article) {
+  function renderMedia(article, media, featuredIndex) {
     var container = byId('article-media');
     if (!container) return;
 
-    var media = api.articleMedia(article);
+    var rest = media.filter(function (item, index) {
+      return index !== featuredIndex;
+    });
 
-    if (!media.length) {
+    if (!rest.length) {
       container.innerHTML = '';
       return;
     }
 
-    var count = media.length;
+    var count = rest.length;
     var layout = count === 1 ? '1' : count === 2 ? '2' : count === 3 ? '3' : '4';
 
     container.innerHTML = [
       '<div class="article-gallery article-gallery--' + layout + '" data-count="' + count + '">',
-      media.map(function (item, index) {
-        return galleryItemHtml(article, item, index);
+      rest.map(function (item) {
+        return galleryItemHtml(article, item, media.indexOf(item));
       }).join('\n'),
       '</div>'
     ].join('\n');
@@ -245,6 +322,10 @@
     document.body.classList.remove('ni-lightbox-open');
   }
 
+  /* ------------------------------------------------------------------ */
+  /*  Header artikel                                                      */
+  /* ------------------------------------------------------------------ */
+
   function renderMeta(article) {
     var container = byId('article-meta');
     if (!container) return;
@@ -252,21 +333,51 @@
     var category = api.articleCategory(article);
     var parts = [];
 
-    parts.push('<div><a href="blog.html"><span class="far fa-calendar"></span> ' +
-      escapeHtml(utils.formatDate(article.published_at)) + '</a></div>');
+    parts.push('<div class="article-meta-item"><span class="fas fa-calendar" aria-hidden="true"></span> ' +
+      '<a href="blog.html">' + escapeHtml(utils.formatDate(article.published_at)) + '</a></div>');
 
-    parts.push('<div><a href="#"><span class="fas fa-user"></span> ' +
-      escapeHtml(article.author_name || 'Admin') + '</a></div>');
+    parts.push('<div class="article-meta-item"><span class="fas fa-user" aria-hidden="true"></span> ' +
+      escapeHtml(article.author_name || 'Admin') + '</div>');
 
-    parts.push('<div><span class="fas fa-comment"></span> ' + commentCount(article) + '</div>');
+    parts.push('<div class="article-meta-item"><span class="fas fa-comment-dots" aria-hidden="true"></span> ' +
+      commentCount(article) + ' komentar</div>');
 
-    parts.push('<div><span class="fas fa-eye"></span> ' + utils.formatNumber(article.views || 0) + '</div>');
+    parts.push('<div class="article-meta-item"><span class="fas fa-eye" aria-hidden="true"></span> ' +
+      utils.formatNumber(article.views || 0) + ' dibaca</div>');
 
     if (category) {
-      parts.push('<div><span class="fas fa-folder-open"></span> ' + escapeHtml(category) + '</div>');
+      parts.push('<div class="article-meta-item"><span class="fas fa-folder-open" aria-hidden="true"></span> ' +
+        escapeHtml(category) + '</div>');
     }
 
     container.innerHTML = parts.join('');
+  }
+
+  function renderCategory(article) {
+    var category = api.articleCategory(article);
+    var wrap = byId('article-category-wrap');
+    var link = byId('article-category');
+    var crumb = byId('article-breadcrumb-category');
+    var crumbName = byId('article-breadcrumb-category-name');
+
+    if (!category) {
+      if (wrap) wrap.hidden = true;
+      if (crumb) crumb.hidden = true;
+      if (crumbName) crumbName.textContent = '';
+
+      return;
+    }
+
+    if (wrap && link) {
+      link.textContent = category;
+      link.setAttribute('href', 'blog.html?kategori=' + encodeURIComponent(category.toLowerCase()));
+      wrap.hidden = false;
+    }
+
+    if (crumb && crumbName) {
+      crumbName.textContent = category;
+      crumb.hidden = false;
+    }
   }
 
   function renderTags(article) {
@@ -310,21 +421,30 @@
     if (!target) return;
 
     target.textContent = value || '';
-    target.style.fontSize = '17px';
-    target.style.lineHeight = '1.9';
-    target.style.whiteSpace = 'pre-line';
   }
 
   function renderArticle(article) {
     document.title = (article.title_id || article.title_en || 'Artikel') + ' - YPI Nurul Ilmi Bekasi';
 
-    byId('article-breadcrumb').textContent = article.title_id || article.title_en || 'Artikel';
     byId('article-title').textContent = article.title_id || article.title_en || '';
 
+    renderCategory(article);
     renderMeta(article);
-    renderMedia(article);
     renderTags(article);
     renderAuthor(article);
+
+    var media = api.articleMedia(article);
+    var featuredIndex = -1;
+
+    for (var i = 0; i < media.length; i++) {
+      if (media[i].type === 'image') {
+        featuredIndex = i;
+        break;
+      }
+    }
+
+    renderFeatured(article, media);
+    renderMedia(article, media, featuredIndex);
 
     var text = article.content_id || article.content_en || '';
 
@@ -360,6 +480,169 @@
   }
 
   /* ------------------------------------------------------------------ */
+  /*  Like artikel                                                        */
+  /* ------------------------------------------------------------------ */
+
+  function renderLike() {
+    var button = byId('article-like');
+    var count = byId('article-like-count');
+    if (!button) return;
+
+    button.classList.toggle('is-liked', !!state.like.liked);
+    button.setAttribute('aria-pressed', state.like.liked ? 'true' : 'false');
+
+    var label = button.querySelector('.article-action-text');
+    if (label) label.textContent = state.like.liked ? 'Disukai' : 'Suka';
+
+    if (count) count.textContent = utils.formatNumber(state.like.count || 0);
+  }
+
+  function loadLike(id) {
+    if (!api.getArticleLike) return;
+
+    api.getArticleLike(id)
+      .then(function (result) {
+        state.like = { liked: !!result.liked, count: Number(result.count || 0) };
+        renderLike();
+      })
+      .catch(function () {
+        renderLike();
+      });
+  }
+
+  function bindLike(id) {
+    var button = byId('article-like');
+    if (!button) return;
+
+    button.addEventListener('click', function () {
+      if (button.disabled) return;
+
+      button.disabled = true;
+
+      api.toggleArticleLike(id)
+        .then(function (result) {
+          state.like = { liked: !!result.liked, count: Number(result.count || 0) };
+          renderLike();
+
+          button.classList.remove('is-pulsing');
+          /* Reflow supaya animasi bisa diputar ulang tiap kali diklik. */
+          void button.offsetWidth;
+          button.classList.add('is-pulsing');
+        })
+        .catch(function (error) {
+          showToast(error && error.message ? error.message : 'Like gagal disimpan.', 'error');
+        })
+        .then(function () {
+          button.disabled = false;
+        });
+    });
+  }
+
+  /* ------------------------------------------------------------------ */
+  /*  Bagikan artikel                                                     */
+  /* ------------------------------------------------------------------ */
+
+  function showToast(message, type) {
+    var toast = document.createElement('div');
+
+    toast.className = 'ni-toast' + (type === 'error' ? ' is-error' : '');
+    toast.setAttribute('role', 'status');
+    toast.textContent = message;
+
+    document.body.appendChild(toast);
+
+    window.setTimeout(function () {
+      toast.classList.add('is-hiding');
+    }, 3200);
+
+    window.setTimeout(function () {
+      if (toast.parentNode) toast.parentNode.removeChild(toast);
+    }, 3800);
+  }
+
+  function copyToClipboard(text) {
+    if (window.navigator.clipboard && window.navigator.clipboard.writeText) {
+      return window.navigator.clipboard.writeText(text);
+    }
+
+    /* Cadangan untuk browser lama / konteks non-HTTPS. */
+    return new Promise(function (resolve, reject) {
+      var field = document.createElement('textarea');
+
+      field.value = text;
+      field.setAttribute('readonly', 'readonly');
+      field.style.position = 'fixed';
+      field.style.opacity = '0';
+
+      document.body.appendChild(field);
+      field.select();
+
+      var ok = false;
+
+      try {
+        ok = document.execCommand('copy');
+      } catch (error) {
+        ok = false;
+      }
+
+      document.body.removeChild(field);
+
+      if (ok) {
+        resolve();
+      } else {
+        reject(new Error('Tidak bisa menyalin tautan secara otomatis.'));
+      }
+    });
+  }
+
+  function bindShare(id) {
+    var button = byId('article-share');
+    if (!button) return;
+
+    button.addEventListener('click', function () {
+      var url = api.articleShareUrl ? api.articleShareUrl(id) : window.location.href;
+      var title = (state.article && (state.article.title_id || state.article.title_en)) || 'Artikel YPI Nurul Ilmi';
+
+      if (typeof window.navigator.share === 'function') {
+        var shared;
+
+        try {
+          shared = window.navigator.share({ title: title, text: title, url: url });
+        } catch (error) {
+          shared = Promise.reject(error);
+        }
+
+        Promise.resolve(shared)
+          .then(function () {
+            showToast('Tautan artikel sudah dibagikan.', 'ok');
+          })
+          .catch(function (error) {
+            /* Pengg menekan tombol batal: tidak ada tindakan dan tidak ada
+               pesan. Galat lain memakai cadangan salin tautan. */
+            if (error && error.name === 'AbortError') return;
+
+            copyShareUrl(url);
+          });
+
+        return;
+      }
+
+      copyShareUrl(url);
+    });
+  }
+
+  /* Cadangan: salin tautan ke papan klip dan beri umpan balik visual. */
+  function copyShareUrl(url) {
+    copyToClipboard(url)
+      .then(function () {
+        showToast('Tautan artikel disalin ke papan klip.', 'ok');
+      })
+      .catch(function () {
+        showToast('Tidak bisa menyalin tautan. Salin dari bilah alamat browser.', 'error');
+      });
+  }
+
+  /* ------------------------------------------------------------------ */
   /*  Terjemahan                                                         */
   /* ------------------------------------------------------------------ */
 
@@ -376,7 +659,6 @@
   /** Terapkan judul + isi artikel sesuai bahasa yang sedang aktif. */
   function applyArticleText(title, content) {
     byId('article-title').textContent = title;
-    byId('article-breadcrumb').textContent = title;
     setTextContent(byId('article-content'), content);
     document.title = title + ' - YPI Nurul Ilmi Bekasi';
   }
@@ -504,29 +786,135 @@
   }
 
   /* ------------------------------------------------------------------ */
-  /*  Komentar                                                           */
+  /*  Komentar                                                            */
   /* ------------------------------------------------------------------ */
 
+  /* Warna avatar ditentukan dari nama supaya nama yang sama selalu
+     mendapat warna yang sama. */
+  var AVATAR_COLORS = [
+    '#0A4F42', '#0d6b5a', '#1c7c6b', '#2f8f7c',
+    '#4a6fa5', '#7a5ea8', '#b06a3b', '#b0445a'
+  ];
+
+  function avatarColor(name) {
+    var text = String(name || '');
+    var hash = 0;
+
+    for (var i = 0; i < text.length; i++) {
+      hash = (hash * 31 + text.charCodeAt(i)) % 100000;
+    }
+
+    return AVATAR_COLORS[hash % AVATAR_COLORS.length];
+  }
+
+  function initials(name) {
+    var text = String(name || '').trim();
+
+    if (!text) return '?';
+
+    var parts = text.split(/\s+/).slice(0, 2);
+    var result = parts.map(function (part) {
+      return part.charAt(0);
+    }).join('');
+
+    return result.toUpperCase() || '?';
+  }
+
+  function commentLikeState(commentId) {
+    var entry = state.commentLikes[String(commentId)];
+
+    if (!entry) return { liked: false, count: 0 };
+
+    return { liked: !!entry.liked, count: Number(entry.count || 0) };
+  }
+
+  function commentHtml(comment, isReply) {
+    var like = commentLikeState(comment.id);
+
+    var actions = [
+      '<button type="button" class="comment-like' + (like.liked ? ' is-liked' : '') + '" data-comment-id="' + comment.id + '"' +
+        ' aria-pressed="' + (like.liked ? 'true' : 'false') + '">',
+      '  <i class="fas fa-heart" aria-hidden="true"></i>',
+      '  <span class="comment-like-count">' + like.count + '</span>',
+      '  <span class="comment-like-label">Suka</span>',
+      '</button>'
+    ];
+
+    /* Balasan hanya satu tingkat, jadi tombolnya hanya di komentar utama. */
+    if (!isReply) {
+      actions.push(
+        '<button type="button" class="comment-reply" data-comment-id="' + comment.id + '">',
+        '  <i class="fas fa-reply" aria-hidden="true"></i>',
+        '  <span class="comment-reply-label">Balas</span>',
+        '</button>'
+      );
+    }
+
+    return [
+      '<li class="comment' + (isReply ? ' comment--reply' : '') + '" data-comment-id="' + comment.id + '">',
+      '  <div class="comment-avatar" style="background-color: ' + avatarColor(comment.name) + ';" aria-hidden="true">' +
+        escapeHtml(initials(comment.name)) + '</div>',
+      '  <div class="comment-body">',
+      '    <div class="comment-head">',
+      '      <h3 class="comment-name">' + escapeHtml(comment.name || 'Anonim') + '</h3>',
+      '      <span class="comment-date">' + escapeHtml(utils.formatDateTime(comment.created_at)) + '</span>',
+      '    </div>',
+      '    <p class="comment-text">' + escapeHtml(comment.comment) + '</p>',
+      '    <div class="comment-actions">',
+      actions.join('\n'),
+      '    </div>',
+      '  </div>',
+      '</li>'
+    ].join('\n');
+  }
+
+  /**
+   * Komentar dirender berdasar hierarki: komentar utama lebih dulu, lalu
+   * balasannya ditumpuk di bawah induknya.
+   *
+   * Balasan hanya ditampilkan bila induknya masih terlihat. Jadi ketika
+   * admin menyembunyikan sebuah komentar, balasannya ikut hilang tanpa
+   * perlu ada sesuatu yang dihapus manual.
+   */
   function renderComments(comments) {
     var list = byId('comment-list');
     var empty = byId('comment-empty');
     var counter = byId('comment-count');
+    var actionCounter = byId('article-comment-count');
     if (!list) return;
 
-    list.innerHTML = comments.map(function (comment) {
-      return [
-        '<li class="comment">',
-        '  <div class="comment-body">',
-        '    <h3>' + escapeHtml(comment.name || 'Anonim') + '</h3>',
-        '    <div class="meta mb-2">' + escapeHtml(utils.formatDateTime(comment.created_at)) + '</div>',
-        '    <p>' + escapeHtml(comment.comment) + '</p>',
-        '  </div>',
-        '</li>'
-      ].join('\n');
-    }).join('\n');
+    var roots = [];
+    var replies = {};
+    var visible = {};
+
+    comments.forEach(function (comment) {
+      visible[comment.id] = true;
+    });
+
+    comments.forEach(function (comment) {
+      if (comment.parent_id && visible[comment.parent_id]) {
+        if (!replies[comment.parent_id]) replies[comment.parent_id] = [];
+        replies[comment.parent_id].push(comment);
+      } else {
+        roots.push(comment);
+      }
+    });
+
+    var html = [];
+
+    roots.forEach(function (comment) {
+      html.push(commentHtml(comment, false));
+
+      (replies[comment.id] || []).forEach(function (reply) {
+        html.push(commentHtml(reply, true));
+      });
+    });
+
+    list.innerHTML = html.join('\n');
 
     if (empty) empty.hidden = comments.length > 0;
     if (counter) counter.textContent = String(comments.length);
+    if (actionCounter) actionCounter.textContent = utils.formatNumber(comments.length);
   }
 
   function loadComments(id) {
@@ -538,6 +926,50 @@
       .catch(function () {
         renderComments([]);
       });
+  }
+
+  function loadCommentLikes(id) {
+    if (!api.getCommentLikes) return Promise.resolve();
+
+    return api.getCommentLikes(id)
+      .then(function (result) {
+        state.commentLikes = result || {};
+        renderComments(state.comments);
+      })
+      .catch(function () {
+        /* Like komentar tidak wajib: halaman tetap berfungsi tanpanya. */
+      });
+  }
+
+  function bindCommentLikes() {
+    var list = byId('comment-list');
+    if (!list) return;
+
+    list.addEventListener('click', function (event) {
+      var button = event.target.closest('.comment-like');
+      if (!button) return;
+
+      var commentId = Number(button.getAttribute('data-comment-id'));
+      if (!commentId || !api.toggleCommentLike) return;
+
+      button.disabled = true;
+
+      api.toggleCommentLike(commentId)
+        .then(function (result) {
+          state.commentLikes[String(commentId)] = {
+            liked: !!result.liked,
+            count: Number(result.count || 0)
+          };
+
+          renderComments(state.comments);
+        })
+        .catch(function (error) {
+          showToast(error && error.message ? error.message : 'Like gagal disimpan.', 'error');
+        })
+        .then(function () {
+          button.disabled = false;
+        });
+    });
   }
 
   function showCommentAlert(message, type) {
@@ -553,16 +985,231 @@
       '" role="alert">' + escapeHtml(message) + '</div>';
   }
 
+  /* ------------------------------------------------------------------ */
+  /*  Balasan komentar                                                  */
+  /* ------------------------------------------------------------------ */
+
+  /**
+   * Memasuki mode balas: form diisi untuk membalas komentar tertentu.
+   * Balasan dikirim lewat RPC submit_comment dengan p_parent_id, jadi
+   * hiss-nya benar-benar tersimpan di database (bukan hanya di tampilan).
+   */
+  function setReplyTarget(comment) {
+    state.replyTo = comment;
+
+    var bar = byId('comment-reply-bar');
+    var name = byId('comment-reply-name');
+    var title = byId('comment-form-title');
+    var label = byId('comment-submit-label');
+    var message = byId('comment-message');
+
+    if (bar) bar.hidden = false;
+    if (name) name.textContent = comment.name || 'Anonim';
+    if (title) title.textContent = 'Balas Komentar';
+    if (label) label.textContent = 'Kirim Balasan';
+
+    if (message) {
+      message.focus();
+      message.setSelectionRange(message.value.length, message.value.length);
+    }
+  }
+
+  /** Kembali ke mode komentar biasa. */
+  function clearReplyTarget() {
+    state.replyTo = null;
+
+    var bar = byId('comment-reply-bar');
+    var title = byId('comment-form-title');
+    var label = byId('comment-submit-label');
+
+    if (bar) bar.hidden = true;
+    if (title) title.textContent = 'Tinggalkan Komentar';
+    if (label) label.textContent = 'Kirim Komentar';
+  }
+
+  /** Tombol "Balas" pada tiap komentar utama. */
+  function bindCommentReply() {
+    var list = byId('comment-list');
+    if (!list) return;
+
+    list.addEventListener('click', function (event) {
+      var button = event.target.closest('.comment-reply');
+      if (!button) return;
+
+      var commentId = Number(button.getAttribute('data-comment-id'));
+      if (!commentId) return;
+
+      var target = state.comments.filter(function (comment) {
+        return comment.id === commentId;
+      })[0];
+
+      if (!target) return;
+
+      setReplyTarget(target);
+
+      var form = byId('comment-form');
+
+      if (form && form.scrollIntoView) {
+        form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+  }
+
+  /** Tombol "Batalkan balasan". */
+  function bindReplyCancel() {
+    var button = byId('comment-reply-cancel');
+    if (!button) return;
+
+    button.addEventListener('click', function () {
+      clearReplyTarget();
+    });
+  }
+
+  /* Avatar pratinjau pada form komentar mengikuti nama yang diketik. */
+  function updateFormAvatar() {
+    var input = byId('comment-name');
+    var avatar = byId('comment-avatar');
+    if (!input || !avatar) return;
+
+    var name = input.value.trim();
+
+    avatar.textContent = initials(name);
+    avatar.parentNode.style.backgroundColor = avatarColor(name);
+  }
+
+  function updateCounter() {
+    var textarea = byId('comment-message');
+    var counter = byId('comment-counter');
+    if (!textarea || !counter) return;
+
+    counter.textContent = textarea.value.length + '/2000';
+  }
+
+  /* ------------------------------------------------------------------ */
+  /*  Emoji picker                                                        */
+  /* ------------------------------------------------------------------ */
+
+  var EMOJI_GROUPS = [
+    { title: 'Senyum', items: ['😀', '😄', '😁', '😊', '🙂', '😉', '😍', '🤩', '😘', '😇', '🥰', '😋'] },
+    { title: 'Perasaan', items: ['👍', '👏', '🙏', '💪', '🤝', '❤️', '💚', '💛', '💙', '💜', '🔥', '✨'] },
+    { title: 'Wajah', items: ['😢', '😭', '😡', '🤔', '😴', '🤗', '😱', '🥳', '🤭', '😐', '😌', '😤'] },
+    { title: 'Lainnya', items: ['🎉', '🌷', '📚', '📖', '🏫', '🕌', '⭐', '💡', '✅', '💡', '🏆', '🌟'] }
+  ];
+
+  function buildEmojiPicker() {
+    var picker = byId('comment-emoji-picker');
+    if (!picker) return;
+
+    picker.innerHTML = EMOJI_GROUPS.map(function (group) {
+      return [
+        '<p class="comment-emoji-group">' + escapeHtml(group.title) + '</p>',
+        '<div class="comment-emoji-grid">',
+        group.items.map(function (emoji) {
+          return '<button type="button" class="comment-emoji" data-emoji="' + emoji + '" ' +
+            'aria-label="Sisipkan ' + emoji + '">' + emoji + '</button>';
+        }).join(''),
+        '</div>'
+      ].join('\n');
+    }).join('\n');
+
+    picker.addEventListener('click', function (event) {
+      var button = event.target.closest('.comment-emoji');
+      if (!button) return;
+
+      insertEmoji(button.getAttribute('data-emoji'));
+      closeEmojiPicker();
+    });
+  }
+
+  /** Sisipkan emoji pada posisi kursor di textarea komentar. */
+  function insertEmoji(emoji) {
+    var textarea = byId('comment-message');
+    if (!textarea) return;
+
+    var start = textarea.selectionStart || 0;
+    var end = textarea.selectionEnd || 0;
+    var value = textarea.value;
+
+    textarea.value = value.slice(0, start) + emoji + value.slice(end);
+    textarea.focus();
+
+    var position = start + emoji.length;
+
+    textarea.setSelectionRange(position, position);
+
+    updateCounter();
+  }
+
+  function openEmojiPicker() {
+    var picker = byId('comment-emoji-picker');
+    var toggle = byId('comment-emoji-toggle');
+    if (!picker) return;
+
+    picker.hidden = false;
+    if (toggle) toggle.setAttribute('aria-expanded', 'true');
+  }
+
+  function closeEmojiPicker() {
+    var picker = byId('comment-emoji-picker');
+    var toggle = byId('comment-emoji-toggle');
+    if (!picker) return;
+
+    picker.hidden = true;
+    if (toggle) toggle.setAttribute('aria-expanded', 'false');
+  }
+
+  function bindEmojiPicker() {
+    var toggle = byId('comment-emoji-toggle');
+    if (!toggle) return;
+
+    buildEmojiPicker();
+
+    toggle.addEventListener('click', function (event) {
+      event.preventDefault();
+
+      var picker = byId('comment-emoji-picker');
+
+      if (picker && !picker.hidden) {
+        closeEmojiPicker();
+      } else {
+        openEmojiPicker();
+      }
+    });
+
+    document.addEventListener('click', function (event) {
+      var picker = byId('comment-emoji-picker');
+
+      if (!picker || picker.hidden) return;
+      if (event.target.closest('#comment-emoji-picker, #comment-emoji-toggle')) return;
+
+      closeEmojiPicker();
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') closeEmojiPicker();
+    });
+  }
+
   function bindCommentForm(id) {
     var form = byId('comment-form');
     var submit = byId('comment-submit');
     if (!form) return;
 
+    var nameInput = byId('comment-name');
+    var messageInput = byId('comment-message');
+
+    if (nameInput) nameInput.addEventListener('input', updateFormAvatar);
+    if (messageInput) messageInput.addEventListener('input', updateCounter);
+
+    bindEmojiPicker();
+    updateFormAvatar();
+    updateCounter();
+
     form.addEventListener('submit', function (event) {
       event.preventDefault();
 
-      var name = byId('comment-name').value.trim();
-      var message = byId('comment-message').value.trim();
+      var name = nameInput ? nameInput.value.trim() : '';
+      var message = messageInput ? messageInput.value.trim() : '';
       var honeypot = byId('comment-hp').value;
 
       if (!name || !message) {
@@ -592,17 +1239,28 @@
         return;
       }
 
-      if (submit) submit.disabled = true;
+      if (submit) {
+        submit.disabled = true;
+        submit.classList.add('is-loading');
+      }
+
       showCommentAlert('Mengirim komentar...');
+
+      /* Balasan menyimpan id komentar induk; komentar biasa menyimpan null. */
+      var parentId = state.replyTo ? state.replyTo.id : null;
 
       /* Email tidak lagi diminta. Kolom email di database tetap ada dan
          tetap dibaca bila suatu saat diisi, jadi komentar lama tetap utuh
          dan tidak ada data yang dibuang. */
-      api.submitComment(id, { name: name, comment: message, hp: honeypot })
+      api.submitComment(id, { name: name, comment: message, hp: honeypot, parentId: parentId })
         .then(function (result) {
-          if (submit) submit.disabled = false;
+          if (submit) {
+            submit.disabled = false;
+            submit.classList.remove('is-loading');
+          }
 
-          byId('comment-message').value = '';
+          messageInput.value = '';
+          updateCounter();
 
           // RPC mengembalikan id komentar, atau -1 bila honeypot terisi.
           if (result === -1) {
@@ -610,17 +1268,27 @@
             return;
           }
 
+          clearReplyTarget();
+
           /* Daftar komentar dimuat ulang dari server supaya jumlah dan isi
              komentar ikut terbaru tanpa perlu refresh halaman manual. */
-          loadComments(id);
+          loadComments(id).then(function () {
+            loadCommentLikes(id);
+          });
 
           showCommentAlert(
-            'Terima kasih! Komentar Anda sudah tayang di bawah.',
+            parentId
+              ? 'Balasan Anda sudah tayang di bawah komentar tersebut.'
+              : 'Terima kasih! Komentar Anda sudah tayang di bawah.',
             'success'
           );
         })
         .catch(function (error) {
-          if (submit) submit.disabled = false;
+          if (submit) {
+            submit.disabled = false;
+            submit.classList.remove('is-loading');
+          }
+
           showCommentAlert('Komentar gagal dikirim: ' + (error && error.message ? error.message : 'terjadi kesalahan'), 'error');
         });
     });
@@ -688,7 +1356,7 @@
     list.innerHTML = tags.map(function (tag) {
       return '<a href="blog.html?tag=' + encodeURIComponent(tag.slug) +
         '" class="tag-cloud-link">' + escapeHtml(tag.name) + '</a>';
-    }).join('');
+    }).join('\n');
   }
 
   function loadSidebar(current) {
@@ -785,9 +1453,17 @@
         renderArticle(article);
         loadComments(id);
         bindCommentForm(id);
+        bindCommentLikes();
+        bindCommentReply();
+        bindReplyCancel();
         bindTranslate();
+        bindLike(id);
+        bindShare(id);
         loadSidebar(article);
         loadRelated(article);
+
+        loadLike(id);
+        loadCommentLikes(id);
 
         api.incrementViews(id);
       })

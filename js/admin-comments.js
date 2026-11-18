@@ -65,6 +65,9 @@
       '  <td class="px-6 py-4">',
       '    <p class="max-w-md text-sm leading-6 text-slate-700">' + utils.escapeHtml(utils.limit(comment.comment, 220)) + '</p>',
       '    <p class="mt-1 text-xs text-slate-400">Pada: ' + utils.escapeHtml(article) + '</p>',
+      comment.parent_id
+        ? '    <p class="mt-1 text-xs font-semibold text-slate-500">Balasan dari komentar #' + comment.parent_id + '</p>'
+        : '',
       '  </td>',
       '  <td class="px-6 py-4 text-slate-500">' + utils.formatDateTime(comment.created_at) + '</td>',
       '  <td class="px-6 py-4">' + statusBadge(comment.status) + '</td>',
@@ -173,7 +176,7 @@
 
     var query = db
       .from('comments')
-      .select('id, article_id, name, email, comment, status, created_at, articles(id, title_id)')
+      .select('id, article_id, name, email, comment, status, parent_id, created_at, articles(id, title_id)')
       .order('created_at', { ascending: false });
 
     if (state.status) query = query.eq('status', state.status);

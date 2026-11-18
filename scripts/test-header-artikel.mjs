@@ -21,7 +21,10 @@ import os from 'node:os';
 import path from 'node:path';
 import { execSync } from 'node:child_process';
 
-import { ROOT } from './lib/env.mjs';
+import { ROOT, loadEnv } from './lib/env.mjs';
+import { request } from './lib/supabase-rest.mjs';
+
+loadEnv();
 
 const require = createRequire(import.meta.url);
 const BASE = process.env.BASE_URL || 'http://127.0.0.1:8123';
@@ -76,6 +79,10 @@ function findChromium() {
 
 async function main() {
   if (!fs.existsSync(SHOTS)) fs.mkdirSync(SHOTS, { recursive: true });
+
+  /* Baris rate limit yang sudah ada sebelum tes, supaya Cleanup tahu
+     baris mana yang dibuat oleh tes ini. */
+  const rateLimitAwal = (await request('/rest/v1/comment_rate_limits?select=id')).map((row) => row.id);
 
   const playwright = loadPlaywright();
   const executablePath = findChromium();
@@ -254,6 +261,31 @@ async function main() {
   );
 
   await page.screenshot({ path: path.join(SHOTS, 'artikel-komentar.png'), fullPage: false });
+
+  /* Komentar uji dihapus supaya tidak tertinggal di database produksi.
+     Daftarnya diambil lebih dulu lalu disaring di memori, jadi tidak
+     bergantung pada pola like yang mudah salah karena spasi. */
+  try {
+    const rows = await request('/rest/v1/comments?select=id,comment&article_id=eq.98');
+    const milikTes = (rows || []).filter((row) => String(row.comment || '').indexOf(marker) !== -1);
+
+    for (const row of milikTes) {
+      await request('/rest/v1/comments?id=eq.' + row.id, { method: 'DELETE' });
+    }
+
+    /* Baris rate limit juga dibersihkan, supaya tes berikutnya tidak
+       kehabisan jatah (maksimal 5 komentar per jam per IP). */
+    const rateAkhir = await request('/rest/v1/comment_rate_limits?select=id');
+    const rateBaru = (rateAkhir || []).filter((row) => rateLimitAwal.indexOf(row.id) === -1);
+
+    for (const row of rateBaru) {
+      await request('/rest/v1/comment_rate_limits?id=eq.' + row.id, { method: 'DELETE' });
+    }
+
+    console.log('  Komentar uji dihapus: ' + milikTes.length + ', baris rate limit dihapus: ' + rateBaru.length);
+  } catch (error) {
+    console.log('  Gagal menghapus komentar uji: ' + error.message);
+  }
 
   /* Komentar harus terikat artikel yang benar: cek artikel lain. */
   await page.goto(BASE + '/article.html?id=1', { waitUntil: 'networkidle' });

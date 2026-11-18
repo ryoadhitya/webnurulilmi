@@ -96,20 +96,58 @@
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
-            <h1 class="mb-2 bread" id="article-breadcrumb">Artikel</h1>
+            <p class="mb-2 bread">Artikel</p>
             <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="fas fa-arrow-right"></i></a></span> <span class="mr-2"><a href="blog.html">Artikel <i class="fas fa-arrow-right"></i></a></span> <span>Selengkapnya <i class="fas fa-arrow-right"></i></span></p>
           </div>
         </div>
       </div>
     </section>
-    <section class="ftco-section">
+    <section class="ftco-section article-page">
       <div class="container">
         <div class="row">
           <div class="col-lg-8 ftco-animate" id="article-main">
             <article id="article-body">
-              <p class="mb-3 article-back"><a href="blog.html"><i class="fas fa-arrow-left" aria-hidden="true"></i> Kembali ke daftar artikel</a></p>
-              <h2 class="mb-3" id="article-title">Memuat artikel...</h2>
-              <div class="meta mb-4" id="article-meta"></div>
+              <header class="article-header">
+                <nav class="article-breadcrumb" aria-label="Navigasi">
+                  <a href="index.html">Home</a>
+                  <span class="article-breadcrumb-sep" aria-hidden="true"><i class="fas fa-angle-right"></i></span>
+                  <a href="blog.html">Artikel</a>
+                  <span class="article-breadcrumb-sep" id="article-breadcrumb-category" hidden aria-hidden="true"><i class="fas fa-angle-right"></i></span>
+                  <span class="article-breadcrumb-current" id="article-breadcrumb-category-name"></span>
+                </nav>
+
+                <p class="article-back"><a href="blog.html"><i class="fas fa-arrow-left" aria-hidden="true"></i> Kembali ke daftar artikel</a></p>
+
+                <div id="article-category-wrap" hidden>
+                  <a class="article-category" id="article-category" href="blog.html"></a>
+                </div>
+
+                <h1 class="article-title" id="article-title">Memuat artikel...</h1>
+
+                <div class="article-meta" id="article-meta"></div>
+
+                <div class="article-actions" id="article-actions">
+                  <button type="button" class="article-action article-action-like" id="article-like" aria-pressed="false">
+                    <span class="article-action-icon" aria-hidden="true"><i class="fas fa-heart"></i></span>
+                    <span class="article-action-text">Suka</span>
+                    <span class="article-action-count" id="article-like-count">0</span>
+                  </button>
+                  <button type="button" class="article-action article-action-share" id="article-share">
+                    <span class="article-action-icon" aria-hidden="true"><i class="fas fa-share-nodes"></i></span>
+                    <span class="article-action-text">Bagikan</span>
+                  </button>
+                  <a class="article-action article-action-comment" href="#komentar" id="article-comment-link">
+                    <span class="article-action-icon" aria-hidden="true"><i class="fas fa-comment-dots"></i></span>
+                    <span class="article-action-text">Komentar</span>
+                    <span class="article-action-count" id="article-comment-count">0</span>
+                  </a>
+                </div>
+              </header>
+
+              <figure class="article-featured" id="article-featured" hidden></figure>
+
+              <div class="article-gallery-wrap" id="article-media"></div>
+
               <div class="article-translate-bar" id="article-translate-bar" hidden>
                 <div class="article-translate">
                   <span class="article-translate-label"><i class="fas fa-language" aria-hidden="true"></i> Bahasa</span>
@@ -125,12 +163,12 @@
                 </div>
                 <span class="article-translate-status" id="article-translate-status" role="status" aria-live="polite"></span>
               </div>
-              <div class="mb-4" id="article-media"></div>
-              <div id="article-content"></div>
 
-              <section lang="en" aria-labelledby="article-english-title" class="mt-5 pt-4" id="article-english" hidden style="border-top:2px solid #e9ecef">
-                <p class="mb-2" style="color:#0F6A57;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase"><i class="fas fa-language mr-2" aria-hidden="true"></i>English version</p>
-                <h3 class="mb-3" id="article-english-title"></h3>
+              <div class="article-content" id="article-content"></div>
+
+              <section lang="en" aria-labelledby="article-english-title" class="article-english mt-5 pt-4" id="article-english" hidden>
+                <p class="mb-2 article-english-label"><i class="fas fa-language mr-2" aria-hidden="true"></i>English version</p>
+                <h2 class="mb-3 h4 font-weight-bold" id="article-english-title"></h2>
                 <div id="article-english-content"></div>
               </section>
             </article>
@@ -148,34 +186,71 @@
 
             <div class="pt-5 mt-5" id="article-related" hidden></div>
 
-            <div class="pt-5 mt-5" id="komentar">
-              <h3 class="mb-5 h4 font-weight-bold"><span id="comment-count">0</span> Komentar</h3>
+            <section class="comments-section" id="komentar">
+              <header class="comments-header">
+                <p class="comments-eyebrow"><i class="fas fa-comment-dots" aria-hidden="true"></i> Pembicaraan</p>
+                <h2 class="comments-title"><span id="comment-count">0</span> Komentar</h2>
+                <p class="comments-intro">Bagikan pemikiran dan pengalaman Anda tentang artikel ini. Komentar Anda langsung tayang di bawah.</p>
+              </header>
+
               <ul class="comment-list" id="comment-list"></ul>
-              <div id="comment-empty" class="p-4 bg-light">
-                <p class="mb-0">Belum ada komentar untuk artikel ini. Jadilah yang pertama berkomentar.</p>
+
+              <div id="comment-empty" class="comments-empty">
+                <span class="comments-empty-icon" aria-hidden="true"><i class="fas fa-comment-dots"></i></span>
+                <p class="comments-empty-title">Belum ada komentar</p>
+                <p class="comments-empty-text">Jadilah yang pertama berkomentar tentang artikel ini.</p>
               </div>
-              <div class="comment-form-wrap pt-5">
-                <h3 class="mb-5 h4 font-weight-bold">Tinggalkan Komentar</h3>
-                <form id="comment-form" class="p-5 bg-light">
-                  <div class="form-group">
-                    <label for="comment-name">Nama Anda *</label>
-                    <input type="text" class="form-control" id="comment-name" name="name" maxlength="100" placeholder="Nama Anda" required>
+
+              <div class="comment-form-wrap">
+                <h3 class="comment-form-title" id="comment-form-title">Tinggalkan Komentar</h3>
+
+                <div class="comment-reply-bar" id="comment-reply-bar" hidden>
+                  <p class="comment-reply-text">
+                    Membalas komentar <strong id="comment-reply-name"></strong>
+                  </p>
+                  <button type="button" class="comment-reply-cancel" id="comment-reply-cancel">Batalkan balasan</button>
+                </div>
+
+                <form id="comment-form" class="comment-form" novalidate>
+                  <div class="comment-form-avatar" aria-hidden="true">
+                    <span id="comment-avatar">?</span>
                   </div>
-                  <div class="form-group">
-                    <label for="comment-message">Komentar Anda *</label>
-                    <textarea name="message" id="comment-message" cols="30" rows="10" class="form-control" maxlength="2000" placeholder="Tulis komentar Anda..." required></textarea>
-                  </div>
-                  <div class="form-group d-none" aria-hidden="true">
-                    <label for="comment-hp">Website</label>
-                    <input type="text" class="form-control" id="comment-hp" name="hp" tabindex="-1" autocomplete="off">
-                  </div>
-                  <div id="comment-alert" class="mb-3"></div>
-                  <div class="form-group">
-                    <input type="submit" value="Kirim Komentar" class="btn py-3 px-4 btn-primary" id="comment-submit">
+
+                  <div class="comment-form-body">
+                    <div class="form-group">
+                      <label for="comment-name">Nama Anda <span class="comment-required">*</span></label>
+                      <input type="text" class="form-control" id="comment-name" name="name" maxlength="100" placeholder="Nama tampilan Anda" autocomplete="name" required>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="comment-message">Komentar <span class="comment-required">*</span></label>
+                      <div class="comment-editor">
+                        <textarea name="message" id="comment-message" cols="30" rows="5" class="form-control" maxlength="2000" placeholder="Bagikan pemikiran dan pengalaman Anda tentang artikel ini..." required></textarea>
+                        <div class="comment-editor-toolbar">
+                          <button type="button" class="comment-emoji-toggle" id="comment-emoji-toggle" aria-haspopup="true" aria-expanded="false" aria-label="Sisipkan emoji">
+                            <i class="fas fa-face-smile" aria-hidden="true"></i><span>Emoji</span>
+                          </button>
+                          <span class="comment-counter" id="comment-counter">0/2000</span>
+                        </div>
+                        <div class="comment-emoji-picker" id="comment-emoji-picker" role="dialog" aria-label="Pilih emoji" hidden></div>
+                      </div>
+                    </div>
+
+                    <div class="form-group d-none" aria-hidden="true">
+                      <label for="comment-hp">Website</label>
+                      <input type="text" class="form-control" id="comment-hp" name="hp" tabindex="-1" autocomplete="off">
+                    </div>
+
+                    <div id="comment-alert" class="mb-3" role="status" aria-live="polite"></div>
+
+                    <button type="submit" class="comment-submit" id="comment-submit">
+                      <span class="comment-submit-label">Kirim Komentar</span>
+                      <i class="fas fa-paper-plane" aria-hidden="true"></i>
+                    </button>
                   </div>
                 </form>
               </div>
-            </div>
+            </section>
           </div>
 
           <div class="col-lg-4 sidebar ftco-animate" id="article-sidebar">
@@ -251,59 +326,25 @@
           <div class="col-md-6 col-lg-3">
             <div class="ftco-footer-widget mb-5">
               <h2 class="ftco-heading-2">Artikel Terbaru</h2>
-              <div class="block-21 mb-4 d-flex">
-                <a class="blog-img mr-4" style="background-image: url(images/image_1.jpg);"></a>
-                <div class="text">
-                  <h3 class="heading"><a href="blog-single.html">Prestasi siswa dalam kompetisi sains</a></h3>
-                  <div class="meta">
-                    <div><a href="#"><span class="far fa-calendar"></span> 20 Jan 2025</a></div>
-                    <div><a href="#"><span class="fas fa-user"></span> Admin</a></div>
-                    <div><a href="#"><span class="fas fa-comment"></span> 5</a></div>
-                  </div>
-                </div>
-              </div>
-              <div class="block-21 mb-5 d-flex">
-                <a class="blog-img mr-4" style="background-image: url(images/image_2.jpg);"></a>
-                <div class="text">
-                  <h3 class="heading"><a href="blog-single.html">Program tahfidz semakin berkembang</a></h3>
-                  <div class="meta">
-                    <div><a href="#"><span class="far fa-calendar"></span> 18 Jan 2025</a></div>
-                    <div><a href="#"><span class="fas fa-user"></span> Admin</a></div>
-                    <div><a href="#"><span class="fas fa-comment"></span> 8</a></div>
-                  </div>
-                </div>
-              </div>
+              <div data-footer-latest></div>
             </div>
           </div>
           <div class="col-md-6 col-lg-3">
             <div class="ftco-footer-widget mb-5 ml-md-4">
               <h2 class="ftco-heading-2">Tautan</h2>
               <ul class="list-unstyled">
-                <li><a href="#"><span class="fas fa-arrow-right mr-2"></span>Home</a></li>
-                <li><a href="#"><span class="fas fa-arrow-right mr-2"></span>Tentang Kami</a></li>
-                <li><a href="#"><span class="fas fa-arrow-right mr-2"></span>Program</a></li>
-                <li><a href="#"><span class="fas fa-arrow-right mr-2"></span>Biaya</a></li>
-                <li><a href="#"><span class="fas fa-arrow-right mr-2"></span>Hubungi Kami</a></li>
+                <li><a href="index.html"><span class="fas fa-arrow-right mr-2"></span>Home</a></li>
+                <li><a href="about.html"><span class="fas fa-arrow-right mr-2"></span>Tentang Kami</a></li>
+                <li><a href="courses.html"><span class="fas fa-arrow-right mr-2"></span>Program</a></li>
+                <li><a href="pricing.html"><span class="fas fa-arrow-right mr-2"></span>Biaya</a></li>
+                <li><a href="contact.html"><span class="fas fa-arrow-right mr-2"></span>Hubungi Kami</a></li>
               </ul>
             </div>
           </div>
           <div class="col-md-6 col-lg-3">
             <div class="ftco-footer-widget mb-5">
-              <h2 class="ftco-heading-2">Berlangganan</h2>
-              <form action="#" class="subscribe-form">
-                <div class="form-group">
-                  <input type="text" class="form-control mb-2 text-center" placeholder="Masukkan email Anda">
-                  <input type="submit" value="Berlangganan" class="form-control submit px-3">
-                </div>
-              </form>
-            </div>
-            <div class="ftco-footer-widget mb-5">
-              <h2 class="ftco-heading-2 mb-0">Sosial Media</h2>
-              <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-3">
-                <li class="ftco-animate"><a href="#"><span class="fab fa-twitter"></span></a></li>
-                <li class="ftco-animate"><a href="#"><span class="fab fa-facebook-f"></span></a></li>
-                <li class="ftco-animate"><a href="#"><span class="fab fa-instagram"></span></a></li>
-              </ul>
+              <h2 class="ftco-heading-2 mb-0">Sosial Media Kami</h2>
+              <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-3" data-footer-social></ul>
             </div>
           </div>
         </div>
@@ -331,6 +372,8 @@
     <script src="js/aos.js"></script>
     <script src="js/jquery.animateNumber.min.js"></script>
     <script src="js/scrollax.min.js"></script>
+    <script src="js/footer-social.js"></script>
+    <script src="js/footer-latest.js"></script>
     <script src="js/main.js"></script>
     <script src="js/article.js"></script>
 

@@ -292,8 +292,11 @@ async function main() {
   console.log('');
   console.log('6. Header publik di production');
 
-  await page.goto(PROD + '/', { waitUntil: 'networkidle' });
-  await page.waitForTimeout(1000);
+  /* Halaman depan memuat data dari Supabase dan koneksinya tetap terbuka,
+     jadi "networkidle" tidak pernah tercapai. Pemeriksaan ini hanya butuh
+     DOM, jadi cukup menunggu halaman selesai dimuat. */
+  await page.goto(PROD + '/', { waitUntil: 'domcontentloaded', timeout: 60000 });
+  await page.waitForTimeout(3000);
 
   const header = await page.evaluate(() => ({
     adminIcon: document.querySelectorAll('#ftco-navbar .navbar-admin-item').length,

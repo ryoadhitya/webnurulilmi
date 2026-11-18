@@ -87,6 +87,36 @@
     'article_media(id, type, path, mime_type, caption, sort_order, poster_path), ' +
     'comments(count)';
 
+  /* Filter "sudah tayang": published_at kosong (artikel lama) atau sudah
+     melewati waktu tayang. Nilai dibandingkan memakai waktu UTC (format
+     ISO), sedangkan tanggalnya sudah disimpan sebagai kalender WIB.
+
+     PostgREST hanya menerima satu parameter `or` per permintaan, jadi
+     pencarian judul digabung ke dalam satu ekspresi yang tetap mempertahankan
+     syarat waktu tayang. */
+  function applyVisibilityFilter(query, searchTerm) {
+    var now = new Date().toISOString();
+
+    var publishedNull = 'published_at.is.null';
+    var publishedBefore = 'published_at.lte."' + now + '"';
+
+    if (!searchTerm) {
+      return query.or(publishedNull + ',' + publishedBefore);
+    }
+
+    var titleId = 'title_id.ilike.' + searchTerm;
+    var titleEn = 'title_en.ilike.' + searchTerm;
+
+    /* (P1 OR P2) AND (S1 OR S2) ditulis sebagai
+       (P1 AND S1) OR (P1 AND S2) OR (P2 AND S1) OR (P2 AND S2). */
+    return query.or([
+      'and(' + publishedNull + ',' + titleId + ')',
+      'and(' + publishedNull + ',' + titleEn + ')',
+      'and(' + publishedBefore + ',' + titleId + ')',
+      'and(' + publishedBefore + ',' + titleEn + ')'
+    ].join(','));
+  }
+
   /**
    * Ambil artikel published beserta kategori, tag, dan media.
    *
@@ -121,12 +151,16 @@
       .order('created_at', { ascending: false })
       .range(offset, offset + limit - 1);
 
+    var term = null;
+
+    if (options.search) {
+      term = '%' + String(options.search).replace(/[%,]/g, ' ') + '%';
+    }
+
+    query = applyVisibilityFilter(query, term);
+
     if (options.categoryId) query = query.eq('category_id', options.categoryId);
     if (options.tagId) query = query.eq('article_tags.tag_id', options.tagId);
-    if (options.search) {
-      var term = '%' + String(options.search).replace(/[%,]/g, ' ') + '%';
-      query = query.or('title_id.ilike.' + term + ',title_en.ilike.' + term);
-    }
 
     return query.then(function (result) {
       if (result.error) throw result.error;
@@ -147,6 +181,14 @@
       .from('articles')
       .select(columns, { count: 'exact', head: true })
       .eq('status', 'published');
+
+    var term = null;
+
+    if (options.search) {
+      term = '%' + String(options.search).replace(/[%,]/g, ' ') + '%';
+    }
+
+    query = applyVisibilityFilter(query, term);
 
     if (options.categoryId) query = query.eq('category_id', options.categoryId);
     if (options.tagId) query = query.eq('article_tags.tag_id', options.tagId);
@@ -226,7 +268,12 @@
       });
   }
 
-  /** Kirim komentar publik lewat RPC submit_comment (validasi + anti-spam). */
+  /**
+   * Kirim komentar publik lewat RPC submit_comment (validasi + anti-spam).
+   *
+   * payload.parentId diisi bila komentar ini merupakan balasan dari
+   * komentar lain. Nilai null berarti komentar biasa.
+   */
   function submitComment(articleId, payload) {
     var db = getClient();
     if (!db) return Promise.reject(new Error(configError));
@@ -237,7 +284,8 @@
         p_name: payload.name || '',
         p_email: payload.email || null,
         p_comment: payload.comment || '',
-        p_hp: payload.hp || null
+        p_hp: payload.hp || null,
+        p_parent_id: payload.parentId || null
       })
       .then(function (result) {
         if (result.error) throw result.error;
@@ -252,7 +300,7 @@
 
     return db
       .from('comments')
-      .select('id, name, comment, created_at')
+      .select('id, name, comment, created_at, parent_id')
       .eq('article_id', articleId)
       .eq('status', 'published')
       .order('created_at', { ascending: false })
@@ -335,7 +383,7 @@
     var db = getClient();
     if (!db) return Promise.reject(new Error(configError));
 
-    return db
+    var query = db
       .from('articles')
       .select(
         'id, title_id, content_id, title_en, content_en, image, author_name, ' +
@@ -346,11 +394,109 @@
           'comments(count)'
       )
       .eq('id', articleId)
-      .eq('status', 'published')
+      .eq('status', 'published');
+
+    query = applyVisibilityFilter(query, null);
+
+    return query
       .maybeSingle()
       .then(function (result) {
         if (result.error) throw result.error;
         return result.data || null;
+      });
+  }
+
+  /* ------------------------------------------------------------------ */
+  /*  Like artikel & like komentar                                       */
+  /* ------------------------------------------------------------------ */
+
+  /**
+   * Identitas anonim pengunjung.
+   *
+   * Disimpan di localStorage sebagai UUID v4 acak. Tidak ada data pribadi
+   * dan tidak bisa dipakai untuk mengakses data orang lain: server hanya
+   * memakai UUID itu untuk membatasi satu like per artikel/komentar.
+   */
+  var VISITOR_KEY = 'ni-visitor-id';
+
+  function visitorId() {
+    try {
+      var stored = window.localStorage.getItem(VISITOR_KEY);
+
+      if (stored && /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(stored)) {
+        return stored.toLowerCase();
+      }
+
+      var generated = window.crypto && window.crypto.randomUUID
+        ? window.crypto.randomUUID()
+        : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (char) {
+          var random = Math.random() * 16 | 0;
+          var value = char === 'x' ? random : (random & 0x3 | 0x8);
+          return value.toString(16);
+        });
+
+      window.localStorage.setItem(VISITOR_KEY, generated);
+
+      return generated.toLowerCase();
+    } catch (error) {
+      /* Mode privat / localStorage diblokir: pakai id sementara untuk sesi ini. */
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (char) {
+        var random = Math.random() * 16 | 0;
+        var value = char === 'x' ? random : (random & 0x3 | 0x8);
+        return value.toString(16);
+      });
+    }
+  }
+
+  /** Status like artikel untuk pengunjung ini + jumlah like di database. */
+  function getArticleLike(articleId) {
+    var db = getClient();
+    if (!db) return Promise.reject(new Error(configError));
+
+    return db
+      .rpc('get_article_like', { p_article_id: articleId, p_visitor_id: visitorId() })
+      .then(function (result) {
+        if (result.error) throw result.error;
+        return result.data || { liked: false, count: 0 };
+      });
+  }
+
+  /** Tambah atau batalkan like artikel. */
+  function toggleArticleLike(articleId) {
+    var db = getClient();
+    if (!db) return Promise.reject(new Error(configError));
+
+    return db
+      .rpc('toggle_article_like', { p_article_id: articleId, p_visitor_id: visitorId() })
+      .then(function (result) {
+        if (result.error) throw result.error;
+        return result.data || { liked: false, count: 0 };
+      });
+  }
+
+  /** Status like seluruh komentar satu artikel (map id komentar -> status). */
+  function getCommentLikes(articleId) {
+    var db = getClient();
+    if (!db) return Promise.reject(new Error(configError));
+
+    return db
+      .rpc('get_comment_likes', { p_article_id: articleId, p_visitor_id: visitorId() })
+      .then(function (result) {
+        if (result.error) throw result.error;
+        return result.data || {};
+      });
+  }
+
+  /** Tambah atau batalkan like satu komentar. */
+  function toggleCommentLike(commentId) {
+    var db = getClient();
+    if (!db) return Promise.reject(new Error(configError));
+
+    return db
+      .rpc('toggle_comment_like', { p_comment_id: commentId, p_visitor_id: visitorId() })
+      .then(function (result) {
+        if (result.error) throw result.error;
+        return result.data || { liked: false, count: 0 };
       });
   }
 
@@ -360,6 +506,29 @@
     var path = String(cfg.articlesPath || 'article.html').replace(/^\/+/, '');
 
     return path + '?id=' + encodeURIComponent(articleId);
+  }
+
+  /**
+   * URL absolut halaman detail artikel untuk tombol share.
+   *
+   * Di domain produksi memakai alamat halaman yang sedang dibuka. Saat
+   * dibuka dari localhost (pengujian), memakai domain situs di site-config
+   * supaya tautan yang dibagikan bukan alamat localhost.
+   */
+  function articleShareUrl(articleId) {
+    var cfg = config();
+    var host = String(window.location.hostname || '').toLowerCase();
+    var isLocal = host === 'localhost' || host === '127.0.0.1' || host === '::1' || host === '[::1]';
+
+    var path = articleUrl(articleId);
+
+    if (isLocal) {
+      var base = String(cfg.siteUrl || '').replace(/\/+$/, '');
+
+      return base ? base + '/' + path : window.location.origin + '/' + path;
+    }
+
+    return window.location.origin + window.location.pathname.replace(/[^/]*$/, '') + path;
   }
 
   /* ------------------------------------------------------------------ */
@@ -530,11 +699,17 @@
     fetchCategories: fetchCategories,
     fetchTags: fetchTags,
     articleUrl: articleUrl,
+    articleShareUrl: articleShareUrl,
     fetchFacilities: fetchFacilities,
     fetchUnits: fetchUnits,
     incrementViews: incrementViews,
     submitComment: submitComment,
     fetchPublishedComments: fetchPublishedComments,
+    visitorId: visitorId,
+    getArticleLike: getArticleLike,
+    toggleArticleLike: toggleArticleLike,
+    getCommentLikes: getCommentLikes,
+    toggleCommentLike: toggleCommentLike,
     translatePublic: translatePublic,
     articleMedia: articleMedia,
     articleCover: articleCover,

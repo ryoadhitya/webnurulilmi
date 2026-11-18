@@ -23,27 +23,11 @@
   }
 
   function formatDate(value) {
-    if (!value) return { day: '', month: '', year: '' };
-
-    var date = new Date(value);
-    if (isNaN(date.getTime())) return { day: '', month: '', year: '' };
-
-    var options = { timeZone: 'UTC' };
-
-    return {
-      day: new Intl.DateTimeFormat('id-ID', Object.assign({ day: '2-digit' }, options)).format(date),
-      month: new Intl.DateTimeFormat('id-ID', Object.assign({ month: 'short' }, options)).format(date),
-      year: new Intl.DateTimeFormat('id-ID', Object.assign({ year: 'numeric' }, options)).format(date)
-    };
+    return utils.formatDateParts(value);
   }
 
-  /** Jumlah komentar artikel dari relasi comments(count). */
   function commentCount(article) {
-    var rows = article.comments || [];
-
-    if (!rows.length) return 0;
-
-    return Number(rows[0].count || 0);
+    return utils.commentCount(article);
   }
 
   function buildCard(article) {

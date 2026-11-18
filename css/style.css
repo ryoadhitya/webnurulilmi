@@ -10663,22 +10663,6 @@ small, .small {
 
 
 
-/* Ikon Dashboard Admin pada navbar (URL diisi oleh js/site-config.js) */
-.ftco-navbar-light .navbar-nav > .nav-item.navbar-admin-item > .nav-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding-left: 16px;
-  padding-right: 16px; }
-  .ftco-navbar-light .navbar-nav > .nav-item.navbar-admin-item > .nav-link i {
-    font-size: 15px;
-    line-height: 1; }
-  @media (max-width: 991.98px) {
-    .ftco-navbar-light .navbar-nav > .nav-item.navbar-admin-item > .nav-link {
-      justify-content: flex-start;
-      padding-left: 0;
-      padding-right: 0; } }
-
 /* Keep article cards aligned across the homepage and article listing. */
 .article-card-column {
   margin-bottom: 30px;

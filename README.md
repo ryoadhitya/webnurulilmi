@@ -237,9 +237,10 @@ boleh menambah, mengubah, atau menghapusnya.
 
 - **CSS statis** diedit lewat `scss/`, lalu dikompilasi ke `css/` dengan Prepros
   (konfigurasi: `prepros-6.config`). Jangan edit hasil kompilasi secara manual.
-- **Link Dashboard Admin** di navbar halaman statis diatur di `js/site-config.js`
-  (`adminLoginPath`, default `admin/login.html`). `js/navbar-admin.js`
-  menerapkannya ke semua elemen ber-atribut `data-site-admin-login`.
+- **Halaman login admin** tidak lagi punya tombol di navbar publik. Admin masuk
+  lewat alamat `admin/login.html` (dijalur di `js/site-config.js` sebagai
+  `adminLoginPath`); proteksi route dashboard tetap berjalan seperti semula.
+  Alamat production untuk bookmark: **https://www.ypinurulmi.or.id/admin/login.html**
 - **Unit artikel** ditentukan dari peran admin yang sedang login, bukan dari
   pilihan bebas di form. `articles.unit_id` NULL berarti artikel umum yayasan
   dan hanya bisa dikelola `super_admin`.
